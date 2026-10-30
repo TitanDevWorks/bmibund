@@ -10,7 +10,10 @@
       headers: body ? { 'Content-Type': 'application/json' } : {},
       body: body ? JSON.stringify(body) : undefined
     });
-    if (res.status === 401) { showLogin(); throw new Error('Sitzung abgelaufen. Bitte neu anmelden.'); }
+    if (res.status === 401) {
+      showLogin('Sitzung abgelaufen. Bitte neu anmelden.');
+      throw new Error('Sitzung abgelaufen. Bitte neu anmelden.');
+    }
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
       throw new Error(err.error || `Fehler ${res.status}`);
@@ -31,9 +34,12 @@
   const options = (values, selected) => values
     .map((v) => `<option${v === selected ? ' selected' : ''}>${esc(v)}</option>`).join('');
 
-  function showLogin() {
+  function showLogin(reason) {
     $('#app').hidden = true;
     $('#login-view').hidden = false;
+    const msg = $('#login-msg');
+    msg.textContent = reason || '';
+    msg.className = 'msg err';
   }
 
   async function renderMeasures() {
@@ -50,7 +56,7 @@
   async function renderNews() {
     const items = (await api('GET', 'meldungen')).sort(byDateDesc);
     $('#n-list').innerHTML = items.length ? items.map((n) => `
-      <div class="row" data-id="${esc(n.id)}" style="grid-template-columns:minmax(0,1fr) auto auto">
+      <div class="row row-news" data-id="${esc(n.id)}">
         <strong>${esc(n.titel)}</strong>
         <span class="mono muted">${fmtDate(n.datum)}</span>
         <button class="btn btn-sm btn-danger" data-del="meldungen" type="button">Löschen</button>
@@ -61,7 +67,7 @@
     const items = (await api('GET', 'kontakt')).sort((a, b) => String(b.eingang).localeCompare(String(a.eingang)));
     $('#inbox-count').textContent = items.length || '';
     $('#inbox').innerHTML = items.length ? items.map((k) => `
-      <article class="mail row" data-id="${esc(k.id)}" style="grid-template-columns:minmax(0,1fr) auto">
+      <article class="mail row row-mail" data-id="${esc(k.id)}">
         <div>
           <div class="mail-head"><strong>${esc(k.betreff)} · ${esc(k.name)}</strong><span>${esc(new Date(k.eingang).toLocaleString('de-DE'))}</span></div>
           <a href="mailto:${encodeURIComponent(k.email).replace(/%40/g, '@')}">${esc(k.email)}</a>
@@ -75,7 +81,8 @@
     $('#who').textContent = session.user;
     $('#login-view').hidden = true;
     $('#app').hidden = false;
-    await Promise.all([renderMeasures(), renderNews(), renderInbox()]);
+    // Ladefehler als Hinweis zeigen, nicht als Abmeldung.
+    await run(() => Promise.all([renderMeasures(), renderNews(), renderInbox()]));
   }
 
   $('#login').addEventListener('submit', async (e) => {
@@ -164,7 +171,7 @@
 
   // Bestehende Sitzung prüfen
   fetch('/api/session', { credentials: 'same-origin' })
-    .then((r) => (r.ok ? r.json() : Promise.reject()))
-    .then(enter)
-    .catch(showLogin);
+    .then((r) => (r.ok ? r.json() : null))
+    .catch(() => null)
+    .then((session) => (session ? enter(session) : showLogin()));
 })();

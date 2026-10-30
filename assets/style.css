@@ -71,6 +71,7 @@ button { font: inherit; color: inherit; }
 .section-title { font-size: clamp(2.4rem, 5vw, 4rem); margin-top: 14px; }
 .muted { color: var(--text-3); }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+a.sr-only:focus { position: fixed; top: 12px; left: 12px; z-index: 100; width: auto; height: auto; clip: auto; padding: 10px 16px; border-radius: 10px; background: var(--gold); color: var(--ink-0); font-weight: 600; }
 
 /* Lesefortschritt oben (scroll-driven, wo unterstützt) */
 .read-progress {

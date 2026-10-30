@@ -33,4 +33,6 @@
 .mail-head span { font-family: var(--mono); font-size: 0.78rem; color: var(--text-3); }
 .mail p { color: var(--text-2); white-space: pre-wrap; overflow-wrap: anywhere; }
 .mail a { color: var(--gold); }
-@media (max-width: 760px) { .row { grid-template-columns: minmax(0, 1fr); } }
+.row-news { grid-template-columns: minmax(0, 1fr) auto auto; }
+.row-mail { grid-template-columns: minmax(0, 1fr) auto; }
+@media (max-width: 760px) { .row, .row-news, .row-mail { grid-template-columns: minmax(0, 1fr); } }
