@@ -3,12 +3,16 @@
     "id": "amtsantritt",
     "datum": "2026-10-30",
     "titel": "Dr. Niels Fiedel übernimmt das Bundesministerium für Inneres und Heimat",
-    "text": "Mit der Unterzeichnung des Koalitionsvertrags zwischen NVP, BFD und FORUM hat Dr. Niels Fiedel die Leitung des Ministeriums übernommen. Erste Weisungen für die Tage 1 bis 10 sind bereits in Arbeit."
+    "text": "Mit der Unterzeichnung des Koalitionsvertrags zwischen NVP, BFD und FORUM hat Dr. Niels Fiedel die Leitung des Ministeriums übernommen. Erste Weisungen für die Tage 1 bis 10 sind bereits in Arbeit.",
+    "kategorie": "Pressemitteilung",
+    "status": "Veröffentlicht"
   },
   {
     "id": "massnahmenplan",
     "datum": "2026-10-30",
     "titel": "Maßnahmenplan für die ersten 100 Tage veröffentlicht",
-    "text": "Das Ministerium legt offen, welche Vorhaben in welcher Phase umgesetzt werden. Der Stand jeder Maßnahme wird auf dieser Seite laufend aktualisiert."
+    "text": "Das Ministerium legt offen, welche Vorhaben in welcher Phase umgesetzt werden. Der Stand jeder Maßnahme wird auf dieser Seite laufend aktualisiert.",
+    "kategorie": "Pressemitteilung",
+    "status": "Veröffentlicht"
   }
 ]

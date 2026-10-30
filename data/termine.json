@@ -1,0 +1,29 @@
+[
+  {
+    "id": "kabinett-1",
+    "titel": "Kabinettssitzung",
+    "datum": "2026-11-04",
+    "zeit": "09:30",
+    "ort": "Bundeskanzleramt, Berlin",
+    "art": "Kabinett",
+    "beschreibung": "Beratung des Rückführungsgesetzes."
+  },
+  {
+    "id": "pk-grenze",
+    "titel": "Pressekonferenz zu Grenzkontrollen",
+    "datum": "2026-11-02",
+    "zeit": "11:00",
+    "ort": "Dienstsitz, Berlin",
+    "art": "Pressekonferenz",
+    "beschreibung": "Der Minister stellt die Anordnung dauerhafter Binnengrenzkontrollen vor."
+  },
+  {
+    "id": "bundestag-1",
+    "titel": "Regierungsbefragung im Bundestag",
+    "datum": "2026-11-06",
+    "zeit": "13:00",
+    "ort": "Reichstagsgebäude, Berlin",
+    "art": "Bundestag",
+    "beschreibung": ""
+  }
+]

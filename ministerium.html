@@ -3,104 +3,67 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Das Ministerium · BMIH</title>
-  <meta name="description" content="Schwerpunkte, Organisation und Geschäftsbereich des Bundesministeriums für Inneres und Heimat.">
+  <title>Das Ministerium · Bundesministerium für Inneres und Heimat</title>
+  <meta name="description" content="Aufgaben, Organisation und Geschäftsbereich des Bundesministeriums für Inneres und Heimat.">
   <meta name="robots" content="noindex, nofollow">
-  <meta name="theme-color" content="#0d1420">
-  <link rel="icon" href="assets/emblem.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body data-page="ministerium">
   <main id="main">
-    <section class="page-hero">
+    <section class="page-head">
       <div class="container">
-        <span class="kicker">Organisation</span>
-        <h1>Ein Haus für <em>Sicherheit</em> und Zusammenhalt</h1>
-        <p>Das Ministerium verantwortet innere Sicherheit, Migration, Bevölkerungsschutz und eine moderne Verwaltung. Die Grundlage ist Artikel 5 des Koalitionsvertrags von NVP, BFD und FORUM.</p>
+        <span class="kicker">Das Ministerium</span>
+        <h1>Aufgaben und Organisation</h1>
+        <p>Das Ministerium verantwortet innere Sicherheit, Migration, Bevölkerungsschutz und eine moderne Verwaltung. Grundlage ist der Koalitionsvertrag von NVP, BFD und FORUM.</p>
       </div>
     </section>
-
-    <section class="section" id="schwerpunkte" style="padding-top:48px">
+    <section class="section" id="schwerpunkte">
       <div class="container">
-        <div class="section-head reveal">
-          <div>
-            <span class="kicker">Aus dem Koalitionsvertrag</span>
-            <h2 class="section-title display">Schwerpunkte</h2>
-          </div>
-        </div>
-        <div class="bento" id="bento">
-          <article class="tile reveal" data-bereich="Migration">
-            <div class="tile-num"><span>Art. 5.1</span><span class="count"></span></div>
-            <div><h3>Migration und Rückkehr</h3><p>Schnellere Asylverfahren, konsequente Durchsetzung von Ausreisepflichten und Rückübernahmeabkommen mit Herkunftsstaaten. Begrenzung irregulärer Migration, geordnete Zuwanderung von Fachkräften.</p></div>
-          </article>
-          <article class="tile reveal" data-bereich="Innere Sicherheit">
-            <div class="tile-num"><span>Art. 5.3</span><span class="count"></span></div>
-            <div><h3>Polizei</h3><p>Bessere Ausstattung, Schutz für Einsatzkräfte, harter Kurs gegen Organisierte Kriminalität.</p></div>
-          </article>
-          <article class="tile reveal" data-bereich="Verfassungsschutz">
-            <div class="tile-num"><span>Art. 5.4</span><span class="count"></span></div>
-            <div><h3>Verfassungsschutz</h3><p>Fokus auf Terrorismus, Spionage und gewaltbereiten Extremismus.</p></div>
-          </article>
-          <article class="tile reveal" data-bereich="Heimat &amp; Bevölkerungsschutz">
-            <div class="tile-num"><span>Art. 12</span><span class="count"></span></div>
-            <div><h3>Bevölkerungsschutz</h3><p>THW, Katastrophenschutz, Feuerwehren und kritische Infrastruktur.</p></div>
-          </article>
-          <article class="tile reveal" data-bereich="Staat &amp; Verwaltung">
-            <div class="tile-num"><span>Art. 13–14</span><span class="count"></span></div>
-            <div><h3>Moderne Verwaltung</h3><p>Digitale Bürgerdienste, schnellere Verfahren, Transparenz.</p></div>
-          </article>
-          <article class="tile reveal" data-bereich="Integration">
-            <div class="tile-num"><span>Art. 5.2</span><span class="count"></span></div>
-            <div><h3>Integration</h3><p>Sprache, Ausbildung und Arbeit, verbunden mit klaren Erwartungen.</p></div>
-          </article>
+        <div class="section-head"><div><span class="kicker">Aus dem Koalitionsvertrag</span><h2>Schwerpunkte</h2></div></div>
+        <div class="topics" id="topics">
+          <a class="topic reveal" href="massnahmen.html?bereich=Migration" data-bereich="Migration"><span class="label mono">Art. 5.1</span><div><h3>Migration und Rückkehr</h3><p>Schnellere Asylverfahren, konsequente Durchsetzung von Ausreisepflichten und Rückübernahmeabkommen. Begrenzung irregulärer Migration, geordnete Zuwanderung von Fachkräften.</p></div><span class="count"></span></a>
+          <a class="topic reveal" style="--d:.05s" href="massnahmen.html?bereich=Innere%20Sicherheit" data-bereich="Innere Sicherheit"><span class="label mono">Art. 5.3</span><div><h3>Polizei</h3><p>Bessere Ausstattung, Schutz für Einsatzkräfte, harter Kurs gegen Organisierte Kriminalität.</p></div><span class="count"></span></a>
+          <a class="topic reveal" style="--d:.1s" href="massnahmen.html?bereich=Verfassungsschutz" data-bereich="Verfassungsschutz"><span class="label mono">Art. 5.4</span><div><h3>Verfassungsschutz</h3><p>Fokus auf Terrorismus, Spionage und gewaltbereiten Extremismus.</p></div><span class="count"></span></a>
+          <a class="topic reveal" href="massnahmen.html?bereich=Heimat%20%26%20Bev%C3%B6lkerungsschutz" data-bereich="Heimat &amp; Bevölkerungsschutz"><span class="label mono">Art. 12</span><div><h3>Bevölkerungsschutz</h3><p>THW, Katastrophenschutz, Feuerwehren und kritische Infrastruktur.</p></div><span class="count"></span></a>
+          <a class="topic reveal" style="--d:.05s" href="massnahmen.html?bereich=Staat%20%26%20Verwaltung" data-bereich="Staat &amp; Verwaltung"><span class="label mono">Art. 13–14</span><div><h3>Moderne Verwaltung</h3><p>Digitale Bürgerdienste, schnellere Verfahren, Transparenz.</p></div><span class="count"></span></a>
+          <a class="topic reveal" style="--d:.1s" href="massnahmen.html?bereich=Integration" data-bereich="Integration"><span class="label mono">Art. 5.2</span><div><h3>Integration</h3><p>Sprache, Ausbildung und Arbeit, verbunden mit klaren Erwartungen.</p></div><span class="count"></span></a>
         </div>
       </div>
     </section>
-
-    <section class="section" style="padding-top:0">
+    <section class="section alt">
       <div class="container">
-        <div class="section-head reveal">
-          <div>
-            <span class="kicker">Hausleitung &amp; Abteilungen</span>
-            <h2 class="section-title display">Aufbau</h2>
+        <div class="section-head"><div><span class="kicker">Organisation</span><h2>Hausleitung und Abteilungen</h2></div></div>
+        <div class="org reveal">
+          <div class="org-top"><span class="label mono">Bundesminister</span><b>Dr. Niels Fiedel</b><a href="minister.html">Zum Profil</a></div>
+          <div class="org-row">
+            <div class="org-unit"><span class="mono">Abteilung ÖS</span><b>Öffentliche Sicherheit</b><p>Polizei, Terrorismusabwehr, Organisierte Kriminalität.</p></div>
+            <div class="org-unit"><span class="mono">Abteilung M</span><b>Migration und Rückkehr</b><p>Asyl, Rückführung, Grenzschutz, Integration.</p></div>
+            <div class="org-unit"><span class="mono">Abteilung VS</span><b>Verfassungsschutz</b><p>Fachaufsicht über das Bundesamt für Verfassungsschutz.</p></div>
+            <div class="org-unit"><span class="mono">Abteilung H</span><b>Heimat und Bevölkerungsschutz</b><p>Krisenmanagement, THW, Ehrenamt.</p></div>
+            <div class="org-unit"><span class="mono">Abteilung DV</span><b>Digitale Verwaltung</b><p>Verwaltungsmodernisierung und Bürgerdienste.</p></div>
           </div>
-        </div>
-        <div class="cards-3">
-          <article class="card reveal"><span class="mono">Minister</span><h3>Dr. Niels Fiedel</h3><p>Leitung des Hauses, politische Gesamtverantwortung. <a href="minister.html">Zum Profil</a></p></article>
-          <article class="card reveal" style="--d:.06s"><span class="mono">Abteilung ÖS</span><h3>Öffentliche Sicherheit</h3><p>Polizei, Terrorismusabwehr, Organisierte Kriminalität.</p></article>
-          <article class="card reveal" style="--d:.12s"><span class="mono">Abteilung M</span><h3>Migration und Rückkehr</h3><p>Asyl, Rückführung, Grenzschutz und Integration.</p></article>
-          <article class="card reveal"><span class="mono">Abteilung VS</span><h3>Verfassungsschutz</h3><p>Fachaufsicht über das Bundesamt für Verfassungsschutz.</p></article>
-          <article class="card reveal" style="--d:.06s"><span class="mono">Abteilung H</span><h3>Heimat und Bevölkerungsschutz</h3><p>Krisenmanagement, THW, Ehrenamt und Brauchtum.</p></article>
-          <article class="card reveal" style="--d:.12s"><span class="mono">Abteilung DV</span><h3>Digitale Verwaltung</h3><p>Verwaltungsmodernisierung und Bürgerdienste.</p></article>
         </div>
       </div>
     </section>
-
-    <section class="section" id="behoerden" style="padding-top:0">
+    <section class="section" id="behoerden">
       <div class="container">
-        <div class="section-head reveal">
-          <div>
-            <span class="kicker">Geschäftsbereich</span>
-            <h2 class="section-title display">Behörden</h2>
-          </div>
-        </div>
+        <div class="section-head"><div><span class="kicker">Geschäftsbereich</span><h2>Behörden</h2></div></div>
         <div class="agencies reveal">
-          <div class="agency"><span class="mono">BPOL</span><b>Bundespolizei</b><p>Grenzschutz, Bahnpolizei, Luftsicherheit.</p></div>
-          <div class="agency"><span class="mono">BKA</span><b>Bundeskriminalamt</b><p>Zentralstelle der Kriminalpolizei, Terrorismus und Organisierte Kriminalität.</p></div>
-          <div class="agency"><span class="mono">BfV</span><b>Bundesamt für Verfassungsschutz</b><p>Abwehr von Terrorismus, Spionage und gewaltbereitem Extremismus.</p></div>
-          <div class="agency"><span class="mono">BAMF</span><b>Bundesamt für Migration und Flüchtlinge</b><p>Asylverfahren, Integrationskurse, Rückkehr.</p></div>
-          <div class="agency"><span class="mono">THW</span><b>Technisches Hilfswerk</b><p>Einsatzorganisation für Katastrophen und Notlagen.</p></div>
-          <div class="agency"><span class="mono">BBK</span><b>Bundesamt für Bevölkerungsschutz</b><p>Krisenvorsorge und Schutz kritischer Infrastruktur.</p></div>
+          <div class="agency"><span class="abbr">BPOL</span><b>Bundespolizei</b><p>Grenzschutz, Bahnpolizei, Luftsicherheit.</p></div>
+          <div class="agency"><span class="abbr">BKA</span><b>Bundeskriminalamt</b><p>Zentralstelle der Kriminalpolizei, Terrorismus und Organisierte Kriminalität.</p></div>
+          <div class="agency"><span class="abbr">BfV</span><b>Bundesamt für Verfassungsschutz</b><p>Abwehr von Terrorismus, Spionage und gewaltbereitem Extremismus.</p></div>
+          <div class="agency"><span class="abbr">BAMF</span><b>Bundesamt für Migration und Flüchtlinge</b><p>Asylverfahren, Integrationskurse, Rückkehr.</p></div>
+          <div class="agency"><span class="abbr">THW</span><b>Technisches Hilfswerk</b><p>Einsatzorganisation für Katastrophen und Notlagen.</p></div>
+          <div class="agency"><span class="abbr">BBK</span><b>Bundesamt für Bevölkerungsschutz</b><p>Krisenvorsorge und Schutz kritischer Infrastruktur.</p></div>
         </div>
       </div>
     </section>
   </main>
 
-  <script src="assets/layout.js"></script>
   <script src="assets/common.js"></script>
+  <script src="assets/layout.js"></script>
   <script src="assets/pages.js"></script>
 </body>
 </html>

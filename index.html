@@ -4,124 +4,122 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bundesministerium für Inneres und Heimat</title>
-  <meta name="description" content="Bundesministerium für Inneres und Heimat im Kabinett Gauland I: Maßnahmenplan der ersten 100 Tage, Minister Dr. Niels Fiedel, Pressemitteilungen.">
+  <meta name="description" content="Bundesministerium für Inneres und Heimat: Maßnahmenplan der ersten 100 Tage, Minister Dr. Niels Fiedel, Pressemitteilungen und Termine.">
   <meta name="robots" content="noindex, nofollow">
-  <meta name="theme-color" content="#0d1420">
-  <link rel="icon" href="assets/emblem.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body data-page="start">
   <main id="main">
-    <section class="hero">
-      <div class="container hero-grid">
+    <section class="stage">
+      <div class="container stage-grid">
         <div>
+          <div class="stage-flag" aria-hidden="true"><i></i><i></i><i></i></div>
           <span class="kicker">Kabinett Gauland I · 3. Wahlperiode</span>
-          <h1>
-            <span class="line"><span style="--d:.05s">Sicherheit.</span></span>
-            <span class="line"><span style="--d:.18s"><em>Ordnung.</em></span></span>
-            <span class="line"><span style="--d:.31s">Heimat<span class="red">.</span></span></span>
-          </h1>
-          <p class="hero-lead reveal" style="--d:.4s">100 Tage, ein Plan, volle Transparenz. Hier sehen Sie, was das Ministerium unter Dr. Niels Fiedel anpackt und wie weit jede Maßnahme ist.</p>
-          <div class="hero-actions reveal" style="--d:.5s">
-            <a class="btn btn-gold" href="massnahmen.html">Zum Maßnahmenplan
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+          <h1 id="hero-title">Sicherheit. Ordnung. Heimat.</h1>
+          <p class="lead" id="hero-text">Was das Ministerium in den ersten 100 Tagen umsetzt, offen und nachprüfbar.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="massnahmen.html">Zum Maßnahmenplan
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
             <a class="btn" href="minister.html">Der Minister</a>
           </div>
         </div>
-
-        <aside class="clock reveal" style="--d:.3s" aria-label="Fortschritt der ersten 100 Tage">
-          <div class="clock-head"><span>Lagezentrum</span><span class="clock-live">live</span></div>
-          <div class="ring">
-            <svg viewBox="0 0 120 120" aria-hidden="true">
-              <defs>
-                <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0" stop-color="oklch(88% 0.12 90)"/>
-                  <stop offset="1" stop-color="oklch(58% 0.21 25)"/>
-                </linearGradient>
-              </defs>
-              <circle class="track" cx="60" cy="60" r="52"/>
-              <circle class="bar" id="ring-bar" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
-            </svg>
-            <div class="ring-label"><b id="ring-day">1</b><span>von 100 Tagen</span></div>
+        <aside class="status-box reveal" aria-labelledby="sb-title">
+          <h2 id="sb-title">Stand der ersten 100 Tage <span id="sb-date"></span></h2>
+          <div class="day-big"><b id="day-num">1</b><span>von 100 Amtstagen</span></div>
+          <div class="bar days" aria-hidden="true"><i id="day-bar" data-p="0"></i></div>
+          <div class="bar-label"><span>Tag 1</span><span>Tag 50</span><span>Tag 100</span></div>
+          <div class="kpis">
+            <div class="kpi" data-s="offen"><b data-count="Offen">0</b><span>Offen</span></div>
+            <div class="kpi" data-s="arbeit"><b data-count="In Arbeit">0</b><span>In Arbeit</span></div>
+            <div class="kpi" data-s="kabinett"><b data-count="Im Kabinett">0</b><span>Im Kabinett</span></div>
+            <div class="kpi" data-s="fertig"><b data-count="Abgeschlossen">0</b><span>Erledigt</span></div>
           </div>
-          <div class="stats">
-            <div class="stat" data-s="offen"><b data-count="Offen">0</b><span>Offen</span></div>
-            <div class="stat" data-s="arbeit"><b data-count="In Arbeit">0</b><span>In Arbeit</span></div>
-            <div class="stat" data-s="kabinett"><b data-count="Im Kabinett">0</b><span>Kabinett</span></div>
-            <div class="stat" data-s="fertig"><b data-count="Abgeschlossen">0</b><span>Erledigt</span></div>
+          <div style="margin-top:18px">
+            <div class="prog"><span>Umsetzung gesamt <b id="total-p">0 %</b></span><div class="bar"><i id="total-bar" data-p="0"></i></div></div>
           </div>
         </aside>
       </div>
     </section>
 
-    <div class="ticker" aria-label="Aktuelle Meldungen"><div class="ticker-track" id="ticker"></div></div>
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div><span class="kicker">Aktuelles</span><h2>Pressemitteilungen</h2></div>
+          <a class="more" href="presse.html">Alle Meldungen</a>
+        </div>
+        <div class="news-grid" id="news"></div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <div class="section-head">
+          <div><span class="kicker">Maßnahmenplan</span><h2>Derzeit in Bearbeitung</h2></div>
+          <a class="more" href="massnahmen.html">Gesamten Plan ansehen</a>
+        </div>
+        <div class="m-list" id="current"></div>
+      </div>
+    </section>
 
     <section class="section">
       <div class="container">
-        <div class="section-head reveal">
-          <div>
-            <span class="kicker">Jetzt in Arbeit</span>
-            <h2 class="section-title display">Was gerade <em>läuft</em></h2>
-          </div>
-          <a class="btn" href="massnahmen.html">Alle Maßnahmen
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        <div class="section-head">
+          <div><span class="kicker">Themen</span><h2>Aufgaben des Ministeriums</h2></div>
+          <a class="more" href="ministerium.html">Zum Ministerium</a>
         </div>
-        <div class="days reveal">
-          <div class="days-bar" id="days-bar" aria-hidden="true"></div>
-          <div class="days-legend"><span>1–10 · Sofort</span><span>Tag 11–50 · Gesetzgebung</span><span>Tag 51–100 · Umsetzung</span></div>
-        </div>
-        <div class="grid-cards" id="current"></div>
-      </div>
-    </section>
-
-    <section class="section" style="padding-top:0">
-      <div class="container">
-        <div class="section-head reveal">
-          <div>
-            <span class="kicker">Entdecken</span>
-            <h2 class="section-title display">Das <em>Haus</em> im Überblick</h2>
-          </div>
-        </div>
-        <div class="links-grid">
-          <a class="link-tile reveal" href="minister.html">
-            <span class="mono">01 / Hausleitung</span>
-            <div><h3>Minister <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17 17 7M8 7h9v9"/></svg></h3><p>Dr. Niels Fiedel, Werdegang und Auftrag.</p></div>
+        <div class="topics" id="topics">
+          <a class="topic reveal" href="massnahmen.html?bereich=Migration" data-bereich="Migration">
+            <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="7" y="5" width="26" height="30" rx="2"/><circle cx="20" cy="17" r="5"/><path d="M13 29h14"/></svg>
+            <div><h3>Migration und Rückkehr</h3><p>Schnellere Asylverfahren, Durchsetzung von Ausreisepflichten, Schutz der Grenzen.</p></div>
+            <span class="count"></span>
           </a>
-          <a class="link-tile reveal" style="--d:.08s" href="ministerium.html">
-            <span class="mono">02 / Organisation</span>
-            <div><h3>Ministerium <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17 17 7M8 7h9v9"/></svg></h3><p>Schwerpunkte, Abteilungen und Behörden.</p></div>
+          <a class="topic reveal" style="--d:.05s" href="massnahmen.html?bereich=Innere%20Sicherheit" data-bereich="Innere Sicherheit">
+            <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 4 7 9v10c0 8 5.6 14.4 13 17 7.4-2.6 13-9 13-17V9z"/><path d="m14 20 4 4 8-8"/></svg>
+            <div><h3>Innere Sicherheit</h3><p>Bundespolizei und BKA stärken, Organisierte Kriminalität bekämpfen.</p></div>
+            <span class="count"></span>
           </a>
-          <a class="link-tile reveal" style="--d:.16s" href="presse.html">
-            <span class="mono">03 / Öffentlichkeit</span>
-            <div><h3>Presse <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17 17 7M8 7h9v9"/></svg></h3><p>Mitteilungen und Pressekontakt.</p></div>
+          <a class="topic reveal" style="--d:.1s" href="massnahmen.html?bereich=Verfassungsschutz" data-bereich="Verfassungsschutz">
+            <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 20s6-11 17-11 17 11 17 11-6 11-17 11S3 20 3 20z"/><circle cx="20" cy="20" r="5"/></svg>
+            <div><h3>Verfassungsschutz</h3><p>Ausrichtung auf Terrorismus, Spionage und gewaltbereiten Extremismus.</p></div>
+            <span class="count"></span>
           </a>
-          <a class="link-tile reveal" style="--d:.24s" href="kontakt.html">
-            <span class="mono">04 / Bürgerservice</span>
-            <div><h3>Kontakt <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17 17 7M8 7h9v9"/></svg></h3><p>Schreiben Sie direkt an das Ministerium.</p></div>
+          <a class="topic reveal" href="massnahmen.html?bereich=Heimat%20%26%20Bev%C3%B6lkerungsschutz" data-bereich="Heimat &amp; Bevölkerungsschutz">
+            <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 19 20 6l15 13"/><path d="M9 16v18h22V16"/><path d="M17 34v-9h6v9"/></svg>
+            <div><h3>Heimat und Bevölkerungsschutz</h3><p>THW, Katastrophenschutz, kritische Infrastruktur und Ehrenamt.</p></div>
+            <span class="count"></span>
+          </a>
+          <a class="topic reveal" style="--d:.05s" href="massnahmen.html?bereich=Staat%20%26%20Verwaltung" data-bereich="Staat &amp; Verwaltung">
+            <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="7" width="32" height="21" rx="2"/><path d="M14 34h12M20 28v6M11 15h10M11 20h16"/></svg>
+            <div><h3>Staat und Verwaltung</h3><p>Digitale Bürgerdienste, Transparenz und weniger Bürokratie.</p></div>
+            <span class="count"></span>
+          </a>
+          <a class="topic reveal" style="--d:.1s" href="termine.html">
+            <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="8" width="30" height="27" rx="2"/><path d="M5 15h30M13 4v7M27 4v7"/></svg>
+            <div><h3>Termine des Ministers</h3><p>Kabinett, Bundestag, Pressekonferenzen und Reisen.</p></div>
+            <span class="count" id="events-count"></span>
           </a>
         </div>
       </div>
     </section>
 
-    <section class="section" style="padding-top:0">
-      <div class="container">
-        <div class="section-head reveal">
-          <div>
-            <span class="kicker">Pressemitteilungen</span>
-            <h2 class="section-title display">Zuletzt <em>gemeldet</em></h2>
-          </div>
-          <a class="btn" href="presse.html">Alle Meldungen</a>
+    <section class="section alt">
+      <div class="container two">
+        <div>
+          <div class="section-head"><div><span class="kicker">Kalender</span><h2>Nächste Termine</h2></div><a class="more" href="termine.html">Alle Termine</a></div>
+          <div class="events" id="events"></div>
         </div>
-        <div class="news" id="news"></div>
+        <figure class="quote-box reveal" style="margin:0">
+          <blockquote id="quote">Der Staat muss wieder durchsetzen, was er beschließt. Dafür legen wir offen, was wir tun und bis wann.</blockquote>
+          <figcaption><cite>Dr. Niels Fiedel, Bundesminister für Inneres und Heimat</cite></figcaption>
+        </figure>
       </div>
     </section>
   </main>
 
-  <script src="assets/layout.js"></script>
   <script src="assets/common.js"></script>
+  <script src="assets/layout.js"></script>
   <script src="assets/pages.js"></script>
 </body>
 </html>

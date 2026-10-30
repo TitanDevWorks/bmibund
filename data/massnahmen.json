@@ -6,7 +6,9 @@
     "status": "In Arbeit",
     "bereich": "Verfassungsschutz",
     "beschreibung": "Ministerielle Weisung an das Bundesamt für Verfassungsschutz, laufende Einstufungen politischer Parteien auszusetzen und die Arbeit auf konkrete Gefahren, Terrorismus, Spionage und gewaltbereiten Extremismus auszurichten.",
-    "grundlage": "Koalitionsvertrag Art. 5.4"
+    "grundlage": "Koalitionsvertrag Art. 5.4",
+    "fortschritt": 40,
+    "verantwortlich": "Abteilung VS"
   },
   {
     "id": "vs-neuordnung",
@@ -15,7 +17,9 @@
     "status": "In Arbeit",
     "bereich": "Verfassungsschutz",
     "beschreibung": "Gesetzentwurf zur Neuordnung der Verfassungsschutzbehörden mit klarem Gefahrenbezug, gestärkter parlamentarischer Kontrolle und gerichtlichem Rechtsschutz.",
-    "grundlage": "Koalitionsvertrag Art. 5.4, Art. 13 Nr. 97"
+    "grundlage": "Koalitionsvertrag Art. 5.4, Art. 13 Nr. 97",
+    "fortschritt": 40,
+    "verantwortlich": "Abteilung VS"
   },
   {
     "id": "grenzkontrollen",
@@ -24,7 +28,9 @@
     "status": "Offen",
     "bereich": "Migration",
     "beschreibung": "Anordnung dauerhafter Kontrollen an den Binnengrenzen durch die Bundespolizei zur Begrenzung irregulärer Migration.",
-    "grundlage": "Koalitionsvertrag Art. 5.1 Nr. 26"
+    "grundlage": "Koalitionsvertrag Art. 5.1 Nr. 26",
+    "fortschritt": 0,
+    "verantwortlich": "Abteilung M"
   },
   {
     "id": "task-force-rueckfuehrung",
@@ -33,7 +39,9 @@
     "status": "Offen",
     "bereich": "Migration",
     "beschreibung": "Ressortübergreifende Task Force von Bund und Ländern zur konsequenten Durchsetzung vollziehbarer Ausreisepflichten, mit Vorrang für straffällig gewordene Personen.",
-    "grundlage": "Koalitionsvertrag Art. 5.1 Nr. 23–24"
+    "grundlage": "Koalitionsvertrag Art. 5.1 Nr. 23–24",
+    "fortschritt": 0,
+    "verantwortlich": "Abteilung M"
   },
   {
     "id": "rueckfuehrungsgesetz",
@@ -42,7 +50,9 @@
     "status": "Offen",
     "bereich": "Migration",
     "beschreibung": "Kabinettsentwurf für schnellere Asyl- und Rückführungsverfahren sowie neue Rückübernahmeabkommen mit Herkunftsstaaten.",
-    "grundlage": "Koalitionsvertrag Art. 5.1 Nr. 21–25"
+    "grundlage": "Koalitionsvertrag Art. 5.1 Nr. 21–25",
+    "fortschritt": 0,
+    "verantwortlich": "Abteilung M"
   },
   {
     "id": "ngo-transparenz",
@@ -51,7 +61,9 @@
     "status": "Offen",
     "bereich": "Staat & Verwaltung",
     "beschreibung": "Offenlegungspflicht für Nichtregierungsorganisationen, die Bundesmittel erhalten: Fördersummen, Mittelverwendung und Finanzierungsquellen werden öffentlich einsehbar.",
-    "grundlage": "Koalitionsvertrag Art. 13 Nr. 98"
+    "grundlage": "Koalitionsvertrag Art. 13 Nr. 98",
+    "fortschritt": 0,
+    "verantwortlich": "Abteilung DV"
   },
   {
     "id": "polizei-ausstattung",
@@ -60,7 +72,9 @@
     "status": "Offen",
     "bereich": "Innere Sicherheit",
     "beschreibung": "Programm für moderne Technik, Schutzausrüstung und zusätzliche Stellen bei Bundespolizei und BKA.",
-    "grundlage": "Koalitionsvertrag Art. 5.3 Nr. 34–35"
+    "grundlage": "Koalitionsvertrag Art. 5.3 Nr. 34–35",
+    "fortschritt": 0,
+    "verantwortlich": "Abteilung ÖS"
   },
   {
     "id": "clan-kriminalitaet",
@@ -69,7 +83,9 @@
     "status": "Offen",
     "bereich": "Innere Sicherheit",
     "beschreibung": "Bundeslagebild mit gemeinsamen Ermittlungsgruppen von Bund und Ländern und konsequenter Vermögensabschöpfung.",
-    "grundlage": "Koalitionsvertrag Art. 5.3 Nr. 37–38"
+    "grundlage": "Koalitionsvertrag Art. 5.3 Nr. 37–38",
+    "fortschritt": 0,
+    "verantwortlich": "Abteilung ÖS"
   },
   {
     "id": "kritis-thw",
@@ -78,7 +94,9 @@
     "status": "Offen",
     "bereich": "Heimat & Bevölkerungsschutz",
     "beschreibung": "Mehr Mittel für Technisches Hilfswerk, Katastrophenschutz und den Schutz kritischer Infrastruktur, verbunden mit Anerkennung des Ehrenamts.",
-    "grundlage": "Koalitionsvertrag Art. 12 Nr. 88–90"
+    "grundlage": "Koalitionsvertrag Art. 12 Nr. 88–90",
+    "fortschritt": 0,
+    "verantwortlich": "Abteilung H"
   },
   {
     "id": "digitale-verwaltung",
@@ -87,6 +105,8 @@
     "status": "Offen",
     "bereich": "Staat & Verwaltung",
     "beschreibung": "Ausbau digitaler Verwaltungsleistungen und Abbau doppelter Zuständigkeiten zwischen Bundesbehörden.",
-    "grundlage": "Koalitionsvertrag Art. 13 Nr. 92–93, Art. 14"
+    "grundlage": "Koalitionsvertrag Art. 13 Nr. 92–93, Art. 14",
+    "fortschritt": 0,
+    "verantwortlich": "Abteilung DV"
   }
 ]

@@ -3,31 +3,28 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kontakt · BMIH</title>
+  <title>Kontakt · Bundesministerium für Inneres und Heimat</title>
   <meta name="description" content="Kontakt zum Bundesministerium für Inneres und Heimat: Bürgerservice, Pressestelle und Kontaktformular.">
   <meta name="robots" content="noindex, nofollow">
-  <meta name="theme-color" content="#0d1420">
-  <link rel="icon" href="assets/emblem.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body data-page="kontakt">
   <main id="main">
-    <section class="page-hero">
+    <section class="page-head">
       <div class="container">
-        <span class="kicker">Bürgerservice</span>
-        <h1>Schreiben Sie <em>uns</em></h1>
+        <span class="kicker">Service</span>
+        <h1>Kontakt</h1>
         <p>Fragen, Anregungen oder Presseanfragen: Ihre Nachricht geht direkt an das Ministerium.</p>
       </div>
     </section>
-
-    <section class="section" style="padding-top:40px">
-      <div class="container split">
-        <form class="form reveal" id="contact" novalidate>
+    <section class="section" style="padding-top:36px">
+      <div class="container two">
+        <form class="form" id="contact" novalidate>
+          <h2 class="full" style="font-size:1.3rem">Kontaktformular</h2>
           <label class="field">Name <input name="name" required maxlength="100" autocomplete="name"></label>
-          <label class="field">E-Mail <input name="email" type="email" required maxlength="200" autocomplete="email"></label>
+          <label class="field">E-Mail-Adresse <input name="email" type="email" required maxlength="200" autocomplete="email"></label>
           <label class="field full">Betreff
             <select name="betreff">
               <option>Bürgeranfrage</option>
@@ -36,27 +33,25 @@
               <option>Sonstiges</option>
             </select>
           </label>
-          <label class="field full">Nachricht <textarea name="nachricht" rows="6" required maxlength="4000"></textarea></label>
+          <label class="field full">Ihre Nachricht <small>höchstens 4.000 Zeichen</small><textarea name="nachricht" rows="7" required maxlength="4000"></textarea></label>
           <label class="hp" aria-hidden="true">Website <input name="website" tabindex="-1" autocomplete="off"></label>
-          <label class="check full"><input type="checkbox" name="ok" required> Ich habe die <a href="datenschutz.html">Datenschutzhinweise</a> gelesen.</label>
+          <label class="check full"><input type="checkbox" name="ok" required> Ich habe die <a href="datenschutz.html">Datenschutzhinweise</a> zur Kenntnis genommen.</label>
           <div class="form-foot full">
-            <button class="btn btn-gold" type="submit">Nachricht senden
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+            <button class="btn btn-primary" type="submit">Nachricht senden</button>
             <p class="msg" id="contact-msg" role="status"></p>
           </div>
         </form>
-
-        <div style="display:grid;gap:14px">
-          <article class="card reveal"><span class="mono">Bürgerservice</span><h3>Allgemeine Anfragen</h3><p>Antwort in der Regel innerhalb von drei Werktagen.</p></article>
-          <article class="card reveal" style="--d:.06s"><span class="mono">Pressestelle</span><h3>Medienanfragen</h3><p>Betreff „Presseanfrage“ wählen. <a href="presse.html#pressekontakt">Mehr zur Pressestelle</a></p></article>
-          <article class="card reveal" style="--d:.12s"><span class="mono">Dienstsitz</span><h3>Platz der Heimat 1, Berlin</h3><p>Besuch nur nach Vereinbarung.</p></article>
+        <div class="contact-cards">
+          <article class="card reveal"><span class="label">Bürgerservice</span><h3>Allgemeine Anfragen</h3><p>Antwort in der Regel innerhalb von drei Werktagen.</p></article>
+          <article class="card reveal" style="--d:.05s"><span class="label">Pressestelle</span><h3>Medienanfragen</h3><p>Betreff „Presseanfrage“ wählen. <a href="presse.html#pressekontakt">Mehr zur Pressestelle</a></p></article>
+          <article class="card reveal" style="--d:.1s"><span class="label">Dienstsitz</span><h3>Platz der Heimat 1, Berlin</h3><p>Besuch nur nach Vereinbarung.</p></article>
         </div>
       </div>
     </section>
   </main>
 
-  <script src="assets/layout.js"></script>
   <script src="assets/common.js"></script>
+  <script src="assets/layout.js"></script>
   <script src="assets/pages.js"></script>
 </body>
 </html>

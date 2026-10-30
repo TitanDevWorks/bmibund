@@ -3,49 +3,45 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Presse · BMIH</title>
-  <meta name="description" content="Pressemitteilungen und Pressekontakt des Bundesministeriums für Inneres und Heimat.">
+  <title>Presse · Bundesministerium für Inneres und Heimat</title>
+  <meta name="description" content="Pressemitteilungen, Reden, Interviews und Pressekontakt des Bundesministeriums für Inneres und Heimat.">
   <meta name="robots" content="noindex, nofollow">
-  <meta name="theme-color" content="#0d1420">
-  <link rel="icon" href="assets/emblem.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body data-page="presse">
   <main id="main">
-    <section class="page-hero">
+    <section class="page-head">
       <div class="container">
-        <span class="kicker">Öffentlichkeitsarbeit</span>
-        <h1>Presse&shy;<em>mitteilungen</em></h1>
-        <p>Alle Meldungen des Ministeriums, die neueste zuerst.</p>
+        <span class="kicker">Presse</span>
+        <h1>Pressemitteilungen</h1>
+        <p>Mitteilungen, Reden, Interviews und Statements des Ministeriums, die neueste zuerst.</p>
       </div>
     </section>
-
-    <section class="section" style="padding-top:40px">
+    <section class="section" style="padding-top:32px">
       <div class="container">
-        <div class="news" id="news"></div>
+        <form class="filters" role="search">
+          <label class="field grow">Suche <input id="q" type="search" placeholder="Stichwort" autocomplete="off"></label>
+          <label class="field">Art <select id="f-kat"><option value="">Alle Arten</option></select></label>
+        </form>
+        <div class="press-list" id="news"></div>
       </div>
     </section>
-
-    <section class="section" id="pressekontakt" style="padding-top:0">
-      <div class="container split">
-        <div class="reveal">
-          <span class="kicker">Pressestelle</span>
-          <h2 class="section-title display">Presse&shy;<em>kontakt</em></h2>
-          <p class="muted" style="margin-top:16px;max-width:420px">Anfragen von Medien beantwortet die Pressestelle in der Regel am selben Werktag.</p>
-        </div>
-        <div class="cards-3" style="grid-template-columns:1fr">
-          <article class="card reveal"><span class="mono">Anfragen</span><h3>Über das Kontaktformular</h3><p>Wählen Sie als Betreff „Presseanfrage“. <a href="kontakt.html?betreff=Presseanfrage">Zum Formular</a></p></article>
-          <article class="card reveal" style="--d:.08s"><span class="mono">Erreichbarkeit</span><h3>Mo–Fr, 8–18 Uhr</h3><p>Außerhalb dieser Zeiten im Rahmen von Lagen.</p></article>
+    <section class="section alt" id="pressekontakt">
+      <div class="container">
+        <div class="section-head"><div><span class="kicker">Pressestelle</span><h2>Pressekontakt</h2></div></div>
+        <div class="cards">
+          <article class="card reveal"><span class="label">Anfragen</span><h3>Über das Kontaktformular</h3><p>Wählen Sie den Betreff „Presseanfrage“. <a href="kontakt.html?betreff=Presseanfrage">Zum Formular</a></p></article>
+          <article class="card reveal" style="--d:.05s"><span class="label">Erreichbarkeit</span><h3>Montag bis Freitag, 8 bis 18 Uhr</h3><p>Außerhalb dieser Zeiten im Rahmen besonderer Lagen.</p></article>
+          <article class="card reveal" style="--d:.1s"><span class="label">Termine</span><h3>Pressekonferenzen</h3><p>Alle anstehenden Termine finden Sie im <a href="termine.html">Terminkalender</a>.</p></article>
         </div>
       </div>
     </section>
   </main>
 
-  <script src="assets/layout.js"></script>
   <script src="assets/common.js"></script>
+  <script src="assets/layout.js"></script>
   <script src="assets/pages.js"></script>
 </body>
 </html>
