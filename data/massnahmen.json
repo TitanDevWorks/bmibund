@@ -1,0 +1,92 @@
+[
+  {
+    "id": "bfv-weisung",
+    "titel": "Weisung an das BfV: keine Parteibewertungen",
+    "phase": "Tag 1–10",
+    "status": "In Arbeit",
+    "bereich": "Verfassungsschutz",
+    "beschreibung": "Ministerielle Weisung an das Bundesamt für Verfassungsschutz, laufende Einstufungen politischer Parteien auszusetzen und die Arbeit auf konkrete Gefahren, Terrorismus, Spionage und gewaltbereiten Extremismus auszurichten.",
+    "grundlage": "Koalitionsvertrag Art. 5.4"
+  },
+  {
+    "id": "vs-neuordnung",
+    "titel": "Verfassungsschutz-Neuordnungsgesetz",
+    "phase": "Tag 11–50",
+    "status": "In Arbeit",
+    "bereich": "Verfassungsschutz",
+    "beschreibung": "Gesetzentwurf zur Neuordnung der Verfassungsschutzbehörden mit klarem Gefahrenbezug, gestärkter parlamentarischer Kontrolle und gerichtlichem Rechtsschutz.",
+    "grundlage": "Koalitionsvertrag Art. 5.4, Art. 13 Nr. 97"
+  },
+  {
+    "id": "grenzkontrollen",
+    "titel": "Dauerhafte Grenzkontrollen anordnen",
+    "phase": "Tag 1–10",
+    "status": "Offen",
+    "bereich": "Migration",
+    "beschreibung": "Anordnung dauerhafter Kontrollen an den Binnengrenzen durch die Bundespolizei zur Begrenzung irregulärer Migration.",
+    "grundlage": "Koalitionsvertrag Art. 5.1 Nr. 26"
+  },
+  {
+    "id": "task-force-rueckfuehrung",
+    "titel": "Task Force Rückführung einsetzen",
+    "phase": "Tag 1–10",
+    "status": "Offen",
+    "bereich": "Migration",
+    "beschreibung": "Ressortübergreifende Task Force von Bund und Ländern zur konsequenten Durchsetzung vollziehbarer Ausreisepflichten, mit Vorrang für straffällig gewordene Personen.",
+    "grundlage": "Koalitionsvertrag Art. 5.1 Nr. 23–24"
+  },
+  {
+    "id": "rueckfuehrungsgesetz",
+    "titel": "Rückführungsgesetz ins Kabinett",
+    "phase": "Tag 11–50",
+    "status": "Offen",
+    "bereich": "Migration",
+    "beschreibung": "Kabinettsentwurf für schnellere Asyl- und Rückführungsverfahren sowie neue Rückübernahmeabkommen mit Herkunftsstaaten.",
+    "grundlage": "Koalitionsvertrag Art. 5.1 Nr. 21–25"
+  },
+  {
+    "id": "ngo-transparenz",
+    "titel": "NGO-Transparenzgesetz",
+    "phase": "Tag 11–50",
+    "status": "Offen",
+    "bereich": "Staat & Verwaltung",
+    "beschreibung": "Offenlegungspflicht für Nichtregierungsorganisationen, die Bundesmittel erhalten: Fördersummen, Mittelverwendung und Finanzierungsquellen werden öffentlich einsehbar.",
+    "grundlage": "Koalitionsvertrag Art. 13 Nr. 98"
+  },
+  {
+    "id": "polizei-ausstattung",
+    "titel": "Ausstattungsoffensive Bundespolizei",
+    "phase": "Tag 11–50",
+    "status": "Offen",
+    "bereich": "Innere Sicherheit",
+    "beschreibung": "Programm für moderne Technik, Schutzausrüstung und zusätzliche Stellen bei Bundespolizei und BKA.",
+    "grundlage": "Koalitionsvertrag Art. 5.3 Nr. 34–35"
+  },
+  {
+    "id": "clan-kriminalitaet",
+    "titel": "Lagebild Clan- und Organisierte Kriminalität",
+    "phase": "Tag 51–100",
+    "status": "Offen",
+    "bereich": "Innere Sicherheit",
+    "beschreibung": "Bundeslagebild mit gemeinsamen Ermittlungsgruppen von Bund und Ländern und konsequenter Vermögensabschöpfung.",
+    "grundlage": "Koalitionsvertrag Art. 5.3 Nr. 37–38"
+  },
+  {
+    "id": "kritis-thw",
+    "titel": "Stärkungspaket Bevölkerungsschutz und THW",
+    "phase": "Tag 51–100",
+    "status": "Offen",
+    "bereich": "Heimat & Bevölkerungsschutz",
+    "beschreibung": "Mehr Mittel für Technisches Hilfswerk, Katastrophenschutz und den Schutz kritischer Infrastruktur, verbunden mit Anerkennung des Ehrenamts.",
+    "grundlage": "Koalitionsvertrag Art. 12 Nr. 88–90"
+  },
+  {
+    "id": "digitale-verwaltung",
+    "titel": "Digitale Verwaltung: Bürgerkonto für alle",
+    "phase": "Tag 51–100",
+    "status": "Offen",
+    "bereich": "Staat & Verwaltung",
+    "beschreibung": "Ausbau digitaler Verwaltungsleistungen und Abbau doppelter Zuständigkeiten zwischen Bundesbehörden.",
+    "grundlage": "Koalitionsvertrag Art. 13 Nr. 92–93, Art. 14"
+  }
+]

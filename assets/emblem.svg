@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 52">
+  <path d="M22 1 L42 8 V24 C42 37 33 46 22 51 C11 46 2 37 2 24 V8 Z" fill="#0b1d33"/>
+  <path d="M22 5 L38 10.6 V24 C38 34.6 30.8 42 22 46.4 C13.2 42 6 34.6 6 24 V10.6 Z" fill="none" stroke="#d9a400" stroke-width="1.5"/>
+  <rect x="11" y="15" width="22" height="3" fill="#111"/>
+  <rect x="11" y="18" width="22" height="3" fill="#b5121b"/>
+  <rect x="11" y="21" width="22" height="3" fill="#d9a400"/>
+  <text x="22" y="37" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="9" font-weight="800" fill="#fff" letter-spacing=".5">BMIH</text>
+</svg>

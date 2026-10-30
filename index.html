@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bundesministerium für Inneres und Heimat (fiktiv)</title>
+  <meta name="description" content="Fiktive Rollenspiel-Webseite des Bundesministeriums für Inneres und Heimat im Kabinett Gauland I. Kein echtes Regierungsangebot.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="assets/emblem.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <div class="fiction-banner" role="note">
+    <strong>Fiktives Rollenspiel.</strong>
+    Diese Seite gehört zu einem politischen Rollenspiel und ist <strong>kein Angebot der Bundesregierung</strong>.
+    Personen, Parteien und Maßnahmen sind erfunden.
+  </div>
+
+  <header class="site-header">
+    <div class="stripe" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="container header-inner">
+      <a class="brand" href="#top">
+        <img src="assets/emblem.svg" alt="" width="44" height="52">
+        <span>
+          <small>Bundesministerium</small>
+          für Inneres und Heimat
+        </span>
+      </a>
+      <nav class="main-nav" aria-label="Hauptnavigation">
+        <a href="#plan">Maßnahmenplan</a>
+        <a href="#minister">Minister</a>
+        <a href="#schwerpunkte">Schwerpunkte</a>
+        <a href="#aktuelles">Aktuelles</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-inner">
+        <div>
+          <p class="eyebrow">Kabinett Gauland I · 3. Wahlperiode</p>
+          <h1>Sicherheit. Ordnung. Heimat.</h1>
+          <p class="lead">Die ersten 100 Tage im Überblick: Was das Ministerium unter Dr. Niels Fiedel anpackt, in welcher Phase und mit welchem Stand.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#plan">Zum Maßnahmenplan</a>
+            <a class="btn btn-ghost" href="#minister">Über den Minister</a>
+          </div>
+        </div>
+        <aside class="stat-card" aria-label="Fortschritt">
+          <p class="stat-label">Fortschritt Maßnahmenplan</p>
+          <p class="stat-big"><span id="stat-done">0</span><span class="of">/<span id="stat-total">0</span></span></p>
+          <p class="stat-sub">Maßnahmen abgeschlossen</p>
+          <div class="progress" aria-hidden="true"><div id="stat-bar"></div></div>
+          <ul class="stat-list">
+            <li><span class="dot s-arbeit"></span>In Arbeit <b id="stat-arbeit">0</b></li>
+            <li><span class="dot s-offen"></span>Offen <b id="stat-offen">0</b></li>
+            <li><span class="dot s-kabinett"></span>Im Kabinett <b id="stat-kabinett">0</b></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section id="plan" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Zum Plan</p>
+            <h2>Offene Maßnahmen</h2>
+          </div>
+          <div class="filters" role="group" aria-label="Filter">
+            <label>Phase
+              <select id="filter-phase"><option value="">Alle Phasen</option></select>
+            </label>
+            <label>Status
+              <select id="filter-status"><option value="">Alle Status</option></select>
+            </label>
+          </div>
+        </div>
+        <div id="timeline" class="timeline" aria-live="polite"></div>
+        <p id="data-source" class="muted small"></p>
+      </div>
+    </section>
+
+    <section id="minister" class="section alt">
+      <div class="container minister">
+        <div class="portrait" aria-hidden="true">NF</div>
+        <div>
+          <p class="eyebrow">Hausleitung</p>
+          <h2>Dr. Niels Fiedel</h2>
+          <p class="role">Bundesminister für Inneres und Heimat · NVP</p>
+          <p>Dr. Niels Fiedel leitet das Ministerium seit Beginn der 3. Wahlperiode. Sein Auftrag aus dem Koalitionsvertrag: Asylverfahren beschleunigen, Ausreisepflichten durchsetzen, Polizei und Bevölkerungsschutz stärken und die Sicherheitsbehörden auf konkrete Gefahren ausrichten.</p>
+          <blockquote>„Der Staat muss wieder durchsetzen, was er beschließt. Dafür legen wir offen, was wir tun und bis wann.“</blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section id="schwerpunkte" class="section">
+      <div class="container">
+        <p class="eyebrow">Aus dem Koalitionsvertrag</p>
+        <h2>Schwerpunkte des Hauses</h2>
+        <div class="cards">
+          <article class="card">
+            <h3>Migration und Rückkehr</h3>
+            <p>Schnellere Asylverfahren, konsequente Rückführungen und Rückübernahmeabkommen mit Herkunftsstaaten.</p>
+            <span class="tag">Art. 5.1</span>
+          </article>
+          <article class="card">
+            <h3>Integration</h3>
+            <p>Sprachförderung, Zugang zu Ausbildung und Arbeit sowie klare Erwartungen an Mitwirkung.</p>
+            <span class="tag">Art. 5.2</span>
+          </article>
+          <article class="card">
+            <h3>Polizei und innere Sicherheit</h3>
+            <p>Bessere Ausstattung, Schutz für Einsatzkräfte und harter Kurs gegen Organisierte Kriminalität.</p>
+            <span class="tag">Art. 5.3</span>
+          </article>
+          <article class="card">
+            <h3>Verfassungsschutz</h3>
+            <p>Ausrichtung auf Terrorismus, Spionage und gewaltbereiten Extremismus, mit parlamentarischer Kontrolle.</p>
+            <span class="tag">Art. 5.4</span>
+          </article>
+          <article class="card">
+            <h3>Bevölkerungsschutz</h3>
+            <p>Starkes THW, Katastrophenschutz, Feuerwehren und Schutz kritischer Infrastruktur.</p>
+            <span class="tag">Art. 12</span>
+          </article>
+          <article class="card">
+            <h3>Moderne Verwaltung</h3>
+            <p>Digitale Bürgerdienste, schnellere Verfahren und weniger doppelte Zuständigkeiten.</p>
+            <span class="tag">Art. 13–14</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="aktuelles" class="section alt">
+      <div class="container">
+        <p class="eyebrow">Pressemitteilungen</p>
+        <h2>Aktuelles</h2>
+        <div id="news" class="news"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="stripe" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="container footer-inner">
+      <div>
+        <strong>Bundesministerium für Inneres und Heimat</strong>
+        <p class="muted">Fiktives Ministerium im Rollenspiel „Bundestag Fiktiv“. Koalition aus NVP, BFD und FORUM.</p>
+      </div>
+      <div class="muted small">
+        <p><strong>Hinweis:</strong> Dies ist eine Rollenspiel-Seite. Sie ist nicht mit der Bundesregierung, einem Bundesministerium oder einer realen Partei verbunden und stellt kein echtes Regierungsangebot dar.</p>
+        <p><a href="admin.html">Verwaltung</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
