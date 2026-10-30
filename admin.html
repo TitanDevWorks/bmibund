@@ -3,88 +3,80 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Verwaltung · BMIH (fiktiv)</title>
+  <title>Verwaltung · BMIH</title>
   <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0d1420">
   <link rel="icon" href="assets/emblem.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
   <link rel="stylesheet" href="assets/style.css">
-  <style>
-    .admin { padding: 40px 0 80px; }
-    .panel { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; margin-bottom: 24px; box-shadow: var(--shadow); }
-    .row { display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 8px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); }
-    .row:last-child { border-bottom: 0; }
-    .row strong { font-weight: 600; }
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .form-grid .full { grid-column: 1 / -1; }
-    .form-grid label { display: grid; gap: 4px; font-size: .85rem; font-weight: 600; color: var(--ink-2); }
-    .btn-dark { background: var(--navy); color: #fff; }
-    .btn-danger { background: #fee2e2; color: #991b1b; padding: 8px 12px; }
-    .msg { min-height: 1.5em; font-weight: 600; }
-    .msg.ok { color: var(--fertig); }
-    .msg.err { color: var(--red); }
-    @media (max-width: 700px) { .row, .form-grid { grid-template-columns: 1fr; } }
-  </style>
+  <link rel="stylesheet" href="assets/admin.css">
 </head>
-<body>
-  <div class="fiction-banner" role="note"><strong>Fiktives Rollenspiel.</strong> Verwaltungsbereich der Rollenspiel-Seite, kein Angebot der Bundesregierung.</div>
-  <header class="site-header">
-    <div class="stripe" aria-hidden="true"><span></span><span></span><span></span></div>
-    <div class="container header-inner">
-      <a class="brand" href="index.html">
+<body data-page="admin">
+  <main id="main" class="container admin">
+    <section class="login" id="login-view" hidden>
+      <div class="login-card">
         <img src="assets/emblem.svg" alt="" width="44" height="52">
-        <span><small>Bundesministerium</small>für Inneres und Heimat</span>
-      </a>
-      <nav class="main-nav"><a href="index.html">Zur Webseite</a></nav>
-    </div>
-  </header>
-
-  <main class="admin container">
-    <p class="eyebrow">Hausleitung</p>
-    <h2>Verwaltung</h2>
-
-    <section class="panel" id="login-panel">
-      <h3>Anmelden</h3>
-      <p class="muted small">Admin-Token aus der <code>.env</code> auf dem Server. Er wird nur in diesem Browser-Tab gespeichert.</p>
-      <form id="login" class="form-grid">
-        <label class="full">Token <input id="token" type="password" autocomplete="current-password" required></label>
-        <div><button class="btn btn-dark" type="submit">Anmelden</button></div>
-      </form>
-      <p id="login-msg" class="msg"></p>
+        <span class="kicker">Hausleitung</span>
+        <h1 class="display">Verwaltung</h1>
+        <form id="login" class="login-form">
+          <label class="field">Benutzername <input name="username" autocomplete="username" required maxlength="64"></label>
+          <label class="field">Passwort <input name="password" type="password" autocomplete="current-password" required maxlength="200"></label>
+          <button class="btn btn-gold" type="submit">Anmelden</button>
+          <p class="msg" id="login-msg" role="alert"></p>
+        </form>
+      </div>
     </section>
 
-    <div id="app" hidden>
-      <section class="panel">
-        <h3>Maßnahmen</h3>
-        <div id="list"></div>
-        <p id="list-msg" class="msg"></p>
-      </section>
+    <section id="app" hidden>
+      <div class="admin-head">
+        <div>
+          <span class="kicker">Hausleitung</span>
+          <h1 class="display">Verwaltung</h1>
+        </div>
+        <div class="admin-user"><span id="who"></span><button class="btn" id="logout" type="button">Abmelden</button></div>
+      </div>
 
-      <section class="panel">
-        <h3>Neue Maßnahme</h3>
-        <form id="new-measure" class="form-grid">
-          <label class="full">Titel <input name="titel" required maxlength="200"></label>
-          <label>Phase <select name="phase"></select></label>
-          <label>Status <select name="status"></select></label>
-          <label>Bereich <input name="bereich" maxlength="80"></label>
-          <label>Grundlage <input name="grundlage" maxlength="120" placeholder="Koalitionsvertrag Art. …"></label>
-          <label class="full">Beschreibung <textarea name="beschreibung" rows="3" maxlength="1000"></textarea></label>
-          <div><button class="btn btn-dark" type="submit">Anlegen</button></div>
-        </form>
-      </section>
+      <div class="seg tabs" role="tablist">
+        <button type="button" role="tab" data-tab="massnahmen" aria-pressed="true">Maßnahmen</button>
+        <button type="button" role="tab" data-tab="presse" aria-pressed="false">Presse</button>
+        <button type="button" role="tab" data-tab="postfach" aria-pressed="false">Postfach <b id="inbox-count"></b></button>
+      </div>
+      <p class="msg" id="msg" role="status"></p>
 
-      <section class="panel">
-        <h3>Neue Pressemitteilung</h3>
-        <form id="new-news" class="form-grid">
-          <label class="full">Titel <input name="titel" required maxlength="200"></label>
-          <label>Datum <input name="datum" type="date" required></label>
-          <label class="full">Text <textarea name="text" rows="4" required maxlength="4000"></textarea></label>
-          <div><button class="btn btn-dark" type="submit">Veröffentlichen</button></div>
+      <div class="tab" data-panel="massnahmen">
+        <div class="panel"><div id="m-list"></div></div>
+        <form class="panel form" id="m-new">
+          <h3 class="full">Neue Maßnahme</h3>
+          <label class="field full">Titel <input name="titel" required maxlength="200"></label>
+          <label class="field">Phase <select name="phase"></select></label>
+          <label class="field">Status <select name="status"></select></label>
+          <label class="field">Bereich <input name="bereich" maxlength="80"></label>
+          <label class="field">Grundlage <input name="grundlage" maxlength="120" placeholder="Koalitionsvertrag Art. …"></label>
+          <label class="field full">Beschreibung <textarea name="beschreibung" rows="3" maxlength="1000"></textarea></label>
+          <div class="full"><button class="btn btn-gold" type="submit">Anlegen</button></div>
         </form>
-        <p id="news-msg" class="msg"></p>
-      </section>
-    </div>
+      </div>
+
+      <div class="tab" data-panel="presse" hidden>
+        <form class="panel form" id="n-new">
+          <h3 class="full">Neue Pressemitteilung</h3>
+          <label class="field full">Titel <input name="titel" required maxlength="200"></label>
+          <label class="field">Datum <input name="datum" type="date" required></label>
+          <label class="field full">Text <textarea name="text" rows="5" required maxlength="4000"></textarea></label>
+          <div class="full"><button class="btn btn-gold" type="submit">Veröffentlichen</button></div>
+        </form>
+        <div class="panel"><div id="n-list"></div></div>
+      </div>
+
+      <div class="tab" data-panel="postfach" hidden>
+        <div class="panel"><div id="inbox"></div></div>
+      </div>
+    </section>
   </main>
 
+  <script src="assets/common.js"></script>
   <script src="assets/admin.js"></script>
 </body>
 </html>

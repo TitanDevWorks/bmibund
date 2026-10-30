@@ -3,162 +3,125 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bundesministerium für Inneres und Heimat (fiktiv)</title>
-  <meta name="description" content="Fiktive Rollenspiel-Webseite des Bundesministeriums für Inneres und Heimat im Kabinett Gauland I. Kein echtes Regierungsangebot.">
+  <title>Bundesministerium für Inneres und Heimat</title>
+  <meta name="description" content="Bundesministerium für Inneres und Heimat im Kabinett Gauland I: Maßnahmenplan der ersten 100 Tage, Minister Dr. Niels Fiedel, Pressemitteilungen.">
   <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0d1420">
   <link rel="icon" href="assets/emblem.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
   <link rel="stylesheet" href="assets/style.css">
 </head>
-<body>
-  <div class="fiction-banner" role="note">
-    <strong>Fiktives Rollenspiel.</strong>
-    Diese Seite gehört zu einem politischen Rollenspiel und ist <strong>kein Angebot der Bundesregierung</strong>.
-    Personen, Parteien und Maßnahmen sind erfunden.
-  </div>
-
-  <header class="site-header">
-    <div class="stripe" aria-hidden="true"><span></span><span></span><span></span></div>
-    <div class="container header-inner">
-      <a class="brand" href="#top">
-        <img src="assets/emblem.svg" alt="" width="44" height="52">
-        <span>
-          <small>Bundesministerium</small>
-          für Inneres und Heimat
-        </span>
-      </a>
-      <nav class="main-nav" aria-label="Hauptnavigation">
-        <a href="#plan">Maßnahmenplan</a>
-        <a href="#minister">Minister</a>
-        <a href="#schwerpunkte">Schwerpunkte</a>
-        <a href="#aktuelles">Aktuelles</a>
-      </nav>
-    </div>
-  </header>
-
-  <main id="top">
+<body data-page="start">
+  <main id="main">
     <section class="hero">
-      <div class="container hero-inner">
+      <div class="container hero-grid">
         <div>
-          <p class="eyebrow">Kabinett Gauland I · 3. Wahlperiode</p>
-          <h1>Sicherheit. Ordnung. Heimat.</h1>
-          <p class="lead">Die ersten 100 Tage im Überblick: Was das Ministerium unter Dr. Niels Fiedel anpackt, in welcher Phase und mit welchem Stand.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#plan">Zum Maßnahmenplan</a>
-            <a class="btn btn-ghost" href="#minister">Über den Minister</a>
+          <span class="kicker">Kabinett Gauland I · 3. Wahlperiode</span>
+          <h1>
+            <span class="line"><span style="--d:.05s">Sicherheit.</span></span>
+            <span class="line"><span style="--d:.18s"><em>Ordnung.</em></span></span>
+            <span class="line"><span style="--d:.31s">Heimat<span class="red">.</span></span></span>
+          </h1>
+          <p class="hero-lead reveal" style="--d:.4s">100 Tage, ein Plan, volle Transparenz. Hier sehen Sie, was das Ministerium unter Dr. Niels Fiedel anpackt und wie weit jede Maßnahme ist.</p>
+          <div class="hero-actions reveal" style="--d:.5s">
+            <a class="btn btn-gold" href="massnahmen.html">Zum Maßnahmenplan
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+            <a class="btn" href="minister.html">Der Minister</a>
           </div>
         </div>
-        <aside class="stat-card" aria-label="Fortschritt">
-          <p class="stat-label">Fortschritt Maßnahmenplan</p>
-          <p class="stat-big"><span id="stat-done">0</span><span class="of">/<span id="stat-total">0</span></span></p>
-          <p class="stat-sub">Maßnahmen abgeschlossen</p>
-          <div class="progress" aria-hidden="true"><div id="stat-bar"></div></div>
-          <ul class="stat-list">
-            <li><span class="dot s-arbeit"></span>In Arbeit <b id="stat-arbeit">0</b></li>
-            <li><span class="dot s-offen"></span>Offen <b id="stat-offen">0</b></li>
-            <li><span class="dot s-kabinett"></span>Im Kabinett <b id="stat-kabinett">0</b></li>
-          </ul>
+
+        <aside class="clock reveal" style="--d:.3s" aria-label="Fortschritt der ersten 100 Tage">
+          <div class="clock-head"><span>Lagezentrum</span><span class="clock-live">live</span></div>
+          <div class="ring">
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <defs>
+                <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="oklch(88% 0.12 90)"/>
+                  <stop offset="1" stop-color="oklch(58% 0.21 25)"/>
+                </linearGradient>
+              </defs>
+              <circle class="track" cx="60" cy="60" r="52"/>
+              <circle class="bar" id="ring-bar" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+            </svg>
+            <div class="ring-label"><b id="ring-day">1</b><span>von 100 Tagen</span></div>
+          </div>
+          <div class="stats">
+            <div class="stat" data-s="offen"><b data-count="Offen">0</b><span>Offen</span></div>
+            <div class="stat" data-s="arbeit"><b data-count="In Arbeit">0</b><span>In Arbeit</span></div>
+            <div class="stat" data-s="kabinett"><b data-count="Im Kabinett">0</b><span>Kabinett</span></div>
+            <div class="stat" data-s="fertig"><b data-count="Abgeschlossen">0</b><span>Erledigt</span></div>
+          </div>
         </aside>
       </div>
     </section>
 
-    <section id="plan" class="section">
+    <div class="ticker" aria-label="Aktuelle Meldungen"><div class="ticker-track" id="ticker"></div></div>
+
+    <section class="section">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head reveal">
           <div>
-            <p class="eyebrow">Zum Plan</p>
-            <h2>Offene Maßnahmen</h2>
+            <span class="kicker">Jetzt in Arbeit</span>
+            <h2 class="section-title display">Was gerade <em>läuft</em></h2>
           </div>
-          <div class="filters" role="group" aria-label="Filter">
-            <label>Phase
-              <select id="filter-phase"><option value="">Alle Phasen</option></select>
-            </label>
-            <label>Status
-              <select id="filter-status"><option value="">Alle Status</option></select>
-            </label>
+          <a class="btn" href="massnahmen.html">Alle Maßnahmen
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
+        <div class="days reveal">
+          <div class="days-bar" id="days-bar" aria-hidden="true"></div>
+          <div class="days-legend"><span>1–10 · Sofort</span><span>Tag 11–50 · Gesetzgebung</span><span>Tag 51–100 · Umsetzung</span></div>
+        </div>
+        <div class="grid-cards" id="current"></div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="kicker">Entdecken</span>
+            <h2 class="section-title display">Das <em>Haus</em> im Überblick</h2>
           </div>
         </div>
-        <div id="timeline" class="timeline" aria-live="polite"></div>
-        <p id="data-source" class="muted small"></p>
-      </div>
-    </section>
-
-    <section id="minister" class="section alt">
-      <div class="container minister">
-        <div class="portrait" aria-hidden="true">NF</div>
-        <div>
-          <p class="eyebrow">Hausleitung</p>
-          <h2>Dr. Niels Fiedel</h2>
-          <p class="role">Bundesminister für Inneres und Heimat · NVP</p>
-          <p>Dr. Niels Fiedel leitet das Ministerium seit Beginn der 3. Wahlperiode. Sein Auftrag aus dem Koalitionsvertrag: Asylverfahren beschleunigen, Ausreisepflichten durchsetzen, Polizei und Bevölkerungsschutz stärken und die Sicherheitsbehörden auf konkrete Gefahren ausrichten.</p>
-          <blockquote>„Der Staat muss wieder durchsetzen, was er beschließt. Dafür legen wir offen, was wir tun und bis wann.“</blockquote>
+        <div class="links-grid">
+          <a class="link-tile reveal" href="minister.html">
+            <span class="mono">01 / Hausleitung</span>
+            <div><h3>Minister <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17 17 7M8 7h9v9"/></svg></h3><p>Dr. Niels Fiedel, Werdegang und Auftrag.</p></div>
+          </a>
+          <a class="link-tile reveal" style="--d:.08s" href="ministerium.html">
+            <span class="mono">02 / Organisation</span>
+            <div><h3>Ministerium <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17 17 7M8 7h9v9"/></svg></h3><p>Schwerpunkte, Abteilungen und Behörden.</p></div>
+          </a>
+          <a class="link-tile reveal" style="--d:.16s" href="presse.html">
+            <span class="mono">03 / Öffentlichkeit</span>
+            <div><h3>Presse <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17 17 7M8 7h9v9"/></svg></h3><p>Mitteilungen und Pressekontakt.</p></div>
+          </a>
+          <a class="link-tile reveal" style="--d:.24s" href="kontakt.html">
+            <span class="mono">04 / Bürgerservice</span>
+            <div><h3>Kontakt <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17 17 7M8 7h9v9"/></svg></h3><p>Schreiben Sie direkt an das Ministerium.</p></div>
+          </a>
         </div>
       </div>
     </section>
 
-    <section id="schwerpunkte" class="section">
+    <section class="section" style="padding-top:0">
       <div class="container">
-        <p class="eyebrow">Aus dem Koalitionsvertrag</p>
-        <h2>Schwerpunkte des Hauses</h2>
-        <div class="cards">
-          <article class="card">
-            <h3>Migration und Rückkehr</h3>
-            <p>Schnellere Asylverfahren, konsequente Rückführungen und Rückübernahmeabkommen mit Herkunftsstaaten.</p>
-            <span class="tag">Art. 5.1</span>
-          </article>
-          <article class="card">
-            <h3>Integration</h3>
-            <p>Sprachförderung, Zugang zu Ausbildung und Arbeit sowie klare Erwartungen an Mitwirkung.</p>
-            <span class="tag">Art. 5.2</span>
-          </article>
-          <article class="card">
-            <h3>Polizei und innere Sicherheit</h3>
-            <p>Bessere Ausstattung, Schutz für Einsatzkräfte und harter Kurs gegen Organisierte Kriminalität.</p>
-            <span class="tag">Art. 5.3</span>
-          </article>
-          <article class="card">
-            <h3>Verfassungsschutz</h3>
-            <p>Ausrichtung auf Terrorismus, Spionage und gewaltbereiten Extremismus, mit parlamentarischer Kontrolle.</p>
-            <span class="tag">Art. 5.4</span>
-          </article>
-          <article class="card">
-            <h3>Bevölkerungsschutz</h3>
-            <p>Starkes THW, Katastrophenschutz, Feuerwehren und Schutz kritischer Infrastruktur.</p>
-            <span class="tag">Art. 12</span>
-          </article>
-          <article class="card">
-            <h3>Moderne Verwaltung</h3>
-            <p>Digitale Bürgerdienste, schnellere Verfahren und weniger doppelte Zuständigkeiten.</p>
-            <span class="tag">Art. 13–14</span>
-          </article>
+        <div class="section-head reveal">
+          <div>
+            <span class="kicker">Pressemitteilungen</span>
+            <h2 class="section-title display">Zuletzt <em>gemeldet</em></h2>
+          </div>
+          <a class="btn" href="presse.html">Alle Meldungen</a>
         </div>
-      </div>
-    </section>
-
-    <section id="aktuelles" class="section alt">
-      <div class="container">
-        <p class="eyebrow">Pressemitteilungen</p>
-        <h2>Aktuelles</h2>
-        <div id="news" class="news"></div>
+        <div class="news" id="news"></div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="stripe" aria-hidden="true"><span></span><span></span><span></span></div>
-    <div class="container footer-inner">
-      <div>
-        <strong>Bundesministerium für Inneres und Heimat</strong>
-        <p class="muted">Fiktives Ministerium im Rollenspiel „Bundestag Fiktiv“. Koalition aus NVP, BFD und FORUM.</p>
-      </div>
-      <div class="muted small">
-        <p><strong>Hinweis:</strong> Dies ist eine Rollenspiel-Seite. Sie ist nicht mit der Bundesregierung, einem Bundesministerium oder einer realen Partei verbunden und stellt kein echtes Regierungsangebot dar.</p>
-        <p><a href="admin.html">Verwaltung</a></p>
-      </div>
-    </div>
-  </footer>
-
-  <script src="assets/app.js"></script>
+  <script src="assets/layout.js"></script>
+  <script src="assets/common.js"></script>
+  <script src="assets/pages.js"></script>
 </body>
 </html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Maßnahmenplan · BMIH</title>
+  <meta name="description" content="Alle Maßnahmen der ersten 100 Tage mit Phase und aktuellem Stand.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0d1420">
+  <link rel="icon" href="assets/emblem.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="massnahmen">
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <span class="kicker">Zum Plan</span>
+        <h1>Der <em>100-Tage</em>-Plan</h1>
+        <p>Jede Maßnahme mit Phase, Zuständigkeit und Grundlage im Koalitionsvertrag. Der Stand wird von der Hausleitung laufend gepflegt.</p>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:40px">
+      <div class="container">
+        <div class="days reveal">
+          <div class="days-bar" id="days-bar" aria-hidden="true"></div>
+          <div class="days-legend"><span>1–10 · Sofort</span><span>Tag 11–50 · Gesetzgebung</span><span>Tag 51–100 · Umsetzung</span></div>
+        </div>
+
+        <div class="toolbar">
+          <div class="seg" role="group" aria-label="Ansicht">
+            <button type="button" data-view="board" aria-pressed="true">Board</button>
+            <button type="button" data-view="timeline" aria-pressed="false">Zeitstrahl</button>
+          </div>
+          <div class="seg" role="group" aria-label="Phase" id="phase-filter">
+            <button type="button" data-phase="" aria-pressed="true">Alle</button>
+            <button type="button" data-phase="Tag 1–10" aria-pressed="false">1–10</button>
+            <button type="button" data-phase="Tag 11–50" aria-pressed="false">11–50</button>
+            <button type="button" data-phase="Tag 51–100" aria-pressed="false">51–100</button>
+          </div>
+          <label class="search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <span class="sr-only">Suchen</span>
+            <input id="q" type="search" placeholder="Maßnahme oder Bereich suchen" autocomplete="off">
+          </label>
+        </div>
+
+        <div id="plan" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/layout.js"></script>
+  <script src="assets/common.js"></script>
+  <script src="assets/pages.js"></script>
+</body>
+</html>

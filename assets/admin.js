@@ -1,22 +1,16 @@
+// Verwaltung: Anmeldung per Benutzername/Passwort, Sitzung als HttpOnly-Cookie.
 (() => {
-  const PHASES = ['Tag 1–10', 'Tag 11–50', 'Tag 51–100'];
-  const STATUSES = ['Offen', 'In Arbeit', 'Im Kabinett', 'Abgeschlossen'];
-  const $ = (sel) => document.querySelector(sel);
-  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-  })[c]);
-
-  let token = sessionStorage.getItem('bmih-token') || '';
+  const { esc, fmtDate, PHASES, STATUSES, byDateDesc } = window.BMIH;
+  const $ = (s) => document.querySelector(s);
 
   async function api(method, path, body) {
     const res = await fetch(`/api/${path}`, {
       method,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
+      credentials: 'same-origin',
+      headers: body ? { 'Content-Type': 'application/json' } : {},
       body: body ? JSON.stringify(body) : undefined
     });
+    if (res.status === 401) { showLogin(); throw new Error('Sitzung abgelaufen. Bitte neu anmelden.'); }
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
       throw new Error(err.error || `Fehler ${res.status}`);
@@ -24,98 +18,153 @@
     return res.status === 204 ? null : res.json();
   }
 
-  function flash(el, text, ok = true) {
+  let flashTimer;
+  function flash(text, ok = true) {
+    const el = $('#msg');
     el.textContent = text;
     el.className = `msg ${ok ? 'ok' : 'err'}`;
-    setTimeout(() => { el.textContent = ''; }, 3000);
+    clearTimeout(flashTimer);
+    flashTimer = setTimeout(() => { el.textContent = ''; }, 3500);
   }
+  const run = (fn) => fn().catch((err) => flash(err.message, false));
 
   const options = (values, selected) => values
     .map((v) => `<option${v === selected ? ' selected' : ''}>${esc(v)}</option>`).join('');
 
-  async function renderList() {
-    const items = await api('GET', 'massnahmen');
-    $('#list').innerHTML = items.map((m) => `
-      <div class="row" data-id="${esc(m.id)}">
-        <strong>${esc(m.titel)}</strong>
-        <select data-field="phase">${options(PHASES, m.phase)}</select>
-        <select data-field="status">${options(STATUSES, m.status)}</select>
-        <button class="btn btn-danger" data-action="delete" type="button">Löschen</button>
-      </div>`).join('');
+  function showLogin() {
+    $('#app').hidden = true;
+    $('#login-view').hidden = false;
   }
 
-  async function enter() {
-    // Verify the token against a protected endpoint before showing the editor.
-    await api('GET', 'auth');
-    $('#login-panel').hidden = true;
+  async function renderMeasures() {
+    const items = await api('GET', 'massnahmen');
+    $('#m-list').innerHTML = items.length ? items.map((m) => `
+      <div class="row" data-id="${esc(m.id)}">
+        <strong>${esc(m.titel)}</strong>
+        <select data-field="phase" aria-label="Phase">${options(PHASES, m.phase)}</select>
+        <select data-field="status" aria-label="Status">${options(STATUSES, m.status)}</select>
+        <button class="btn btn-sm btn-danger" data-del="massnahmen" type="button">Löschen</button>
+      </div>`).join('') : '<div class="empty">Keine Maßnahmen.</div>';
+  }
+
+  async function renderNews() {
+    const items = (await api('GET', 'meldungen')).sort(byDateDesc);
+    $('#n-list').innerHTML = items.length ? items.map((n) => `
+      <div class="row" data-id="${esc(n.id)}" style="grid-template-columns:minmax(0,1fr) auto auto">
+        <strong>${esc(n.titel)}</strong>
+        <span class="mono muted">${fmtDate(n.datum)}</span>
+        <button class="btn btn-sm btn-danger" data-del="meldungen" type="button">Löschen</button>
+      </div>`).join('') : '<div class="empty">Keine Meldungen.</div>';
+  }
+
+  async function renderInbox() {
+    const items = (await api('GET', 'kontakt')).sort((a, b) => String(b.eingang).localeCompare(String(a.eingang)));
+    $('#inbox-count').textContent = items.length || '';
+    $('#inbox').innerHTML = items.length ? items.map((k) => `
+      <article class="mail row" data-id="${esc(k.id)}" style="grid-template-columns:minmax(0,1fr) auto">
+        <div>
+          <div class="mail-head"><strong>${esc(k.betreff)} · ${esc(k.name)}</strong><span>${esc(new Date(k.eingang).toLocaleString('de-DE'))}</span></div>
+          <a href="mailto:${encodeURIComponent(k.email).replace(/%40/g, '@')}">${esc(k.email)}</a>
+          <p>${esc(k.nachricht)}</p>
+        </div>
+        <button class="btn btn-sm btn-danger" data-del="kontakt" type="button">Erledigt</button>
+      </article>`).join('') : '<div class="empty">Keine neuen Nachrichten.</div>';
+  }
+
+  async function enter(session) {
+    $('#who').textContent = session.user;
+    $('#login-view').hidden = true;
     $('#app').hidden = false;
-    await renderList();
+    await Promise.all([renderMeasures(), renderNews(), renderInbox()]);
   }
 
   $('#login').addEventListener('submit', async (e) => {
     e.preventDefault();
-    token = $('#token').value.trim();
+    const msg = $('#login-msg');
+    const data = Object.fromEntries(new FormData(e.target));
     try {
-      await enter();
-      sessionStorage.setItem('bmih-token', token);
+      const session = await fetch('/api/login', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      }).then(async (r) => {
+        const body = await r.json().catch(() => ({}));
+        if (!r.ok) throw new Error(body.error || 'Anmeldung fehlgeschlagen');
+        return body;
+      });
+      e.target.reset();
+      msg.textContent = '';
+      await enter(session);
     } catch (err) {
-      flash($('#login-msg'), err.message, false);
+      msg.textContent = err.message;
+      msg.className = 'msg err';
     }
   });
 
-  $('#list').addEventListener('change', async (e) => {
+  $('#logout').addEventListener('click', () => run(async () => {
+    await api('POST', 'logout');
+    showLogin();
+  }));
+
+  document.querySelector('.tabs').addEventListener('click', (e) => {
+    const tab = e.target.closest('button')?.dataset.tab;
+    if (!tab) return;
+    document.querySelectorAll('.tabs button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.tab === tab)));
+    document.querySelectorAll('.tab').forEach((p) => { p.hidden = p.dataset.panel !== tab; });
+  });
+
+  $('#m-list').addEventListener('change', (e) => run(async () => {
     const field = e.target.dataset.field;
     if (!field) return;
     const id = e.target.closest('.row').dataset.id;
-    try {
-      await api('PUT', `massnahmen/${encodeURIComponent(id)}`, { [field]: e.target.value });
-      flash($('#list-msg'), 'Gespeichert.');
-    } catch (err) {
-      flash($('#list-msg'), err.message, false);
-    }
+    await api('PUT', `massnahmen/${encodeURIComponent(id)}`, { [field]: e.target.value });
+    flash('Gespeichert.');
+  }));
+
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-del]');
+    if (!btn) return;
+    const row = btn.closest('[data-id]');
+    const kind = btn.dataset.del;
+    if (kind !== 'kontakt' && !confirm(`„${row.querySelector('strong').textContent}“ wirklich löschen?`)) return;
+    run(async () => {
+      await api('DELETE', `${kind}/${encodeURIComponent(row.dataset.id)}`);
+      if (kind === 'massnahmen') await renderMeasures();
+      if (kind === 'meldungen') await renderNews();
+      if (kind === 'kontakt') await renderInbox();
+      flash(kind === 'kontakt' ? 'Nachricht gelöscht.' : 'Gelöscht.');
+    });
   });
 
-  $('#list').addEventListener('click', async (e) => {
-    if (e.target.dataset.action !== 'delete') return;
-    const row = e.target.closest('.row');
-    if (!confirm(`„${row.querySelector('strong').textContent}“ wirklich löschen?`)) return;
-    try {
-      await api('DELETE', `massnahmen/${encodeURIComponent(row.dataset.id)}`);
-      await renderList();
-      flash($('#list-msg'), 'Gelöscht.');
-    } catch (err) {
-      flash($('#list-msg'), err.message, false);
-    }
-  });
-
-  $('#new-measure').addEventListener('submit', async (e) => {
+  $('#m-new').addEventListener('submit', (e) => {
     e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.target));
-    try {
-      await api('POST', 'massnahmen', data);
+    run(async () => {
+      await api('POST', 'massnahmen', Object.fromEntries(new FormData(e.target)));
       e.target.reset();
-      await renderList();
-      flash($('#list-msg'), 'Maßnahme angelegt.');
-    } catch (err) {
-      flash($('#list-msg'), err.message, false);
-    }
+      await renderMeasures();
+      flash('Maßnahme angelegt.');
+    });
   });
 
-  $('#new-news').addEventListener('submit', async (e) => {
+  $('#n-new').addEventListener('submit', (e) => {
     e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.target));
-    try {
-      await api('POST', 'meldungen', data);
+    run(async () => {
+      await api('POST', 'meldungen', Object.fromEntries(new FormData(e.target)));
       e.target.reset();
-      flash($('#news-msg'), 'Pressemitteilung veröffentlicht.');
-    } catch (err) {
-      flash($('#news-msg'), err.message, false);
-    }
+      $('#n-new [name=datum]').valueAsDate = new Date();
+      await renderNews();
+      flash('Pressemitteilung veröffentlicht.');
+    });
   });
 
-  document.querySelector('#new-measure [name=phase]').innerHTML = options(PHASES);
-  document.querySelector('#new-measure [name=status]').innerHTML = options(STATUSES);
-  document.querySelector('#new-news [name=datum]').valueAsDate = new Date();
+  $('#m-new [name=phase]').innerHTML = options(PHASES);
+  $('#m-new [name=status]').innerHTML = options(STATUSES);
+  $('#n-new [name=datum]').valueAsDate = new Date();
 
-  if (token) enter().catch(() => sessionStorage.removeItem('bmih-token'));
+  // Bestehende Sitzung prüfen
+  fetch('/api/session', { credentials: 'same-origin' })
+    .then((r) => (r.ok ? r.json() : Promise.reject()))
+    .then(enter)
+    .catch(showLogin);
 })();

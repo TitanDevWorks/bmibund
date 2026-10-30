@@ -1,0 +1,36 @@
+.admin { padding: 48px 0 96px; }
+.login { min-height: 80vh; display: grid; place-items: center; }
+.login-card {
+  width: min(420px, 100%);
+  padding: 36px;
+  border-radius: 28px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, var(--ink-2), var(--ink-1));
+  box-shadow: 0 30px 80px oklch(0% 0 0 / 0.4);
+}
+.login-card img { margin-bottom: 24px; }
+.login-card h1 { font-size: 3rem; margin: 8px 0 24px; }
+.login-form { display: grid; gap: 14px; }
+.login-form .btn { justify-content: center; }
+.admin-head { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
+.admin-head h1 { font-size: clamp(2.6rem, 6vw, 4rem); margin-top: 8px; }
+.admin-user { display: flex; align-items: center; gap: 12px; color: var(--text-2); font-family: var(--mono); font-size: 0.85rem; }
+.tabs { margin-bottom: 8px; }
+.tabs b { margin-left: 4px; font-family: var(--mono); color: var(--red); }
+.panel { margin-top: 16px; padding: 20px; border-radius: var(--radius); border: 1px solid var(--line); background: var(--ink-1); }
+.panel.form { padding: 24px; }
+.panel h3 { font-size: 1.1rem; }
+.row { display: grid; grid-template-columns: minmax(0, 2.4fr) minmax(0, 1fr) minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.row:last-child { border-bottom: 0; }
+.row strong { font-weight: 600; }
+.row select { padding: 8px 10px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--ink-2); color: var(--text); font: inherit; }
+.btn-sm { padding: 8px 14px; font-size: 0.85rem; }
+.btn-danger { border-color: oklch(58% 0.21 25 / 0.5); color: oklch(75% 0.15 25); }
+.btn-danger:hover { background: oklch(58% 0.21 25 / 0.15); }
+.mail { padding: 18px 0; border-bottom: 1px solid var(--line); display: grid; gap: 6px; }
+.mail:last-child { border-bottom: 0; }
+.mail-head { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+.mail-head span { font-family: var(--mono); font-size: 0.78rem; color: var(--text-3); }
+.mail p { color: var(--text-2); white-space: pre-wrap; overflow-wrap: anywhere; }
+.mail a { color: var(--gold); }
+@media (max-width: 760px) { .row { grid-template-columns: minmax(0, 1fr); } }
