@@ -125,7 +125,25 @@
       <section class="tab" data-panel="einstellungen" hidden>
         <header class="work-head"><div><span class="kicker">Webseite</span><h1>Einstellungen</h1></div></header>
         <form class="panel form" id="settings">
-          <h2 class="full">Eilmeldung</h2>
+          <h2 class="full">Wartungsmodus</h2>
+          <label class="check full"><input type="checkbox" name="wartungAktiv"> Webseite sperren: Besucher sehen nur die Warteseite, Zugang nur mit Dev-Code</label>
+          <label class="field full">Überschrift der Warteseite <input name="wartungTitel" maxlength="120"></label>
+          <label class="field full">Text der Warteseite <textarea name="wartungText" rows="2" maxlength="400"></textarea></label>
+          <label class="field">Countdown bis (Datum) <input name="wartungDatum" type="date"></label>
+          <label class="field">Uhrzeit (deutsche Zeit) <input name="wartungZeit" type="time"></label>
+          <div class="full dev-code">
+            <p class="muted" id="dev-info">Dev-Code wird geladen …</p>
+            <div class="row-actions">
+              <button class="btn" type="button" id="dev-new">Neuen Dev-Code erzeugen</button>
+              <a class="btn" href="wartung.html" target="_blank" rel="noopener">Warteseite ansehen</a>
+            </div>
+            <div class="dev-show" id="dev-show" hidden>
+              <p><b>Neuer Dev-Code.</b> Er wird nur jetzt angezeigt und nirgends im Klartext gespeichert. Der alte Code gilt ab sofort nicht mehr.</p>
+              <code id="dev-value"></code>
+              <div class="row-actions"><button class="btn btn-primary" type="button" id="dev-copy">Kopieren</button><button class="btn" type="button" id="dev-hide">Ausblenden</button></div>
+            </div>
+          </div>
+          <h2 class="full" style="margin-top:12px">Eilmeldung</h2>
           <label class="check full"><input type="checkbox" name="eilmeldungAktiv"> Eilmeldung auf allen Seiten anzeigen</label>
           <label class="field full">Text der Eilmeldung <input name="eilmeldung" maxlength="300"></label>
           <div class="full eil-preview" id="eil-preview"><b>Eilmeldung</b><span></span></div>
@@ -146,7 +164,7 @@
         <header class="work-head"><div><span class="kicker">Nachvollziehbarkeit</span><h1>Protokoll</h1></div></header>
         <div class="toolbar">
           <input type="search" data-filter="q" placeholder="Suchen …" aria-label="Suchen">
-          <select data-filter="aktion" aria-label="Aktion"><option value="">Alle Aktionen</option><option>Angelegt</option><option>Geändert</option><option>Gelöscht</option><option>Anmeldung</option><option>Export</option></select>
+          <select data-filter="aktion" aria-label="Aktion"><option value="">Alle Aktionen</option><option>Angelegt</option><option>Geändert</option><option>Gelöscht</option><option>Anmeldung</option><option>Export</option><option>Wartungsmodus an</option><option>Wartungsmodus aus</option><option>Dev-Freischaltung</option><option>Dev-Code falsch</option><option>Dev-Code neu erzeugt</option></select>
         </div>
         <div class="table-wrap"><table class="table"><thead><tr><th>Zeit</th><th>Aktion</th><th>Bereich</th><th>Objekt</th><th>Benutzer</th></tr></thead><tbody id="list-protokoll"></tbody></table></div>
       </section>

@@ -312,8 +312,10 @@
       const form = $('#settings');
       const s = data.settings;
       form.eilmeldungAktiv.checked = Boolean(s.eilmeldungAktiv);
-      ['eilmeldung', 'heroTitel', 'heroText', 'ministerZitat', 'heroTitelEn', 'heroTextEn', 'ministerZitatEn'].forEach((k) => { form[k].value = s[k] || ''; });
+      form.wartungAktiv.checked = Boolean(s.wartungAktiv);
+      SETTINGS_TEXT.forEach((k) => { form[k].value = s[k] || ''; });
       preview();
+      run(loadDevInfo);
     },
 
     session() {
@@ -324,6 +326,32 @@
         <dt>Aktive Sitzungen</dt><dd>${esc(session.sitzungen ?? 1)}</dd>`;
     }
   };
+
+  const SETTINGS_TEXT = ['wartungTitel', 'wartungText', 'wartungDatum', 'wartungZeit', 'eilmeldung', 'heroTitel', 'heroText', 'ministerZitat', 'heroTitelEn', 'heroTextEn', 'ministerZitatEn'];
+
+  async function loadDevInfo() {
+    const info = await api('GET', 'gate/info');
+    const src = info.quelle === 'Verwaltung' ? 'in der Verwaltung erzeugt' : 'auf dem Server hinterlegt';
+    $('#dev-info').textContent = info.codeGesetzt
+      ? `Ein Dev-Code ist ${src}. Aktive Freischaltungen: ${info.freischaltungen}. Jede Freischaltung endet beim Schließen des Browsers oder nach 60 Minuten.`
+      : 'Noch kein Dev-Code gesetzt. Ohne Code kommt bei gesperrter Webseite niemand durch.';
+  }
+
+  $('#dev-new').addEventListener('click', () => {
+    if (!confirm('Neuen Dev-Code erzeugen? Der bisherige Code wird sofort ungültig und alle Freischaltungen enden.')) return;
+    run(async () => {
+      const { code } = await api('POST', 'gate/code', {});
+      $('#dev-value').textContent = code;
+      $('#dev-show').hidden = false;
+      toast('Neuer Dev-Code erzeugt.');
+      await loadDevInfo();
+      await refresh('protokoll');
+    });
+  });
+  $('#dev-copy').addEventListener('click', () => {
+    navigator.clipboard?.writeText($('#dev-value').textContent).then(() => toast('Kopiert.'), () => toast('Kopieren nicht möglich, bitte markieren.', false));
+  });
+  $('#dev-hide').addEventListener('click', () => { $('#dev-value').textContent = ''; $('#dev-show').hidden = true; });
 
   function preview() {
     const form = $('#settings');
@@ -430,9 +458,13 @@
   $('#settings').addEventListener('submit', (e) => {
     e.preventDefault();
     const form = e.currentTarget;
-    const body = { eilmeldungAktiv: form.eilmeldungAktiv.checked };
-    ['eilmeldung', 'heroTitel', 'heroText', 'ministerZitat', 'heroTitelEn', 'heroTextEn', 'ministerZitatEn'].forEach((k) => { body[k] = form[k].value.trim(); });
+    const body = { eilmeldungAktiv: form.eilmeldungAktiv.checked, wartungAktiv: form.wartungAktiv.checked };
+    SETTINGS_TEXT.forEach((k) => { body[k] = form[k].value.trim(); });
     if (body.eilmeldungAktiv && !body.eilmeldung) { toast('Bitte einen Text für die Eilmeldung eingeben.', false); return; }
+    if (body.wartungAktiv && !body.wartungTitel) { toast('Bitte eine Überschrift für die Warteseite eingeben.', false); return; }
+    if (body.wartungAktiv !== Boolean(data.settings.wartungAktiv) && !confirm(body.wartungAktiv
+      ? 'Webseite jetzt sperren? Besucher sehen nur noch die Warteseite.'
+      : 'Webseite jetzt freigeben? Alle sehen wieder die normalen Seiten.')) return;
     run(async () => { data.settings = await api('PUT', 'settings', body); toast('Einstellungen gespeichert.'); render.settings(); await refresh('protokoll'); });
   });
 

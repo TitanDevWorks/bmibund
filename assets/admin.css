@@ -135,3 +135,10 @@
   .dash-grid { grid-template-columns: minmax(0, 1fr); }
   .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* Wartungsmodus: einmalige Anzeige des neuen Dev-Codes */
+.dev-code { padding: 14px 16px; border: 1px solid var(--line); border-left: 4px solid var(--gold); border-radius: var(--radius); background: var(--bg-2); }
+.dev-code .muted { margin: 0; }
+.dev-show { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line-2); }
+.dev-show p { margin: 0 0 8px; font-size: 0.93rem; }
+.dev-show code { display: block; padding: 10px 12px; border-radius: var(--radius); background: #0f1216; color: #ffcc00; font: 600 0.95rem var(--mono); word-break: break-all; user-select: all; }
