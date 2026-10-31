@@ -637,3 +637,9 @@ a.track:hover { border-color: var(--brand); transform: translateY(-2px); box-sha
   .wait-clock span { font-size: 0.62rem; letter-spacing: 0.04em; }
 }
 @media (prefers-reduced-motion: reduce) { .wait::before, .wait::after { animation: none; } }
+
+/* Hinweisleiste für freigeschaltete Dev-Browser im Wartungsmodus */
+.devbar { position: sticky; top: 0; z-index: 60; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 16px; padding: 8px 16px; background: #ffcc00; color: #111; font-size: 0.88rem; }
+.devbar b { margin-right: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
+.devbar button { padding: 4px 12px; border: 2px solid #111; border-radius: var(--radius); background: #111; color: #ffcc00; font: 700 0.82rem var(--font); cursor: pointer; }
+.devbar button:hover { background: transparent; color: #111; }

@@ -156,6 +156,20 @@
 
   P.translate();
 
+  // Dev-Ansicht im Wartungsmodus: Hinweisleiste mit „Dev-Modus beenden“.
+  fetch('/api/gate/status', { cache: 'no-store' }).then((r) => (r.ok ? r.json() : null)).then((g) => {
+    if (!g || !g.aktiv || !g.frei) return;
+    const bar = document.createElement('div');
+    bar.className = 'devbar';
+    bar.setAttribute('role', 'status');
+    bar.innerHTML = `<span><b>${en ? 'Developer view' : 'Dev-Ansicht'}</b> ${en ? 'Maintenance mode is on. Visitors only see the waiting page.' : 'Wartungsmodus ist an. Besucher sehen nur die Warteseite.'}</span><button type="button">${en ? 'Exit developer mode' : 'Dev-Modus beenden'}</button>`;
+    bar.querySelector('button').addEventListener('click', () => {
+      fetch('/api/gate/lock', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: '{}' })
+        .finally(() => location.replace(`/wartung.html?ziel=${encodeURIComponent(location.pathname)}`));
+    });
+    document.body.prepend(bar);
+  }).catch(() => {});
+
   load('settings').then((s) => {
     if (s && s.eilmeldungAktiv && s.eilmeldung) {
       const eil = document.getElementById('eil');
