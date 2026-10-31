@@ -2,11 +2,11 @@
 // Alle Inhalte aus der API werden vor dem Einfügen mit esc() maskiert.
 (() => {
   const B = window.BMIH;
-  const { esc, fmtDate, PHASES, STATUSES, STATUS_KEY, NEWS_KIND, EVENT_KIND, byDateDesc, byDateAsc, progressOf, statusBadge, bar, fillBars } = B;
+  const { esc, fmtDate, PHASES, STATUSES, STATUS_KEY, NEWS_KIND, EVENT_KIND, LAW_STAGES, dueLabel, byDateDesc, byDateAsc, progressOf, statusBadge, bar, fillBars } = B;
   const $ = (s, root = document) => root.querySelector(s);
   const $$ = (s, root = document) => [...root.querySelectorAll(s)];
 
-  const data = { massnahmen: [], meldungen: [], termine: [], kontakt: [], protokoll: [], settings: {} };
+  const data = { massnahmen: [], meldungen: [], gesetze: [], termine: [], kontakt: [], protokoll: [], settings: {} };
   const filters = {};
   let session = null;
   let tab = 'dashboard';
@@ -75,6 +75,21 @@
       ],
       blank: () => ({ datum: B.today(), kategorie: 'Pressemitteilung', status: 'Entwurf' })
     },
+    gesetze: {
+      label: 'Gesetz',
+      fields: [
+        { k: 'titel', l: 'Titel des Gesetzes', req: true, max: 200, full: true },
+        { k: 'kurz', l: 'Kurzbezeichnung', max: 40, ph: 'z. B. RückfG' },
+        { k: 'stand', l: 'Stand im Verfahren', t: 'select', opts: LAW_STAGES, req: true },
+        { k: 'zieltag', l: 'Zieltag (1–100)', t: 'number', min: 1, maxv: 100 },
+        { k: 'bereich', l: 'Bereich', max: 80, list: 'bereiche' },
+        { k: 'ziel', l: 'Ziel', t: 'textarea', max: 600, rows: 3, full: true },
+        { k: 'kernpunkte', l: 'Kernpunkte (eine Zeile pro Punkt)', t: 'textarea', max: 3000, rows: 5, full: true },
+        { k: 'naechsterSchritt', l: 'Nächster Schritt', max: 200, full: true },
+        { k: 'grundlage', l: 'Grundlage', max: 120, ph: 'Koalitionsvertrag Art. …', full: true }
+      ],
+      blank: () => ({ stand: 'In Vorbereitung' })
+    },
     termine: {
       label: 'Termin',
       fields: [
@@ -91,7 +106,7 @@
 
   function fieldHtml(f, v) {
     const val = v ?? '';
-    const attrs = `name="${f.k}"${f.req ? ' required' : ''}${f.max ? ` maxlength="${f.max}"` : ''}${f.ph ? ` placeholder="${esc(f.ph)}"` : ''}`;
+    const attrs = `name="${f.k}"${f.req ? ' required' : ''}${f.max ? ` maxlength="${f.max}"` : ''}${f.ph ? ` placeholder="${esc(f.ph)}"` : ''}${f.min ? ` min="${f.min}" max="${f.maxv}"` : ''}`;
     let input;
     if (f.t === 'select') input = `<select ${attrs}>${options(f.opts, val)}</select>`;
     else if (f.t === 'textarea') input = `<textarea ${attrs} rows="${f.rows || 4}">${esc(val)}</textarea>`;
@@ -123,7 +138,7 @@
     const body = {};
     FIELDS[col].fields.forEach((f) => {
       const v = form.elements[f.k].value;
-      body[f.k] = f.t === 'range' ? Number(v) : v.trim();
+      body[f.k] = f.t === 'range' || (f.t === 'number' && v !== '') ? Number(v) : v.trim();
     });
     if (!id) Object.keys(body).forEach((k) => { if (body[k] === '') delete body[k]; });
     const save = form.querySelector('button[type=submit]');
@@ -140,7 +155,7 @@
   // --- Laden -----------------------------------------------------------------
 
   async function refresh(...cols) {
-    const all = cols.length ? cols : ['massnahmen', 'meldungen', 'termine', 'kontakt', 'protokoll', 'settings'];
+    const all = cols.length ? cols : ['massnahmen', 'meldungen', 'gesetze', 'termine', 'kontakt', 'protokoll', 'settings'];
     await Promise.all(all.map(async (c) => {
       if (c === 'protokoll') data.protokoll = await api('GET', 'audit');
       else if (c === 'settings') data.settings = await api('GET', 'settings');
@@ -157,6 +172,7 @@
     render.dashboard();
     render.massnahmen();
     render.meldungen();
+    render.gesetze();
     render.termine();
     render.kontakt();
     render.protokoll();
@@ -176,7 +192,7 @@
         ['Abgeschlossen', ms.filter((m) => m.status === 'Abgeschlossen').length, 'var(--s-fertig)'],
         ['Umsetzung', `${avg} %`, 'var(--gold)'],
         ['Ungelesen', data.kontakt.filter((k) => !k.gelesen).length, 'var(--red)'],
-        ['Entwürfe', data.meldungen.filter((n) => n.status === 'Entwurf').length, 'var(--s-kabinett)']
+        ['Gesetze im Verfahren', data.gesetze.filter((g) => !['Verkündet', 'Gestoppt'].includes(g.stand)).length, 'var(--s-kabinett)']
       ];
       $('#dash-kpis').innerHTML = kpis.map(([l, v, c]) => `<div class="kpi-card" style="--c:${c}"><b>${esc(v)}</b><span>${esc(l)}</span></div>`).join('');
       $('#dash-day').textContent = `Amtstag ${B.DAY} von 100 · ${fmtDate(t)}`;
@@ -227,6 +243,20 @@
           <td class="actions"><button class="btn btn-sm" type="button" data-publish="${draft ? 'Veröffentlicht' : 'Entwurf'}">${draft ? 'Veröffentlichen' : 'Zurückziehen'}</button> ${editBtns('meldungen')}</td>
         </tr>`;
       }).join('') : emptyRow(5, 'Keine Meldungen gefunden.');
+    },
+
+    gesetze() {
+      const f = filters.gesetze || {};
+      const list = data.gesetze.slice().sort((a, b) => (a.zieltag || 999) - (b.zieltag || 999))
+        .filter((g) => (!f.stand || g.stand === f.stand) && match(g, f.q, ['titel', 'kurz', 'ziel', 'kernpunkte', 'bereich']));
+      $('#list-gesetze').innerHTML = list.length ? list.map((g) => `
+        <tr data-id="${esc(g.id)}">
+          <td class="title">${esc(g.titel)}<small>${esc([g.kurz, g.bereich].filter(Boolean).join(' · '))}</small></td>
+          <td><select class="inline" data-field="stand" aria-label="Stand">${options(LAW_STAGES, g.stand)}</select></td>
+          <td class="nowrap">${g.zieltag ? `Tag ${g.zieltag}<br><small class="muted">${esc(dueLabel(g.zieltag, g.stand))}</small>` : '–'}</td>
+          <td>${esc(g.naechsterSchritt || '–')}</td>
+          <td class="actions">${editBtns('gesetze')}</td>
+        </tr>`).join('') : emptyRow(5, 'Keine Gesetze gefunden.');
     },
 
     termine() {
@@ -282,7 +312,7 @@
       const form = $('#settings');
       const s = data.settings;
       form.eilmeldungAktiv.checked = Boolean(s.eilmeldungAktiv);
-      ['eilmeldung', 'heroTitel', 'heroText', 'ministerZitat'].forEach((k) => { form[k].value = s[k] || ''; });
+      ['eilmeldung', 'heroTitel', 'heroText', 'ministerZitat', 'heroTitelEn', 'heroTextEn', 'ministerZitatEn'].forEach((k) => { form[k].value = s[k] || ''; });
       preview();
     },
 
@@ -386,13 +416,22 @@
   $('[data-panel="massnahmen"] [data-filter="phase"]').insertAdjacentHTML('beforeend', options(PHASES));
   $('[data-panel="massnahmen"] [data-filter="status"]').insertAdjacentHTML('beforeend', options(STATUSES));
   $('[data-panel="meldungen"] [data-filter="kategorie"]').insertAdjacentHTML('beforeend', options(NEWS_KIND));
+  $('[data-panel="gesetze"] [data-filter="stand"]').insertAdjacentHTML('beforeend', options(LAW_STAGES));
+
+  // Stand eines Gesetzes direkt in der Tabelle ändern
+  $('#list-gesetze').addEventListener('change', (e) => {
+    const sel = e.target.closest('select[data-field]');
+    if (!sel) return;
+    const id = sel.closest('[data-id]').dataset.id;
+    run(async () => { await api('PUT', `gesetze/${encodeURIComponent(id)}`, { stand: sel.value }); toast('Stand gespeichert.'); await refresh('gesetze'); });
+  });
 
   $('#settings').addEventListener('input', preview);
   $('#settings').addEventListener('submit', (e) => {
     e.preventDefault();
     const form = e.currentTarget;
     const body = { eilmeldungAktiv: form.eilmeldungAktiv.checked };
-    ['eilmeldung', 'heroTitel', 'heroText', 'ministerZitat'].forEach((k) => { body[k] = form[k].value.trim(); });
+    ['eilmeldung', 'heroTitel', 'heroText', 'ministerZitat', 'heroTitelEn', 'heroTextEn', 'ministerZitatEn'].forEach((k) => { body[k] = form[k].value.trim(); });
     if (body.eilmeldungAktiv && !body.eilmeldung) { toast('Bitte einen Text für die Eilmeldung eingeben.', false); return; }
     run(async () => { data.settings = await api('PUT', 'settings', body); toast('Einstellungen gespeichert.'); render.settings(); await refresh('protokoll'); });
   });

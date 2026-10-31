@@ -1,41 +1,70 @@
 // Seitenlogik, gesteuert über <body data-page="...">.
 (() => {
   const B = window.BMIH;
-  const { esc, fmtDate, load, byDateDesc, byDateAsc, progressOf, measureItem, measureCard, newsTeaser, eventItem, reveal, countUp, transition, PHASES, STATUSES, STATUS_KEY, NEWS_KIND, DAY } = B;
+  const { esc, fmtDate, load, byDateDesc, byDateAsc, progressOf, measureItem, measureCard, newsTeaser, eventItem, lawItem, lawSteps, dueLabel, zday, reveal, countUp, transition, PHASES, STATUSES, STATUS_KEY, NEWS_KIND, LAW_STAGES, DAY, t, tPhase, P } = B;
   const $ = (s) => document.querySelector(s);
-  const empty = (text) => `<div class="empty">${esc(text)}</div>`;
-  const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
-  const fillOptions = (select, values) => {
-    select.insertAdjacentHTML('beforeend', values.map((v) => `<option>${esc(v)}</option>`).join(''));
+  const decode = (x) => { try { return decodeURIComponent(x); } catch (_) { return ''; } };
+  const empty = (text) => `<div class="empty">${esc(t(text))}</div>`;
+  const plural = (n, one, many) => `${n} ${t(n === 1 ? one : many)}`;
+  // Werte bleiben deutsch (wie in der Datenbank), angezeigt wird die Übersetzung.
+  const fillOptions = (select, values, label = t) => {
+    select.insertAdjacentHTML('beforeend', values.map((v) => `<option value="${esc(v)}">${esc(label(v))}</option>`).join(''));
   };
 
   function upcoming(events, limit) {
-    const t = B.today();
-    return events.filter((e) => e.datum >= t).sort(byDateAsc).slice(0, limit);
+    const now = B.today();
+    return events.filter((e) => e.datum >= now).sort(byDateAsc).slice(0, limit);
   }
 
   async function applySettings() {
     const s = await load('settings').catch(() => null);
     if (!s) return;
     const set = (sel, v) => { const el = $(sel); if (el && v) el.textContent = v; };
-    set('#hero-title', s.heroTitel);
-    set('#hero-text', s.heroText);
-    set('#quote', s.ministerZitat);
+    const en = P.lang === 'en';
+    set('#hero-title', (en && s.heroTitelEn) || s.heroTitel);
+    set('#hero-text', (en && s.heroTextEn) || s.heroText);
+    set('#quote', (en && s.ministerZitatEn) || s.ministerZitat);
   }
 
   function topicCounts(ms) {
     document.querySelectorAll('#topics .topic[data-bereich]').forEach((tile) => {
       const n = ms.filter((m) => m.bereich === tile.dataset.bereich).length;
-      tile.querySelector('.count').textContent = n ? `${plural(n, 'Maßnahme', 'Maßnahmen')} im Plan` : '';
+      tile.querySelector('.count').textContent = n ? `${plural(n, 'Maßnahme', 'Maßnahmen')} ${t('im Plan')}` : '';
     });
+  }
+
+  // Countdown bis zum nächsten Termin (Berliner Zeit, ohne Uhrzeit = 9 Uhr).
+  function startCountdown(ev) {
+    const box = $('#countdown');
+    if (!box || !ev) return;
+    const [y, mo, d] = ev.datum.split('-').map(Number);
+    const [h, mi] = (ev.zeit || '09:00').split(':').map(Number);
+    // Berlin ist UTC+1 (Winter) bzw. UTC+2 (Sommer); Abweichung über Intl bestimmen.
+    const guess = Date.UTC(y, mo - 1, d, h, mi);
+    const berlin = new Date(new Date(guess).toLocaleString('en-US', { timeZone: 'Europe/Berlin' }));
+    const utc = new Date(new Date(guess).toLocaleString('en-US', { timeZone: 'UTC' }));
+    const target = guess - (berlin - utc);
+    const tick = () => {
+      const left = target - Date.now();
+      if (left < -2 * 3600000) { box.hidden = true; return; }
+      const dd = Math.floor(left / 86400000);
+      const hh = Math.floor((left % 86400000) / 3600000);
+      const mm = Math.floor((left % 3600000) / 60000);
+      const when = left <= 0 ? esc(t('läuft gerade'))
+        : `<b>${dd}</b> ${esc(P.lang === 'en' ? (dd === 1 ? 'day' : 'days') : (dd === 1 ? 'Tag' : 'Tage'))} <b>${hh}</b> ${esc(t('Std.'))} <b>${mm}</b> ${esc(t('Min.'))}`;
+      box.innerHTML = `<span>${esc(P.lang === 'en' ? 'Next:' : 'Nächster Termin:')} <strong>${esc(ev.titel)}</strong></span><span>${left > 0 ? 'in ' : ''}${when}</span>`;
+      box.hidden = false;
+    };
+    tick();
+    setInterval(tick, 30000);
   }
 
   const pages = {
     async start() {
       applySettings();
-      const [ms, news, events] = await Promise.all([load('massnahmen'), load('meldungen'), load('termine')]);
+      const [ms, news, events, laws] = await Promise.all([load('massnahmen'), load('meldungen'), load('termine'), load('gesetze').catch(() => [])]);
 
-      $('#sb-date').textContent = `Stand ${fmtDate(B.today())}`;
+      $('#sb-date').textContent = `${t('Stand')} ${fmtDate(B.today())}`;
       countUp($('#day-num'), DAY);
       const dayBar = $('#day-bar');
       dayBar.dataset.p = DAY;
@@ -57,18 +86,29 @@
       const n = upcoming(events).length;
       $('#events-count').textContent = n ? `${plural(n, 'anstehender Termin', 'anstehende Termine')}` : '';
       topicCounts(ms);
+
+      const open = laws.map((g) => ({ ...g, zieltag: zday(g.zieltag) })).filter((g) => g.stand !== 'Gestoppt').sort((a, b) => (a.zieltag || 999) - (b.zieltag || 999)).slice(0, 6);
+      $('#laws').innerHTML = open.length ? open.map((g) => `
+        <a class="track reveal" href="gesetze.html#g-${esc(g.id)}">
+          <div class="meta">${g.kurz ? `<span class="tag">${esc(g.kurz)}</span>` : ''}${g.zieltag ? `<span>${esc(t('Zieltag'))} ${g.zieltag} · ${esc(dueLabel(g.zieltag, g.stand))}</span>` : ''}</div>
+          <h3>${esc(g.titel)}</h3>
+          ${lawSteps(g.stand)}
+          <span class="status" data-s="${g.stand === 'Verkündet' ? 'fertig' : 'arbeit'}">${esc(t(g.stand))}</span>
+        </a>`).join('') : empty('Noch keine Gesetzesvorhaben.');
+
+      startCountdown(upcoming(events, 1)[0]);
       reveal();
     },
 
     async massnahmen() {
       const ms = await load('massnahmen');
       const params = new URLSearchParams(location.search);
-      const hashId = () => (location.hash.startsWith('#m-') ? decodeURIComponent(location.hash.slice(3)) : '');
+      const hashId = () => (location.hash.startsWith('#m-') ? decode(location.hash.slice(3)) : '');
       const state = { view: 'liste', q: '', phase: '', status: '', bereich: '', openId: hashId() };
       const bereiche = [...new Set(ms.map((m) => m.bereich).filter(Boolean))].sort();
-      fillOptions($('#f-phase'), PHASES);
+      fillOptions($('#f-phase'), PHASES, tPhase);
       fillOptions($('#f-status'), STATUSES);
-      fillOptions($('#f-bereich'), bereiche);
+      fillOptions($('#f-bereich'), bereiche, (x) => x);
       if (bereiche.includes(params.get('bereich'))) state.bereich = $('#f-bereich').value = params.get('bereich');
 
       const filtered = () => {
@@ -82,7 +122,7 @@
       function render() {
         const list = filtered();
         const root = $('#plan');
-        $('#info').textContent = `${plural(list.length, 'Maßnahme', 'Maßnahmen')} von ${ms.length}`;
+        $('#info').textContent = `${plural(list.length, 'Maßnahme', 'Maßnahmen')} ${t('von')} ${ms.length}`;
         if (!list.length) { root.innerHTML = empty('Keine Maßnahmen für diese Auswahl.'); return; }
         const openId = state.openId;
         state.openId = '';
@@ -90,16 +130,16 @@
         if (state.view === 'board') {
           root.innerHTML = `<div class="board">${STATUSES.map((s) => {
             const lane = list.filter((m) => m.status === s);
-            return `<section class="lane" aria-label="${esc(s)}">
-              <div class="lane-head"><span class="status" data-s="${STATUS_KEY[s]}">${esc(s)}</span><b>${lane.length}</b></div>
-              ${lane.length ? lane.map(measureCard).join('') : '<div class="lane-empty">Keine Einträge</div>'}
+            return `<section class="lane" aria-label="${esc(t(s))}">
+              <div class="lane-head"><span class="status" data-s="${STATUS_KEY[s]}">${esc(t(s))}</span><b>${lane.length}</b></div>
+              ${lane.length ? lane.map(measureCard).join('') : `<div class="lane-empty">${esc(t('Keine Einträge'))}</div>`}
             </section>`;
           }).join('')}</div>`;
         } else if (state.view === 'phasen') {
           root.innerHTML = `<div class="phases">${PHASES.map((p) => {
             const group = list.filter((m) => m.phase === p);
             if (!group.length) return '';
-            return `<section class="phase"><h3>${esc(p)} <span>${plural(group.length, 'Maßnahme', 'Maßnahmen')}</span></h3>
+            return `<section class="phase"><h3>${esc(tPhase(p))} <span>${plural(group.length, 'Maßnahme', 'Maßnahmen')}</span></h3>
               <div class="m-list">${group.map((m) => measureItem(m, m.id === openId)).join('')}</div></section>`;
           }).join('')}</div>`;
         } else {
@@ -109,7 +149,7 @@
       }
 
       $('#filters').addEventListener('submit', (e) => e.preventDefault());
-      $('[aria-label="Ansicht"]').addEventListener('click', (e) => {
+      $('#filters .seg').addEventListener('click', (e) => {
         const v = e.target.closest('button')?.dataset.view;
         if (!v) return;
         state.view = v;
@@ -124,13 +164,43 @@
         if (!id) return;
         state.view = 'liste';
         state.openId = id;
-        $('[aria-label="Ansicht"]').querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === 'liste')));
+        $('#filters .seg').querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === 'liste')));
         render();
         document.getElementById(`m-${id}`)?.scrollIntoView();
       }
       addEventListener('hashchange', showHash);
       render();
       showHash();
+    },
+
+    async gesetze() {
+      const laws = (await load('gesetze')).map((g) => ({ ...g, zieltag: zday(g.zieltag) })).sort((a, b) => (a.zieltag || 999) - (b.zieltag || 999));
+      const state = { q: '', stand: '' };
+      fillOptions($('#f-stand'), LAW_STAGES);
+      document.querySelector('.filters').addEventListener('submit', (e) => e.preventDefault());
+
+      // Zeitachse: Pins an ihrem Zieltag, abwechselnd oben und unten gegen Überlappung.
+      const map = $('#roadmap');
+      const pins = laws.filter((g) => g.zieltag).map((g, i) =>
+        `<a class="pin${i % 2 ? ' alt' : ''}" href="#g-${esc(g.id)}" style="left:${g.zieltag}%" title="${esc(g.titel)}"><b>${esc(g.kurz || g.titel.slice(0, 14))}</b>${esc(t('Tag'))} ${g.zieltag}</a>`).join('');
+      map.innerHTML = `<div class="axis"><i data-p="${DAY}" style="--full:${(100 / Math.max(DAY, 1)) * 100}%"></i></div>
+        <span class="today" style="left:${DAY}%" title="${esc(t('heute'))}"></span>${pins}
+        <div class="ticks"><span>${esc(t('Tag'))} 1</span><span>${esc(t('Tag'))} 25</span><span>${esc(t('Tag'))} 50</span><span>${esc(t('Tag'))} 75</span><span>${esc(t('Tag'))} 100</span></div>`;
+      requestAnimationFrame(() => requestAnimationFrame(() => { map.querySelector('.axis i').style.width = `${DAY}%`; }));
+
+      function render() {
+        const q = state.q.trim().toLowerCase();
+        const list = laws.filter((g) => (!state.stand || g.stand === state.stand)
+          && (!q || [g.titel, g.kurz, g.ziel, g.kernpunkte, g.bereich].join(' ').toLowerCase().includes(q)));
+        const word = P.lang === 'en' ? (list.length === 1 ? 'bill' : 'bills') : (list.length === 1 ? 'Gesetz' : 'Gesetze');
+        $('#info').textContent = `${list.length} ${word} ${t('von')} ${laws.length}`;
+        $('#laws').innerHTML = list.length ? list.map(lawItem).join('') : empty('Noch keine Gesetzesvorhaben.');
+        reveal($('#laws'));
+      }
+      $('#f-stand').addEventListener('change', (e) => { state.stand = e.target.value; render(); });
+      $('#q').addEventListener('input', (e) => { state.q = e.target.value; render(); });
+      render();
+      if (location.hash.startsWith('#g-')) document.getElementById(location.hash.slice(1))?.scrollIntoView();
     },
 
     async ministerium() {
@@ -156,7 +226,7 @@
           && (!q || `${n.titel} ${n.text}`.toLowerCase().includes(q)));
         $('#news').innerHTML = list.length ? list.map((n) => `
           <article class="press-item reveal" id="${esc(n.id)}">
-            <div class="meta" style="flex-direction:column;align-items:flex-start"><time datetime="${esc(n.datum)}">${fmtDate(n.datum)}</time><span class="tag">${esc(n.kategorie || 'Pressemitteilung')}</span></div>
+            <div class="meta" style="flex-direction:column;align-items:flex-start"><time datetime="${esc(n.datum)}">${fmtDate(n.datum)}</time><span class="tag">${esc(t(n.kategorie || 'Pressemitteilung'))}</span></div>
             <div><h2>${esc(n.titel)}</h2><p>${esc(n.text)}</p></div>
           </article>`).join('') : empty('Keine Meldungen gefunden.');
         reveal();
@@ -164,14 +234,14 @@
       $('#f-kat').addEventListener('change', (e) => { state.kat = e.target.value; render(); });
       $('#q').addEventListener('input', (e) => { state.q = e.target.value; render(); });
       render();
-      if (location.hash) document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView();
+      if (location.hash) document.getElementById(decode(location.hash.slice(1)))?.scrollIntoView();
     },
 
     async termine() {
       const events = await load('termine');
-      const t = B.today();
-      const next = events.filter((e) => e.datum >= t).sort(byDateAsc);
-      const past = events.filter((e) => e.datum < t).sort(byDateAsc).reverse();
+      const now = B.today();
+      const next = events.filter((e) => e.datum >= now).sort(byDateAsc);
+      const past = events.filter((e) => e.datum < now).sort(byDateAsc).reverse();
       $('#upcoming').innerHTML = next.length ? next.map(eventItem).join('') : empty('Keine anstehenden Termine.');
       $('#past').innerHTML = past.length ? past.map(eventItem).join('') : empty('Noch keine vergangenen Termine.');
       reveal();
@@ -189,7 +259,7 @@
         const btn = form.querySelector('button[type=submit]');
         btn.disabled = true;
         msg.className = 'msg';
-        msg.textContent = 'Wird gesendet …';
+        msg.textContent = t('Wird gesendet …');
         try {
           const data = Object.fromEntries(new FormData(form));
           delete data.ok;
@@ -199,13 +269,13 @@
             body: JSON.stringify(data)
           });
           const body = await res.json().catch(() => ({}));
-          if (!res.ok) throw new Error(body.error || 'Senden fehlgeschlagen.');
+          if (!res.ok) throw new Error(body.error || t('Senden fehlgeschlagen.'));
           form.reset();
           msg.className = 'msg ok';
-          msg.textContent = 'Vielen Dank. Ihre Nachricht ist eingegangen.';
+          msg.textContent = t('Vielen Dank. Ihre Nachricht ist eingegangen.');
         } catch (err) {
           msg.className = 'msg err';
-          msg.textContent = err instanceof TypeError ? 'Server nicht erreichbar. Bitte später erneut versuchen.' : err.message;
+          msg.textContent = err instanceof TypeError ? t('Server nicht erreichbar. Bitte später erneut versuchen.') : err.message;
         } finally {
           btn.disabled = false;
         }
@@ -217,7 +287,7 @@
   if (page) {
     Promise.resolve(page()).catch((err) => {
       console.error(err);
-      const target = $('#plan') || $('#news') || $('#current') || $('#upcoming') || $('#events');
+      const target = $('#plan') || $('#laws') || $('#news') || $('#current') || $('#upcoming') || $('#events');
       if (target) target.innerHTML = empty('Daten konnten nicht geladen werden.');
     });
   }

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "vs-neuordnungsgesetz",
+    "titel": "Gesetz zur Neuordnung des Verfassungsschutzes",
+    "kurz": "VSNeuOG",
+    "stand": "Referentenentwurf",
+    "zieltag": 30,
+    "bereich": "Verfassungsschutz",
+    "ziel": "Der Verfassungsschutz konzentriert sich auf konkrete Gefahren: Terrorismus, Spionage und gewaltbereiten Extremismus. Die Bewertung politischer Parteien endet.",
+    "kernpunkte": "Klarer Gefahrenbezug als Voraussetzung für Beobachtung\nKeine Einstufung politischer Parteien durch das Bundesamt\nGestärkte Kontrolle durch das Parlamentarische Kontrollgremium\nGerichtlicher Rechtsschutz gegen Einstufungen",
+    "naechsterSchritt": "Ressortabstimmung, danach Kabinettsbeschluss",
+    "grundlage": "Koalitionsvertrag Art. 5.4, Art. 13 Nr. 97"
+  },
+  {
+    "id": "rueckfuehrungsgesetz",
+    "titel": "Gesetz zur Beschleunigung von Asylverfahren und Rückführungen",
+    "kurz": "RückfG",
+    "stand": "In Vorbereitung",
+    "zieltag": 40,
+    "bereich": "Migration",
+    "ziel": "Asylverfahren werden schneller abgeschlossen, vollziehbare Ausreisepflichten werden konsequent durchgesetzt.",
+    "kernpunkte": "Verkürzte Fristen in Asyl- und Gerichtsverfahren\nVorrang für Rückführung straffällig gewordener Personen\nNeue Rückübernahmeabkommen mit Herkunftsstaaten\nBundesweite Task Force Rückführung",
+    "naechsterSchritt": "Entwurf ins Kabinett",
+    "grundlage": "Koalitionsvertrag Art. 5.1 Nr. 21–25"
+  },
+  {
+    "id": "grenzschutzgesetz",
+    "titel": "Gesetz zur Sicherung der Binnengrenzen",
+    "kurz": "GrenzSG",
+    "stand": "In Vorbereitung",
+    "zieltag": 45,
+    "bereich": "Migration",
+    "ziel": "Dauerhafte Grenzkontrollen bekommen eine feste gesetzliche Grundlage, die Bundespolizei erhält dafür Personal und Technik.",
+    "kernpunkte": "Rechtsgrundlage für dauerhafte Kontrollen an den Binnengrenzen\nZurückweisung bei unerlaubter Einreise\nMehr Stellen und moderne Technik für die Bundespolizei",
+    "naechsterSchritt": "Referentenentwurf erstellen",
+    "grundlage": "Koalitionsvertrag Art. 5.1 Nr. 26"
+  },
+  {
+    "id": "ngo-transparenzgesetz",
+    "titel": "Gesetz über die Transparenz staatlich geförderter Organisationen",
+    "kurz": "NGO-TranspG",
+    "stand": "In Vorbereitung",
+    "zieltag": 50,
+    "bereich": "Staat & Verwaltung",
+    "ziel": "Wer Bundesmittel erhält, legt offen, woher sein Geld kommt und wofür er es verwendet.",
+    "kernpunkte": "Öffentliches Register aller Zuwendungen des Bundes\nOffenlegung von Finanzierungsquellen ab einer Schwelle\nJährlicher Bericht zur Mittelverwendung",
+    "naechsterSchritt": "Eckpunkte vorlegen",
+    "grundlage": "Koalitionsvertrag Art. 13 Nr. 98"
+  },
+  {
+    "id": "bevoelkerungsschutzgesetz",
+    "titel": "Gesetz zur Stärkung des Bevölkerungsschutzes",
+    "kurz": "BevSchStG",
+    "stand": "In Vorbereitung",
+    "zieltag": 80,
+    "bereich": "Heimat & Bevölkerungsschutz",
+    "ziel": "Deutschland wird krisenfester: mehr Mittel für THW, Katastrophenschutz und den Schutz kritischer Infrastruktur.",
+    "kernpunkte": "Mehrjährige Finanzierung für THW und Katastrophenschutz\nMindeststandards zum Schutz kritischer Infrastruktur\nAnerkennung und Freistellung für Ehrenamtliche",
+    "naechsterSchritt": "Abstimmung mit den Ländern",
+    "grundlage": "Koalitionsvertrag Art. 12 Nr. 88–90"
+  }
+]

@@ -6,30 +6,31 @@
   <title>Maßnahmenplan · Bundesministerium für Inneres und Heimat</title>
   <meta name="description" content="Alle Maßnahmen der ersten 100 Tage mit Phase, Zuständigkeit, Frist und aktuellem Stand.">
   <meta name="robots" content="noindex, nofollow">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#000000">
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  <script src="assets/prefs.js"></script>
   <link rel="stylesheet" href="assets/style.css">
 </head>
-<body data-page="massnahmen">
+<body data-page="massnahmen" data-title-en="Action plan · Federal Ministry of the Interior and Homeland">
   <main id="main">
     <section class="page-head">
       <div class="container">
-        <span class="kicker">Die ersten 100 Tage</span>
-        <h1>Maßnahmenplan</h1>
-        <p>Jede Maßnahme mit Phase, Zuständigkeit und Grundlage im Koalitionsvertrag. Der Stand wird von der Hausleitung laufend gepflegt.</p>
+        <span class="kicker" data-en="The first 100 days">Die ersten 100 Tage</span>
+        <h1 data-en="Action plan">Maßnahmenplan</h1>
+        <p data-en="Every measure with its phase, responsible unit and basis in the coalition agreement. Progress is updated continuously by the ministry's leadership.">Jede Maßnahme mit Phase, Zuständigkeit und Grundlage im Koalitionsvertrag. Der Stand wird von der Hausleitung laufend gepflegt.</p>
       </div>
     </section>
     <section class="section" style="padding-top:32px">
       <div class="container">
         <form class="filters" id="filters" role="search">
-          <label class="field grow">Suche <input id="q" type="search" placeholder="Titel, Bereich oder Beschreibung" autocomplete="off"></label>
-          <label class="field">Phase <select id="f-phase"><option value="">Alle Phasen</option></select></label>
-          <label class="field">Status <select id="f-status"><option value="">Alle Status</option></select></label>
-          <label class="field">Bereich <select id="f-bereich"><option value="">Alle Bereiche</option></select></label>
-          <div class="seg" role="group" aria-label="Ansicht">
-            <button type="button" data-view="liste" aria-pressed="true">Liste</button>
-            <button type="button" data-view="board" aria-pressed="false">Board</button>
-            <button type="button" data-view="phasen" aria-pressed="false">Phasen</button>
+          <label class="field grow"><span data-en="Search">Suche</span> <input id="q" type="search" placeholder="Titel, Bereich oder Beschreibung" data-en-placeholder="Title, area or description" autocomplete="off"></label>
+          <label class="field"><span data-en="Phase">Phase</span> <select id="f-phase"><option value="" data-en="All phases">Alle Phasen</option></select></label>
+          <label class="field"><span data-en="Status">Status</span> <select id="f-status"><option value="" data-en="All statuses">Alle Status</option></select></label>
+          <label class="field"><span data-en="Area">Bereich</span> <select id="f-bereich"><option value="" data-en="All areas">Alle Bereiche</option></select></label>
+          <div class="seg" role="group" aria-label="Ansicht" data-en-label="View">
+            <button type="button" data-view="liste" aria-pressed="true" data-en="List">Liste</button>
+            <button type="button" data-view="board" aria-pressed="false" data-en="Board">Board</button>
+            <button type="button" data-view="phasen" aria-pressed="false" data-en="Phases">Phasen</button>
           </div>
         </form>
         <p class="result-info" id="info" aria-live="polite"></p>

@@ -33,6 +33,7 @@
         <button type="button" data-tab="dashboard" aria-current="page"><svg viewBox="0 0 24 24"><path d="M3 3h8v8H3zM13 3h8v5h-8zM13 10h8v11h-8zM3 13h8v8H3z"/></svg>Übersicht</button>
         <button type="button" data-tab="massnahmen"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg>Maßnahmen</button>
         <button type="button" data-tab="meldungen"><svg viewBox="0 0 24 24"><path d="M4 5h13v14H6a2 2 0 0 1-2-2zM17 9h3v8a2 2 0 0 1-2 2M8 9h5M8 13h5"/></svg>Presse</button>
+        <button type="button" data-tab="gesetze"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 7h14M7 7l-3 7a3 3 0 0 0 6 0zM17 7l-3 7a3 3 0 0 0 6 0zM8 21h8"/></svg>Gesetze</button>
         <button type="button" data-tab="termine"><svg viewBox="0 0 24 24"><path d="M4 6h16v14H4zM4 10h16M8 3v5M16 3v5"/></svg>Termine</button>
         <button type="button" data-tab="kontakt"><svg viewBox="0 0 24 24"><path d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg>Postfach <b class="badge" id="badge-inbox" hidden></b></button>
         <button type="button" data-tab="einstellungen"><svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Einstellungen</button>
@@ -55,6 +56,7 @@
         <div class="quick">
           <button class="btn btn-primary" type="button" data-new="massnahmen">+ Maßnahme</button>
           <button class="btn" type="button" data-new="meldungen">+ Pressemitteilung</button>
+          <button class="btn" type="button" data-new="gesetze">+ Gesetz</button>
           <button class="btn" type="button" data-new="termine">+ Termin</button>
           <button class="btn" type="button" data-goto="einstellungen">Eilmeldung setzen</button>
         </div>
@@ -86,6 +88,16 @@
           <select data-filter="kategorie" aria-label="Art"><option value="">Alle Arten</option></select>
         </div>
         <div class="table-wrap"><table class="table"><thead><tr><th>Datum</th><th>Titel</th><th>Art</th><th>Status</th><th><span class="sr-only">Aktionen</span></th></tr></thead><tbody id="list-meldungen"></tbody></table></div>
+      </section>
+
+      <!-- Gesetze -->
+      <section class="tab" data-panel="gesetze" hidden>
+        <header class="work-head"><div><span class="kicker">Inhalte</span><h1>Gesetzesvorhaben</h1></div><button class="btn btn-primary" type="button" data-new="gesetze">+ Neues Gesetz</button></header>
+        <div class="toolbar">
+          <input type="search" data-filter="q" placeholder="Suchen …" aria-label="Suchen">
+          <select data-filter="stand" aria-label="Stand"><option value="">Alle Stände</option></select>
+        </div>
+        <div class="table-wrap"><table class="table"><thead><tr><th>Gesetz</th><th>Stand im Verfahren</th><th>Zieltag</th><th>Nächster Schritt</th><th><span class="sr-only">Aktionen</span></th></tr></thead><tbody id="list-gesetze"></tbody></table></div>
       </section>
 
       <!-- Termine -->
@@ -121,6 +133,10 @@
           <label class="field full">Überschrift der Startseite <input name="heroTitel" maxlength="120"></label>
           <label class="field full">Einleitung der Startseite <textarea name="heroText" rows="3" maxlength="400"></textarea></label>
           <label class="field full">Zitat des Ministers <textarea name="ministerZitat" rows="3" maxlength="400"></textarea></label>
+          <h2 class="full" style="margin-top:12px">Englische Fassung (optional)</h2>
+          <label class="field full">Headline (EN) <input name="heroTitelEn" maxlength="120"></label>
+          <label class="field full">Intro (EN) <textarea name="heroTextEn" rows="3" maxlength="400"></textarea></label>
+          <label class="field full">Quote (EN) <textarea name="ministerZitatEn" rows="3" maxlength="400"></textarea></label>
           <div class="full"><button class="btn btn-primary" type="submit">Speichern</button></div>
         </form>
       </section>

@@ -6,35 +6,36 @@
   <title>Presse · Bundesministerium für Inneres und Heimat</title>
   <meta name="description" content="Pressemitteilungen, Reden, Interviews und Pressekontakt des Bundesministeriums für Inneres und Heimat.">
   <meta name="robots" content="noindex, nofollow">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#000000">
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  <script src="assets/prefs.js"></script>
   <link rel="stylesheet" href="assets/style.css">
 </head>
-<body data-page="presse">
+<body data-page="presse" data-title-en="Press · Federal Ministry of the Interior and Homeland">
   <main id="main">
     <section class="page-head">
       <div class="container">
-        <span class="kicker">Presse</span>
-        <h1>Pressemitteilungen</h1>
-        <p>Mitteilungen, Reden, Interviews und Statements des Ministeriums, die neueste zuerst.</p>
+        <span class="kicker" data-en="Press">Presse</span>
+        <h1 data-en="Press releases">Pressemitteilungen</h1>
+        <p data-en="Releases, speeches, interviews and statements from the ministry, newest first.">Mitteilungen, Reden, Interviews und Statements des Ministeriums, die neueste zuerst.</p>
       </div>
     </section>
     <section class="section" style="padding-top:32px">
       <div class="container">
         <form class="filters" role="search">
-          <label class="field grow">Suche <input id="q" type="search" placeholder="Stichwort" autocomplete="off"></label>
-          <label class="field">Art <select id="f-kat"><option value="">Alle Arten</option></select></label>
+          <label class="field grow"><span data-en="Search">Suche</span> <input id="q" type="search" placeholder="Stichwort" data-en-placeholder="Keyword" autocomplete="off"></label>
+          <label class="field"><span data-en="Type">Art</span> <select id="f-kat"><option value="" data-en="All types">Alle Arten</option></select></label>
         </form>
         <div class="press-list" id="news"></div>
       </div>
     </section>
     <section class="section alt" id="pressekontakt">
       <div class="container">
-        <div class="section-head"><div><span class="kicker">Pressestelle</span><h2>Pressekontakt</h2></div></div>
+        <div class="section-head"><div><span class="kicker" data-en="Press office">Pressestelle</span><h2 data-en="Press contact">Pressekontakt</h2></div></div>
         <div class="cards">
-          <article class="card reveal"><span class="label">Anfragen</span><h3>Über das Kontaktformular</h3><p>Wählen Sie den Betreff „Presseanfrage“. <a href="kontakt.html?betreff=Presseanfrage">Zum Formular</a></p></article>
-          <article class="card reveal" style="--d:.05s"><span class="label">Erreichbarkeit</span><h3>Montag bis Freitag, 8 bis 18 Uhr</h3><p>Außerhalb dieser Zeiten im Rahmen besonderer Lagen.</p></article>
-          <article class="card reveal" style="--d:.1s"><span class="label">Termine</span><h3>Pressekonferenzen</h3><p>Alle anstehenden Termine finden Sie im <a href="termine.html">Terminkalender</a>.</p></article>
+          <article class="card reveal"><span class="label" data-en="Enquiries">Anfragen</span><h3 data-en="Via the contact form">Über das Kontaktformular</h3><p><span class="de">Wählen Sie den Betreff „Presseanfrage“.</span><span class="en">Choose the subject “press enquiry”.</span> <a href="kontakt.html?betreff=Presseanfrage" data-en="To the form">Zum Formular</a></p></article>
+          <article class="card reveal" style="--d:.05s"><span class="label" data-en="Office hours">Erreichbarkeit</span><h3 data-en="Monday to Friday, 8 am to 6 pm">Montag bis Freitag, 8 bis 18 Uhr</h3><p data-en="Outside these hours only during special situations.">Außerhalb dieser Zeiten im Rahmen besonderer Lagen.</p></article>
+          <article class="card reveal" style="--d:.1s"><span class="label" data-en="Appointments">Termine</span><h3 data-en="Press conferences">Pressekonferenzen</h3><p><span class="de">Alle anstehenden Termine finden Sie im</span><span class="en">All upcoming dates are in the</span> <a href="termine.html" data-en="schedule">Terminkalender</a>.</p></article>
         </div>
       </div>
     </section>

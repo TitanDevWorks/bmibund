@@ -5,6 +5,10 @@ window.BMIH = (() => {
   const STATUS_KEY = { 'Offen': 'offen', 'In Arbeit': 'arbeit', 'Im Kabinett': 'kabinett', 'Abgeschlossen': 'fertig' };
   const NEWS_KIND = ['Pressemitteilung', 'Rede', 'Interview', 'Statement'];
   const EVENT_KIND = ['Termin', 'Pressekonferenz', 'Kabinett', 'Bundestag', 'Reise'];
+  const LAW_STAGES = ['In Vorbereitung', 'Referentenentwurf', 'Kabinett', 'Bundestag', 'Bundesrat', 'Verkündet', 'Gestoppt'];
+  // Ohne prefs.js (Verwaltung) bleibt alles deutsch.
+  const P = window.BMIH_PREFS || { lang: 'de', t: (x) => x, tPhase: (x) => x, locale: 'de-DE', translate() {} };
+  const { t, tPhase } = P;
   // Datum immer in deutscher Zeit, damit Tageswechsel nicht nach UTC springen.
   const berlinDate = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Berlin' });
   const today = () => berlinDate.format(new Date());
@@ -16,7 +20,7 @@ window.BMIH = (() => {
   })[c]);
 
   const asDate = (iso) => new Date(`${iso}T12:00:00`);
-  const dateFmt = new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: 'long', year: 'numeric' });
+  const dateFmt = new Intl.DateTimeFormat(P.locale, { day: '2-digit', month: 'long', year: 'numeric' });
   const fmtDate = (iso) => {
     const d = asDate(iso);
     return Number.isNaN(d.getTime()) ? esc(iso) : dateFmt.format(d);
@@ -40,10 +44,10 @@ window.BMIH = (() => {
   const byDateAsc = (a, b) => `${a.datum} ${a.zeit || ''}`.localeCompare(`${b.datum} ${b.zeit || ''}`);
   const progressOf = (m) => (Number.isInteger(m.fortschritt) ? m.fortschritt : ({ 'Abgeschlossen': 100, 'Im Kabinett': 75, 'In Arbeit': 40 }[m.status] || 0));
 
-  const statusBadge = (s) => `<span class="status" data-s="${STATUS_KEY[s] || 'offen'}">${esc(s)}</span>`;
+  const statusBadge = (s) => `<span class="status" data-s="${STATUS_KEY[s] || 'offen'}">${esc(t(s))}</span>`;
   const bar = (p, label = true) => `
-    <div class="prog">${label ? `<span>Fortschritt <b>${p} %</b></span>` : ''}
-      <div class="bar" role="progressbar" aria-valuenow="${p}" aria-valuemin="0" aria-valuemax="100" aria-label="Fortschritt"><i data-p="${p}"></i></div>
+    <div class="prog">${label ? `<span>${t('Fortschritt')} <b>${p} %</b></span>` : ''}
+      <div class="bar" role="progressbar" aria-valuenow="${p}" aria-valuemin="0" aria-valuemax="100" aria-label="${t('Fortschritt')}"><i data-p="${p}"></i></div>
     </div>`;
 
   // Balken nach dem Einfügen animiert füllen.
@@ -59,7 +63,7 @@ window.BMIH = (() => {
     const key = STATUS_KEY[m.status] || 'offen';
     const p = progressOf(m);
     const facts = [
-      ['Phase', m.phase], ['Bereich', m.bereich], ['Zuständig', m.verantwortlich],
+      ['Phase', tPhase(m.phase)], ['Bereich', m.bereich], ['Zuständig', m.verantwortlich],
       ['Frist', m.frist ? fmtDate(m.frist) : ''], ['Grundlage', m.grundlage]
     ].filter(([, v]) => v);
     return `
@@ -67,14 +71,14 @@ window.BMIH = (() => {
         <summary>
           <div>
             <h3>${esc(m.titel)}</h3>
-            <div class="meta">${statusBadge(m.status)}<span>${esc(m.phase)}</span>${m.bereich ? `<span>${esc(m.bereich)}</span>` : ''}</div>
+            <div class="meta">${statusBadge(m.status)}<span>${esc(tPhase(m.phase))}</span>${m.bereich ? `<span>${esc(m.bereich)}</span>` : ''}</div>
           </div>
           ${bar(p)}
           ${chevron}
         </summary>
         <div class="m-body">
-          <p>${esc(m.beschreibung || 'Keine weitere Beschreibung.')}</p>
-          <dl class="m-facts">${facts.map(([k, v]) => `<dt>${k}</dt><dd>${k === 'Frist' ? v : esc(v)}</dd>`).join('')}</dl>
+          <p>${esc(m.beschreibung || t('Keine weitere Beschreibung.'))}</p>
+          <dl class="m-facts">${facts.map(([k, v]) => `<dt>${t(k)}</dt><dd>${k === 'Frist' ? v : esc(v)}</dd>`).join('')}</dl>
         </div>
       </details>`;
   }
@@ -83,7 +87,7 @@ window.BMIH = (() => {
     const key = STATUS_KEY[m.status] || 'offen';
     return `
       <article class="card-s" data-s="${key}">
-        <div class="meta"><span>${esc(m.phase)}</span>${m.bereich ? `<span>· ${esc(m.bereich)}</span>` : ''}</div>
+        <div class="meta"><span>${esc(tPhase(m.phase))}</span>${m.bereich ? `<span>· ${esc(m.bereich)}</span>` : ''}</div>
         <h4><a href="massnahmen.html#m-${esc(m.id)}">${esc(m.titel)}</a></h4>
         ${bar(progressOf(m))}
       </article>`;
@@ -92,24 +96,72 @@ window.BMIH = (() => {
   function newsTeaser(n) {
     return `
       <a class="teaser reveal" href="presse.html#${esc(n.id)}">
-        <div class="meta"><span class="tag">${esc(n.kategorie || 'Pressemitteilung')}</span><time datetime="${esc(n.datum)}">${fmtDate(n.datum)}</time></div>
+        <div class="meta"><span class="tag">${esc(t(n.kategorie || 'Pressemitteilung'))}</span><time datetime="${esc(n.datum)}">${fmtDate(n.datum)}</time></div>
         <h3>${esc(n.titel)}</h3>
         <p>${esc(n.text)}</p>
       </a>`;
   }
 
-  const MONTHS = ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
-  function eventItem(t) {
-    const d = asDate(t.datum);
-    const past = t.datum < today();
+  const monthFmt = new Intl.DateTimeFormat(P.locale, { month: 'short' });
+  const timeLabel = (z) => (P.lang === 'en' ? z : `${z} Uhr`);
+  function eventItem(e) {
+    const d = asDate(e.datum);
+    const ok = !Number.isNaN(d.getTime());
+    const past = e.datum < today();
     return `
       <article class="event reveal${past ? ' past' : ''}">
-        <div class="cal" aria-hidden="true"><small>${MONTHS[d.getMonth()] || ''}</small><b>${d.getDate() || ''}</b></div>
+        <div class="cal" aria-hidden="true"><small>${ok ? esc(monthFmt.format(d)) : ''}</small><b>${ok ? d.getDate() : ''}</b></div>
         <div>
-          <div class="meta"><span class="tag">${esc(t.art || 'Termin')}</span><time datetime="${esc(t.datum)}">${fmtDate(t.datum)}${t.zeit ? `, ${esc(t.zeit)} Uhr` : ''}</time></div>
-          <h3>${esc(t.titel)}</h3>
-          ${t.ort ? `<p>${esc(t.ort)}</p>` : ''}
-          ${t.beschreibung ? `<p>${esc(t.beschreibung)}</p>` : ''}
+          <div class="meta"><span class="tag">${esc(t(e.art || 'Termin'))}</span><time datetime="${esc(e.datum)}">${fmtDate(e.datum)}${e.zeit ? `, ${esc(timeLabel(e.zeit))}` : ''}</time></div>
+          <h3>${esc(e.titel)}</h3>
+          ${e.ort ? `<p>${esc(e.ort)}</p>` : ''}
+          ${e.beschreibung ? `<p>${esc(e.beschreibung)}</p>` : ''}
+        </div>
+      </article>`;
+  }
+
+  // Gesetzgebungsverfahren als Stufenleiste. „Gestoppt“ steht außerhalb der Reihenfolge.
+  const LAW_PATH = LAW_STAGES.slice(0, 6);
+  const LAW_KEY = { 'Verkündet': 'fertig', 'Gestoppt': 'stop', 'In Vorbereitung': 'offen' };
+  function lawSteps(stand) {
+    const at = LAW_PATH.indexOf(stand);
+    return `<ol class="steps${stand === 'Gestoppt' ? ' stopped' : ''}" aria-label="${esc(t('Stand'))}: ${esc(t(stand))}">${LAW_PATH.map((s, i) =>
+      `<li class="${i < at ? 'done' : ''}${i === at ? ' now' : ''}"${i === at ? ' aria-current="step"' : ''}><span>${esc(t(s))}</span></li>`).join('')}</ol>`;
+  }
+  const dayDate = (n) => new Date(START + (n - 1) * 86400000).toISOString().slice(0, 10);
+  const zday = (v) => (Number.isInteger(Number(v)) ? Math.min(100, Math.max(1, Number(v))) : 0);
+  function dueLabel(n, stand) {
+    if (!n || ['Verkündet', 'Gestoppt'].includes(stand)) return '';
+    const diff = n - DAY;
+    if (diff === 0) return t('heute');
+    if (diff < 0) return t('überfällig');
+    return P.lang === 'en' ? `in ${diff} ${diff === 1 ? 'day' : 'days'}` : `noch ${diff} ${diff === 1 ? 'Tag' : 'Tage'}`;
+  }
+  function lawItem(raw) {
+    const g = { ...raw, zieltag: zday(raw.zieltag) };
+    const key = LAW_KEY[g.stand] || 'arbeit';
+    const points = String(g.kernpunkte || '').split('\n').map((x) => x.trim()).filter(Boolean);
+    const overdue = g.zieltag && g.zieltag < DAY && !['Verkündet', 'Gestoppt'].includes(g.stand);
+    return `
+      <article class="law reveal" id="g-${esc(g.id)}" data-s="${key}">
+        <header class="law-head">
+          <div>
+            <div class="meta">${g.kurz ? `<span class="tag">${esc(g.kurz)}</span>` : ''}${g.bereich ? `<span>${esc(g.bereich)}</span>` : ''}<span class="status" data-s="${key}">${esc(t(g.stand))}</span></div>
+            <h3>${esc(g.titel)}</h3>
+          </div>
+          ${g.zieltag ? `<div class="law-day${overdue ? ' late' : ''}"><small>${esc(t('Zieltag'))}</small><b>${g.zieltag}</b><span>${esc(dueLabel(g.zieltag, g.stand))}</span></div>` : ''}
+        </header>
+        ${lawSteps(g.stand)}
+        <div class="law-body">
+          <div>
+            ${g.ziel ? `<p class="law-goal">${esc(g.ziel)}</p>` : ''}
+            ${points.length ? `<h4>${esc(t('Kernpunkte'))}</h4><ul class="law-points">${points.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}
+          </div>
+          <dl class="m-facts">
+            ${g.naechsterSchritt ? `<dt>${esc(t('Nächster Schritt'))}</dt><dd>${esc(g.naechsterSchritt)}</dd>` : ''}
+            ${g.zieltag ? `<dt>${esc(t('Zieltag'))}</dt><dd>${esc(t('Tag'))} ${g.zieltag} · ${fmtDate(dayDate(g.zieltag))}</dd>` : ''}
+            ${g.grundlage ? `<dt>${esc(t('Grundlage'))}</dt><dd>${esc(g.grundlage)}</dd>` : ''}
+          </dl>
         </div>
       </article>`;
   }
@@ -142,8 +194,8 @@ window.BMIH = (() => {
   const transition = (fn) => (document.startViewTransition ? document.startViewTransition(fn) : fn());
 
   return {
-    PHASES, STATUSES, STATUS_KEY, NEWS_KIND, EVENT_KIND, DAY,
-    esc, fmtDate, today, load, byDateDesc, byDateAsc, progressOf,
-    statusBadge, bar, fillBars, measureItem, measureCard, newsTeaser, eventItem, reveal, countUp, transition
+    PHASES, STATUSES, STATUS_KEY, NEWS_KIND, EVENT_KIND, LAW_STAGES, DAY, t, tPhase, P,
+    esc, fmtDate, today, load, byDateDesc, byDateAsc, progressOf, dayDate, dueLabel,
+    zday, statusBadge, bar, fillBars, measureItem, measureCard, newsTeaser, eventItem, lawSteps, lawItem, reveal, countUp, transition
   };
 })();

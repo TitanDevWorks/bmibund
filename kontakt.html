@@ -4,47 +4,59 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Kontakt · Bundesministerium für Inneres und Heimat</title>
-  <meta name="description" content="Kontakt zum Bundesministerium für Inneres und Heimat: Bürgerservice, Pressestelle und Kontaktformular.">
+  <meta name="description" content="Kontakt zum Bundesministerium für Inneres und Heimat: Bürgerservice, Pressestelle, Kontaktformular und häufige Fragen.">
   <meta name="robots" content="noindex, nofollow">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#000000">
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  <script src="assets/prefs.js"></script>
   <link rel="stylesheet" href="assets/style.css">
 </head>
-<body data-page="kontakt">
+<body data-page="kontakt" data-title-en="Contact · Federal Ministry of the Interior and Homeland">
   <main id="main">
     <section class="page-head">
       <div class="container">
-        <span class="kicker">Service</span>
-        <h1>Kontakt</h1>
-        <p>Fragen, Anregungen oder Presseanfragen: Ihre Nachricht geht direkt an das Ministerium.</p>
+        <span class="kicker" data-en="Service">Service</span>
+        <h1 data-en="Contact">Kontakt</h1>
+        <p data-en="Questions, suggestions or press enquiries: your message goes directly to the ministry.">Fragen, Anregungen oder Presseanfragen: Ihre Nachricht geht direkt an das Ministerium.</p>
       </div>
     </section>
     <section class="section" style="padding-top:36px">
       <div class="container two">
         <form class="form" id="contact" novalidate>
-          <h2 class="full" style="font-size:1.3rem">Kontaktformular</h2>
-          <label class="field">Name <input name="name" required maxlength="100" autocomplete="name"></label>
-          <label class="field">E-Mail-Adresse <input name="email" type="email" required maxlength="200" autocomplete="email"></label>
-          <label class="field full">Betreff
+          <h2 class="full" style="font-size:1.3rem" data-en="Contact form">Kontaktformular</h2>
+          <label class="field"><span data-en="Name">Name</span> <input name="name" required maxlength="100" autocomplete="name"></label>
+          <label class="field"><span data-en="Email address">E-Mail-Adresse</span> <input name="email" type="email" required maxlength="200" autocomplete="email"></label>
+          <label class="field full"><span data-en="Subject">Betreff</span>
             <select name="betreff">
-              <option>Bürgeranfrage</option>
-              <option>Presseanfrage</option>
-              <option>Anfrage an den Minister</option>
-              <option>Sonstiges</option>
+              <option value="Bürgeranfrage" data-en="Citizen enquiry">Bürgeranfrage</option>
+              <option value="Presseanfrage" data-en="Press enquiry">Presseanfrage</option>
+              <option value="Anfrage an den Minister" data-en="Message to the minister">Anfrage an den Minister</option>
+              <option value="Sonstiges" data-en="Other">Sonstiges</option>
             </select>
           </label>
-          <label class="field full">Ihre Nachricht <small>höchstens 4.000 Zeichen</small><textarea name="nachricht" rows="7" required maxlength="4000"></textarea></label>
+          <label class="field full"><span data-en="Your message">Ihre Nachricht</span> <small data-en="up to 4,000 characters">höchstens 4.000 Zeichen</small><textarea name="nachricht" rows="7" required maxlength="4000"></textarea></label>
           <label class="hp" aria-hidden="true">Website <input name="website" tabindex="-1" autocomplete="off"></label>
-          <label class="check full"><input type="checkbox" name="ok" required> Ich habe die <a href="datenschutz.html">Datenschutzhinweise</a> zur Kenntnis genommen.</label>
+          <label class="check full"><input type="checkbox" name="ok" required> <span><span class="de">Ich habe die <a href="datenschutz.html">Datenschutzhinweise</a> zur Kenntnis genommen.</span><span class="en">I have read the <a href="datenschutz.html">privacy notice</a>.</span></span></label>
           <div class="form-foot full">
-            <button class="btn btn-primary" type="submit">Nachricht senden</button>
+            <button class="btn btn-primary" type="submit" data-en="Send message">Nachricht senden</button>
             <p class="msg" id="contact-msg" role="status"></p>
           </div>
         </form>
         <div class="contact-cards">
-          <article class="card reveal"><span class="label">Bürgerservice</span><h3>Allgemeine Anfragen</h3><p>Antwort in der Regel innerhalb von drei Werktagen.</p></article>
-          <article class="card reveal" style="--d:.05s"><span class="label">Pressestelle</span><h3>Medienanfragen</h3><p>Betreff „Presseanfrage“ wählen. <a href="presse.html#pressekontakt">Mehr zur Pressestelle</a></p></article>
-          <article class="card reveal" style="--d:.1s"><span class="label">Dienstsitz</span><h3>Platz der Heimat 1, Berlin</h3><p>Besuch nur nach Vereinbarung.</p></article>
+          <article class="card reveal"><span class="label" data-en="Citizen service">Bürgerservice</span><h3 data-en="General enquiries">Allgemeine Anfragen</h3><p data-en="We usually reply within three working days.">Antwort in der Regel innerhalb von drei Werktagen.</p></article>
+          <article class="card reveal" style="--d:.05s"><span class="label" data-en="Press office">Pressestelle</span><h3 data-en="Media enquiries">Medienanfragen</h3><p><span class="de">Betreff „Presseanfrage“ wählen.</span><span class="en">Choose the subject “press enquiry”.</span> <a href="presse.html#pressekontakt" data-en="More about the press office">Mehr zur Pressestelle</a></p></article>
+          <article class="card reveal" style="--d:.1s"><span class="label" data-en="Headquarters">Dienstsitz</span><h3>Platz der Heimat 1, Berlin</h3><p data-en="Visits by appointment only.">Besuch nur nach Vereinbarung.</p></article>
+        </div>
+      </div>
+    </section>
+    <section class="section alt">
+      <div class="container">
+        <div class="section-head"><div><span class="kicker" data-en="FAQ">Häufige Fragen</span><h2 data-en="Frequently asked questions">Fragen und Antworten</h2></div></div>
+        <div class="faq">
+          <details><summary data-en="How quickly will I get a reply?">Wie schnell bekomme ich eine Antwort?</summary><p data-en="Citizen enquiries are usually answered within three working days, press enquiries on the same working day.">Bürgeranfragen beantworten wir in der Regel innerhalb von drei Werktagen, Presseanfragen am selben Werktag.</p></details>
+          <details><summary data-en="Can I write to the minister personally?">Kann ich dem Minister persönlich schreiben?</summary><p data-en="Yes. Choose the subject “Message to the minister”. Your message is forwarded to the minister's office.">Ja. Wählen Sie den Betreff „Anfrage an den Minister“. Ihre Nachricht wird an das Büro des Ministers weitergeleitet.</p></details>
+          <details><summary data-en="Where can I see what has been implemented?">Wo sehe ich, was schon umgesetzt ist?</summary><p data-en="The action plan and the bills page show the current status of every measure and bill, updated by the ministry.">Im Maßnahmenplan und auf der Seite Gesetzesvorhaben steht der aktuelle Stand jeder Maßnahme und jedes Gesetzes. Die Hausleitung pflegt ihn laufend.</p></details>
+          <details><summary data-en="Is this a real ministry?">Ist das ein echtes Ministerium?</summary><p data-en="No. This site belongs to the role-play server BDR: Bundesrepublik Deutschland RP on Roblox. Details are in the legal notice.">Nein. Die Seite gehört zum Rollenspielserver BDR: Bundesrepublik Deutschland RP auf Roblox. Details stehen im Impressum.</p></details>
         </div>
       </div>
     </section>
