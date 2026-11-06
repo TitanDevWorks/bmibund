@@ -12,14 +12,25 @@
   },
   {
     "id": "vs-neuordnung",
-    "titel": "Verfassungsschutz-Neuordnungsgesetz",
+    "titel": "Verfassungsschutz-Neuordnungsgesetz (VSNOG)",
     "phase": "Tag 11–50",
     "status": "In Arbeit",
     "bereich": "Verfassungsschutz",
-    "beschreibung": "Gesetzentwurf zur Neuordnung der Verfassungsschutzbehörden mit klarem Gefahrenbezug, gestärkter parlamentarischer Kontrolle und gerichtlichem Rechtsschutz.",
-    "grundlage": "Koalitionsvertrag Art. 5.4, Art. 13 Nr. 97",
-    "fortschritt": 40,
+    "beschreibung": "Drucksache 3/15 vom 04.11.2026, Veröffentlichung am 07.11.2026: Richtervorbehalt bei Parteien und Abgeordneten, keine Einstufungen ohne Gericht, Wahl der BfV-Spitze durch den Bundestag, gestärktes Kontrollgremium und jährliche Leistungsbilanz.",
+    "grundlage": "Drucksache 3/15; Koalitionsvertrag Art. 5.4, Art. 13 Nr. 97",
+    "fortschritt": 70,
     "verantwortlich": "Abteilung VS"
+  },
+  {
+    "id": "bfv-personal",
+    "titel": "Personelle Neuaufstellung des BfV",
+    "phase": "Tag 1–10",
+    "status": "Abgeschlossen",
+    "bereich": "Verfassungsschutz",
+    "beschreibung": "Alle Ermittler und die bisherigen Präsidenten entlassen. Neue Leitung: Dr. Peter Thiel und Hans-Jörg Maaßen (Präsidenten), Mathias Andreas Fuchs und Prof. Dr. Max Kruse (Vizepräsidenten).",
+    "grundlage": "Ministerielle Entscheidung vom 06.11.2026",
+    "fortschritt": 100,
+    "verantwortlich": "Bundesminister"
   },
   {
     "id": "grenzkontrollen",

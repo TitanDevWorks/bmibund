@@ -75,6 +75,15 @@
       $('#total-p').textContent = `${total} %`;
       $('#total-bar').dataset.p = total;
 
+      const run = $('#ticker-run');
+      if (run) {
+        const top = news.slice().sort(byDateDesc).slice(0, 6);
+        const row = top.map((n) => `<a href="presse.html#${esc(n.id)}"><time datetime="${esc(n.datum)}">${fmtDate(n.datum)}</time>${esc(n.titel)}</a>`).join('');
+        // Doppelt, damit das Laufband nahtlos weiterläuft.
+        run.innerHTML = top.length ? row + row.replace(/<a /g, '<a tabindex="-1" aria-hidden="true" ') : '';
+        run.closest('.ticker').hidden = !top.length;
+      }
+
       $('#news').innerHTML = news.length ? news.slice().sort(byDateDesc).slice(0, 3).map(newsTeaser).join('') : empty('Noch keine Meldungen.');
 
       const current = ms.filter((m) => m.status === 'In Arbeit' || m.status === 'Im Kabinett')
