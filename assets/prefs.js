@@ -2,7 +2,7 @@
 (() => {
   const read = (name) => (document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`)) || [])[1] || '';
   const lang = read('bmih_lang') === 'en' ? 'en' : 'de';
-  const theme = read('bmih_theme') === 'dark' ? 'dark' : 'light';
+  const theme = 'dark'; // Seit Version 7 nur noch dunkel.
   const root = document.documentElement;
   root.lang = lang;
   root.dataset.lang = lang;

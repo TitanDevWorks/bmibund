@@ -6,58 +6,53 @@
   <title>Bundesministerium für Inneres und Heimat</title>
   <meta name="description" content="Bundesministerium für Inneres und Heimat: Maßnahmenplan der ersten 100 Tage, Gesetzesvorhaben, Minister Dr. Niels Fiedel, Presse und Termine.">
   <meta name="robots" content="noindex, nofollow">
-  <meta name="theme-color" content="#000000">
+  <meta name="theme-color" content="#07080a">
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
-  <script src="assets/prefs.js"></script>
+  <script src="assets/prefs.js?v=7"></script>
   <link rel="stylesheet" href="assets/style.css">
-  <link rel="stylesheet" href="assets/modern.css">
+  <link rel="stylesheet" href="assets/modern.css?v=7">
 </head>
 <body data-page="start" data-title-en="Federal Ministry of the Interior and Homeland">
   <main id="main">
-    <section class="hero">
-      <svg class="gate" viewBox="0 0 600 300" fill="none" stroke="currentColor" stroke-width="5" aria-hidden="true">
-        <path d="M262 22h76l-8 18h-60z"/><path d="M285 22c4-14 26-14 30 0"/>
-        <rect x="170" y="40" width="260" height="44"/><rect x="60" y="84" width="480" height="34"/><path d="M50 118h500"/>
-        <path d="M84 118v142M110 118v142M176 118v142M202 118v142M268 118v142M294 118v142M306 118v142M332 118v142M398 118v142M424 118v142M490 118v142M516 118v142"/>
-        <rect x="40" y="260" width="520" height="22"/><path d="M0 282h600"/>
-      </svg>
-      <div class="container bento">
-        <div class="tile tile-main">
-          <div>
-            <span class="kicker" data-en="Gauland I cabinet · 3rd legislative term">Kabinett Gauland I · 3. Wahlperiode</span>
-            <h1><span class="grad" id="hero-title">Sicherheit. Ordnung. Heimat.</span></h1>
-            <p class="lead" id="hero-text">Was das Ministerium in den ersten 100 Tagen umsetzt, offen und nachprüfbar.</p>
-            <div class="actions">
-              <a class="btn btn-primary" href="verfassungsschutz.html"><span data-en="VSNOG and BfV">VSNOG und BfV</span>
-                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
-              <a class="btn" href="gesetze.html" data-en="Our bills">Unsere Gesetze</a>
-              <a class="btn" href="massnahmen.html" data-en="100-day plan">Maßnahmenplan</a>
-            </div>
-            <div class="countdown" id="countdown" hidden></div>
+    <section class="poster">
+      <div class="container poster-grid">
+        <div>
+          <div class="eyebrow"><span data-en="Gauland I cabinet">Kabinett Gauland I</span><span data-en="3rd term">3. Wahlperiode</span><span class="hot" data-en="VSNOG on Sat" data-when-out="VSNOG erschienen" data-when-out-en="VSNOG out now">VSNOG am Samstag</span></div>
+          <h1 class="mega" id="hero-title"><span>Sicherheit.</span><span>Ordnung.</span><span>Heimat.</span></h1>
+          <p class="lead" id="hero-text">Was das Ministerium in den ersten 100 Tagen umsetzt, offen und nachprüfbar.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="verfassungsschutz.html" data-en="VSNOG and BfV">VSNOG und BfV</a>
+            <a class="btn" href="gesetze.html" data-en="Our bills">Unsere Gesetze</a>
+            <a class="btn" href="massnahmen.html" data-en="100-day plan">Maßnahmenplan</a>
           </div>
-          <span class="claim" data-en="For Germany. For a state that delivers.">Für Deutschland. Für einen Staat, der handelt.</span>
+          <div class="countdown" id="countdown" hidden></div>
         </div>
-        <div class="tile tile-day reveal" aria-labelledby="sb-title">
-          <h2 id="sb-title" class="label" style="display:flex;justify-content:space-between;gap:12px;font-size:.75rem"><span data-en="The first 100 days">Die ersten 100 Tage</span> <span id="sb-date"></span></h2>
-          <div class="day-big"><b id="day-num">1</b><span data-en="of 100 days in office">von 100 Amtstagen</span></div>
-          <div class="bar days" aria-hidden="true"><i id="day-bar" data-p="0"></i></div>
-          <div class="bar-label"><span data-en="Day 1">Tag 1</span><span data-en="Day 50">Tag 50</span><span data-en="Day 100">Tag 100</span></div>
-        </div>
-        <div class="tile tile-kpis reveal" style="--d:.05s">
-          <div class="kpi" data-s="offen"><b data-count="Offen">0</b><span data-en="Open">Offen</span></div>
-          <div class="kpi" data-s="arbeit"><b data-count="In Arbeit">0</b><span data-en="In progress">In Arbeit</span></div>
-          <div class="kpi" data-s="kabinett"><b data-count="Im Kabinett">0</b><span data-en="In cabinet">Im Kabinett</span></div>
-          <div class="kpi" data-s="fertig"><b data-count="Abgeschlossen">0</b><span data-en="Done">Erledigt</span></div>
+        <aside class="ticket reveal" aria-labelledby="sb-title">
+          <div class="ticket-top"><span id="sb-title" data-en="The first 100 days">Die ersten 100 Tage</span><span id="sb-date"></span></div>
+          <div class="ticket-day"><b id="day-num">1</b><span data-en="of 100 days in office">von 100 Amtstagen</span></div>
+          <div class="bar-wrap">
+            <div class="bar days" aria-hidden="true"><i id="day-bar" data-p="0"></i></div>
+            <div class="bar-label"><span data-en="Day 1">Tag 1</span><span data-en="Day 50">Tag 50</span><span data-en="Day 100">Tag 100</span></div>
+          </div>
+          <div class="stamps">
+            <div class="kpi" data-s="offen" style="--c:var(--s-offen)"><b data-count="Offen">0</b><span data-en="Open">Offen</span></div>
+            <div class="kpi" data-s="arbeit" style="--c:var(--s-arbeit)"><b data-count="In Arbeit">0</b><span data-en="In progress">In Arbeit</span></div>
+            <div class="kpi" data-s="kabinett" style="--c:var(--s-kabinett)"><b data-count="Im Kabinett">0</b><span data-en="Cabinet">Kabinett</span></div>
+            <div class="kpi" data-s="fertig" style="--c:var(--s-fertig)"><b data-count="Abgeschlossen">0</b><span data-en="Done">Erledigt</span></div>
+          </div>
           <div class="prog"><span><span data-en="Overall progress">Umsetzung gesamt</span> <b id="total-p">0 %</b></span><div class="bar"><i id="total-bar" data-p="0"></i></div></div>
-        </div>
-        <a class="tile tile-vs reveal" href="verfassungsschutz.html" style="--d:.1s">
-          <span class="badge" data-when-out="Veröffentlicht" data-when-out-en="Published" data-en="Sat 7 Nov">Sa, 07.11.</span>
-          <span><b data-en="VSNOG · Printed paper 3/15: reorganisation of the Federal Office for the Protection of the Constitution">VSNOG · Drucksache 3/15: Neuordnung des Verfassungsschutzes</b>
-            <span class="sub" data-en="New BfV leadership: Dr. Peter Thiel and Hans-Jörg Maaßen as presidents, Mathias Andreas Fuchs and Prof. Dr. Max Kruse as vice presidents.">Neue BfV-Spitze: Dr. Peter Thiel und Hans-Jörg Maaßen als Präsidenten, Mathias Andreas Fuchs und Prof. Dr. Max Kruse als Vizepräsidenten.</span></span>
-          <span class="go"><span data-en="Read more">Mehr erfahren</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
-        </a>
+        </aside>
       </div>
+      <a class="sticker" href="verfassungsschutz.html" aria-label="VSNOG, Drucksache 3/15, erscheint am Samstag, 07.11.2026" data-en-label="VSNOG, printed paper 3/15, out on Saturday 7 Nov 2026">
+        <svg viewBox="0 0 200 200" aria-hidden="true"><defs><path id="ring" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs><text><textPath href="#ring">Drucksache 3/15 · Verfassungsschutz neu · </textPath></text></svg>
+        <span class="core" aria-hidden="true"><span>VSNOG<small data-when-out="erschienen" data-when-out-en="out now" data-en="Sat 7 Nov">Sa 07.11.</small></span></span>
+      </a>
     </section>
+
+    <div class="marquee" aria-hidden="true"><div class="marquee-run">
+      <span>Sicherheit</span><span>Ordnung</span><span>Heimat</span><span>VSNOG · Drucksache 3/15</span><span>Neue Spitze für das BfV</span><span>100 Tage, die zählen</span>
+      <span>Sicherheit</span><span>Ordnung</span><span>Heimat</span><span>VSNOG · Drucksache 3/15</span><span>Neue Spitze für das BfV</span><span>100 Tage, die zählen</span>
+    </div></div>
 
     <div class="ticker" aria-label="Aktuelle Meldungen" data-en-label="Latest news">
       <div class="container">
@@ -66,17 +61,18 @@
       </div>
     </div>
 
-    <section class="section">
-      <div class="container spot">
-        <div class="spot-card reveal">
-          <span class="kicker" data-en="Bill · Printed paper 3/15">Gesetzentwurf · Drucksache 3/15</span>
-          <h3 data-en="The protection of the constitution goes back to its core mission">Der Verfassungsschutz kehrt zu seinem Kernauftrag zurück</h3>
-          <p data-en="The Verfassungsschutz-Neuordnungsgesetz (VSNOG) will be published on Saturday, 7 November 2026.">Das Verfassungsschutz-Neuordnungsgesetz (VSNOG) erscheint am Samstag, 07. November 2026.</p>
+    <section class="section dossier">
+      <div class="container dossier-grid">
+        <div class="folder reveal">
+          <span class="stamp" data-stamp><span data-en="Introduced">Eingebracht</span><small>07.11.2026</small></span>
+          <span class="ds">Deutscher Bundestag · Drucksache 3/15</span>
+          <h3>VSNOG</h3>
+          <p data-en="The Verfassungsschutz-Neuordnungsgesetz brings the Office back to its core mission. Out on Saturday, 7 November 2026.">Das Verfassungsschutz-Neuordnungsgesetz bringt das Amt zurück zu seinem Kernauftrag. Erscheint am Samstag, 07. November 2026.</p>
           <ul>
             <li data-en="Judicial approval for monitoring parties and MPs">Richtervorbehalt für die Beobachtung von Parteien und Abgeordneten</li>
-            <li data-en="No public ratings of parties without a court ruling">Keine öffentlichen Einstufungen von Parteien ohne Gericht</li>
+            <li data-en="No public ratings of parties without a court ruling">Keine Einstufung von Parteien ohne Gericht</li>
             <li data-en="Priorities: terrorism, espionage, cyber defence">Schwerpunkte: Terror-, Spionage- und Cyberabwehr</li>
-            <li data-en="President elected by the Bundestag, stronger oversight panel">Präsident vom Bundestag gewählt, starkes Kontrollgremium</li>
+            <li data-en="President elected by the Bundestag">Präsident wird vom Bundestag gewählt</li>
           </ul>
           <div class="actions">
             <a class="btn btn-primary" href="verfassungsschutz.html#text" data-en="Read the bill">Zum Gesetzestext</a>
@@ -84,14 +80,14 @@
           </div>
         </div>
         <div>
-          <div class="section-head" style="margin-bottom:20px"><div><span class="kicker" data-en="Federal Office for the Protection of the Constitution">Bundesamt für Verfassungsschutz</span><h2 data-en="New leadership">Neue Amtsleitung</h2></div><a class="more" href="verfassungsschutz.html#leitung" data-en="Details">Details</a></div>
+          <div class="section-head" style="margin-bottom:28px"><div><span class="kicker" data-en="Federal Office for the Protection of the Constitution">Bundesamt für Verfassungsschutz</span><h2 data-en="The new leadership">Die neue Spitze</h2></div></div>
           <div class="people">
-            <article class="person reveal" data-rank="p"><div class="av" aria-hidden="true">PT</div><span class="role-l" data-en="President">Präsident</span><h3>Dr. Peter Thiel</h3></article>
-            <article class="person reveal" data-rank="p" style="--d:.05s"><div class="av" aria-hidden="true">HM</div><span class="role-l" data-en="President">Präsident</span><h3>Hans-Jörg Maaßen</h3></article>
-            <article class="person reveal" data-rank="v" style="--d:.1s"><div class="av" aria-hidden="true">MF</div><span class="role-l" data-en="Vice President">Vizepräsident</span><h3>Mathias Andreas Fuchs</h3></article>
-            <article class="person reveal" data-rank="v" style="--d:.15s"><div class="av" aria-hidden="true">MK</div><span class="role-l" data-en="Vice President">Vizepräsident</span><h3>Prof. Dr. Max Kruse</h3></article>
+            <article class="person reveal" data-rank="p" data-head="BfV · Dienstausweis"><div class="av" aria-hidden="true">PT</div><span class="role-l" data-en="President">Präsident</span><h3>Dr. Peter Thiel</h3><span class="party" data-en="No party">Parteilos</span><div class="code" aria-hidden="true"></div></article>
+            <article class="person reveal" data-rank="p" data-head="BfV · Dienstausweis" style="--d:.05s"><div class="av" aria-hidden="true">HM</div><span class="role-l" data-en="President">Präsident</span><h3>Hans-Jörg Maaßen</h3><span class="party" data-en="No party">Parteilos</span><div class="code" aria-hidden="true"></div></article>
+            <article class="person reveal" data-rank="v" data-head="BfV · Dienstausweis" style="--d:.1s"><div class="av" aria-hidden="true">MF</div><span class="role-l" data-en="Vice President">Vizepräsident</span><h3>Mathias Andreas Fuchs</h3><span class="party" data-en="No party">Parteilos</span><div class="code" aria-hidden="true"></div></article>
+            <article class="person reveal" data-rank="v" data-head="BfV · Dienstausweis" style="--d:.15s"><div class="av" aria-hidden="true">MK</div><span class="role-l" data-en="Vice President">Vizepräsident</span><h3>Prof. Dr. Max Kruse</h3><div class="code" aria-hidden="true"></div></article>
           </div>
-          <p class="muted" style="margin-top:14px;font-size:.92rem" data-en="All investigators and the previous presidents of the BfV have been dismissed.">Alle Ermittler und die bisherigen Präsidenten des BfV wurden entlassen.</p>
+          <p class="note" data-en="All investigators and the previous presidents of the BfV have been dismissed.">Alle Ermittler und die bisherigen Präsidenten des BfV wurden entlassen.</p>
         </div>
       </div>
     </section>
@@ -182,8 +178,8 @@
   </main>
 
   <script src="assets/common.js"></script>
-  <script src="assets/layout.js"></script>
-  <script src="assets/extras.js"></script>
+  <script src="assets/layout.js?v=7"></script>
+  <script src="assets/extras.js?v=7"></script>
   <script src="assets/pages.js"></script>
 </body>
 </html>

@@ -21,7 +21,10 @@
     if (!s) return;
     const set = (sel, v) => { const el = $(sel); if (el && v) el.textContent = v; };
     const en = P.lang === 'en';
-    set('#hero-title', (en && s.heroTitelEn) || s.heroTitel);
+    const title = (en && s.heroTitelEn) || s.heroTitel;
+    const h = $('#hero-title');
+    // Plakat-Titel: jeder Satz eine eigene Zeile.
+    if (h && title) h.innerHTML = String(title).split(/(?<=[.!?])\s+/).filter(Boolean).map((w) => `<span>${esc(w)}</span>`).join('');
     set('#hero-text', (en && s.heroTextEn) || s.heroText);
     set('#quote', (en && s.ministerZitatEn) || s.ministerZitat);
   }
