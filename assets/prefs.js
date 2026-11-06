@@ -45,7 +45,11 @@
     'Noch keine Gesetzesvorhaben.': 'No bills yet.',
     'Tag': 'Day', 'heute': 'today', 'überfällig': 'overdue', 'noch': 'in', 'Tage': 'days', 'Tagen': 'days',
     'läuft gerade': 'happening now', 'Std.': 'h', 'Min.': 'min',
-    'Inhalte aus der Datenbank sind nur auf Deutsch verfügbar.': 'Some content is only available in German.'
+    'Inhalte aus der Datenbank sind nur auf Deutsch verfügbar.': 'Some content is only available in German.',
+    'Pressefotos': 'Press photos', 'Alle': 'All', 'Porträts': 'Portraits', 'Im Ministerium': 'At the ministry',
+    'Presse und Medien': 'Press and media', 'Innere Sicherheit': 'Internal security', 'Einsatzlagen': 'Operations',
+    'Migration': 'Migration', 'Vor Ort': 'On location', 'Berlin': 'Berlin', 'Groß anzeigen': 'View large',
+    'JPG laden': 'Download JPG', 'Bildunterschrift kopieren': 'Copy caption', 'Kopiert': 'Copied', 'Zum Pressefoto': 'View press photo'
   };
   const t = (de) => (lang === 'en' && Object.hasOwn(EN, de) ? EN[de] : de);
   const tPhase = (p) => (lang === 'en' ? String(p || '').replace(/^Tag /, 'Day ') : p); // „Tag 1–10“ → „Day 1–10“
@@ -55,6 +59,7 @@
     if (lang !== 'en') return;
     root.querySelectorAll('[data-en]').forEach((el) => { el.textContent = el.dataset.en; });
     root.querySelectorAll('[data-en-placeholder]').forEach((el) => { el.placeholder = el.dataset.enPlaceholder; });
+    root.querySelectorAll('[data-en-alt]').forEach((el) => { el.alt = el.dataset.enAlt; });
     root.querySelectorAll('[data-en-label]').forEach((el) => { el.setAttribute('aria-label', el.dataset.enLabel); });
     if (document.body?.dataset.titleEn) document.title = document.body.dataset.titleEn;
   }

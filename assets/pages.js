@@ -1,7 +1,7 @@
 // Seitenlogik, gesteuert über <body data-page="...">.
 (() => {
   const B = window.BMIH;
-  const { esc, fmtDate, load, byDateDesc, byDateAsc, progressOf, measureItem, measureCard, newsTeaser, eventItem, lawItem, lawSteps, dueLabel, zday, reveal, countUp, transition, PHASES, STATUSES, STATUS_KEY, NEWS_KIND, LAW_STAGES, DAY, t, tPhase, P } = B;
+  const { esc, fmtDate, load, loadFotos, fotoFor, fotoSrc, fotoTitle, fotoImg, byDateDesc, byDateAsc, progressOf, measureItem, measureCard, newsTeaser, eventItem, lawItem, lawSteps, dueLabel, zday, reveal, countUp, transition, PHASES, STATUSES, STATUS_KEY, NEWS_KIND, LAW_STAGES, DAY, t, tPhase, P } = B;
   const $ = (s) => document.querySelector(s);
   const decode = (x) => { try { return decodeURIComponent(x); } catch (_) { return ''; } };
   const empty = (text) => `<div class="empty">${esc(t(text))}</div>`;
@@ -62,10 +62,69 @@
     setInterval(tick, 30000);
   }
 
+  // Fotostreifen aus ausgewählten Pressefotos, jeweils mit Link ins Bildarchiv.
+  function fotoStrip(root, fotos, ids) {
+    if (!root) return;
+    const list = ids.map((id) => fotos.find((f) => f.id === id)).filter(Boolean);
+    root.innerHTML = list.map((f, i) => `
+      <a class="strip-item reveal" style="--d:${(i * 0.05).toFixed(2)}s" href="pressefotos.html#${esc(f.id)}">${fotoImg(f, 's')}<span>${esc(fotoTitle(f))}</span></a>`).join('');
+    root.hidden = !list.length;
+  }
+
+  const THEMEN = [['portraet', 'Porträts'], ['bundestag', 'Bundestag'], ['ministerium', 'Im Ministerium'], ['presse', 'Presse und Medien'],
+    ['sicherheit', 'Innere Sicherheit'], ['einsatz', 'Einsatzlagen'], ['migration', 'Migration'], ['vorort', 'Vor Ort'], ['berlin', 'Berlin']];
+
   const pages = {
+    async pressefotos() {
+      const fotos = await loadFotos();
+      const themen = THEMEN.filter(([k]) => fotos.some((f) => f.thema === k));
+      const chips = $('#foto-themen');
+      chips.innerHTML = [['', 'Alle'], ...themen].map(([k, l]) => `<button type="button" data-thema="${k}" aria-pressed="${!k}">${esc(t(l))} <small>${k ? fotos.filter((f) => f.thema === k).length : fotos.length}</small></button>`).join('');
+      const grid = $('#fotos');
+      const credit = 'Foto: BMIH (fiktiv, KI-generiert)';
+      grid.innerHTML = fotos.map((f) => `
+        <figure class="foto reveal" id="${esc(f.id)}" data-thema="${esc(f.thema)}">
+          <button type="button" class="foto-open" data-id="${esc(f.id)}" aria-label="${esc(t('Groß anzeigen'))}: ${esc(fotoTitle(f))}">${fotoImg(f, 's')}</button>
+          <figcaption><b>${esc(fotoTitle(f))}</b><span>${esc(t((THEMEN.find(([k]) => k === f.thema) || [])[1] || ''))} · <code>${esc(f.id)}</code></span>
+            <a href="${esc(fotoSrc(f, 'jpg'))}" download="fiedel-${esc(f.id)}.jpg">${esc(t('JPG laden'))}</a></figcaption>
+        </figure>`).join('');
+      chips.addEventListener('click', (e) => {
+        const b = e.target.closest('button');
+        if (!b) return;
+        chips.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+        transition(() => grid.querySelectorAll('.foto').forEach((el) => { el.hidden = !!b.dataset.thema && el.dataset.thema !== b.dataset.thema; }));
+      });
+
+      // Großansicht mit Bildunterschrift zum Kopieren
+      const dlg = $('#foto-dlg');
+      const show = (f) => {
+        if (!f) return;
+        dlg.querySelector('img').replaceWith(Object.assign(document.createElement('img'), { src: fotoSrc(f), alt: fotoTitle(f), width: f.w, height: f.h }));
+        dlg.querySelector('h2').textContent = fotoTitle(f);
+        const cap = `${fotoTitle(f)}. ${credit}`;
+        dlg.querySelector('.cap').textContent = cap;
+        dlg.querySelector('[data-copy]').dataset.copy = cap;
+        dlg.querySelector('.dl').href = fotoSrc(f, 'jpg');
+        dlg.querySelector('.dl').setAttribute('download', `fiedel-${f.id}.jpg`);
+        dlg.querySelector('.id').textContent = f.id;
+        if (!dlg.open) dlg.showModal();
+        history.replaceState(null, '', `#${f.id}`);
+      };
+      grid.addEventListener('click', (e) => { const b = e.target.closest('.foto-open'); if (b) show(fotos.find((f) => f.id === b.dataset.id)); });
+      dlg.addEventListener('click', (e) => {
+        if (e.target === dlg || e.target.closest('[data-close]')) dlg.close();
+        const c = e.target.closest('[data-copy]');
+        if (c) navigator.clipboard?.writeText(c.dataset.copy).then(() => { c.textContent = t('Kopiert'); setTimeout(() => { c.textContent = t('Bildunterschrift kopieren'); }, 1600); });
+      });
+      dlg.addEventListener('close', () => history.replaceState(null, '', location.pathname));
+      reveal();
+      const hash = decode(location.hash.slice(1));
+      if (hash) { document.getElementById(hash)?.scrollIntoView({ block: 'center' }); show(fotos.find((f) => f.id === hash)); }
+    },
+
     async start() {
       applySettings();
-      const [ms, news, events, laws] = await Promise.all([load('massnahmen'), load('meldungen'), load('termine'), load('gesetze').catch(() => [])]);
+      const [ms, news, events, laws, fotos] = await Promise.all([load('massnahmen'), load('meldungen'), load('termine'), load('gesetze').catch(() => []), loadFotos()]);
 
       $('#sb-date').textContent = `${t('Stand')} ${fmtDate(B.today())}`;
       countUp($('#day-num'), DAY);
@@ -87,7 +146,10 @@
         run.closest('.ticker').hidden = !top.length;
       }
 
-      $('#news').innerHTML = news.length ? news.slice().sort(byDateDesc).slice(0, 3).map(newsTeaser).join('') : empty('Noch keine Meldungen.');
+      const used = new Set(['brandenburger-tor']);
+      $('#news').innerHTML = news.length ? news.slice().sort(byDateDesc).slice(0, 3)
+        .map((n, i) => newsTeaser(n, fotoFor(n, fotos, used), i ? 's' : '')).join('') : empty('Noch keine Meldungen.');
+      fotoStrip($('#foto-strip'), fotos, ['rede-plenum', 'lage-polizei', 'buerger-altstadt', 'buero-unterschrift', 'pressekonferenz']);
 
       const current = ms.filter((m) => m.status === 'In Arbeit' || m.status === 'Im Kabinett')
         .sort((a, b) => progressOf(b) - progressOf(a)).slice(0, 5);
@@ -221,13 +283,18 @@
 
     async minister() {
       applySettings();
-      const next = upcoming(await load('termine'), 3);
+      const [events, fotos] = await Promise.all([load('termine'), loadFotos()]);
+      const next = upcoming(events, 3);
       $('#events').innerHTML = next.length ? next.map(eventItem).join('') : empty('Keine anstehenden Termine.');
+      fotoStrip($('#foto-strip'), fotos, ['rede-plenum', 'innenausschuss', 'buero-unterschrift', 'rede-polizei', 'buerger-tor', 'radiointerview', 'abschiebung', 'kanzleramt']);
       reveal();
     },
 
     async presse() {
-      const news = (await load('meldungen')).slice().sort(byDateDesc);
+      const [raw, fotos] = await Promise.all([load('meldungen'), loadFotos()]);
+      const news = raw.slice().sort(byDateDesc);
+      const used = new Set();
+      const bild = new Map(news.map((n) => [n.id, fotoFor(n, fotos, used)]));
       const state = { q: '', kat: '' };
       fillOptions($('#f-kat'), NEWS_KIND);
       document.querySelector('.filters').addEventListener('submit', (e) => e.preventDefault());
@@ -237,12 +304,14 @@
         const list = news.filter((n) => (!state.kat || (n.kategorie || 'Pressemitteilung') === state.kat)
           && (!q || `${n.titel} ${n.text}`.toLowerCase().includes(q)));
         $('#news').innerHTML = list.length ? list.map((n) => `
-          <article class="press-item reveal" id="${esc(n.id)}">
+          <article class="press-item reveal${bild.get(n.id) ? ' has-img' : ''}" id="${esc(n.id)}">
             <div class="meta" style="flex-direction:column;align-items:flex-start"><time datetime="${esc(n.datum)}">${fmtDate(n.datum)}</time><span class="tag">${esc(t(n.kategorie || 'Pressemitteilung'))}</span></div>
             <div><h2>${esc(n.titel)}</h2><p>${esc(n.text)}</p></div>
+            ${bild.get(n.id) ? `<a class="press-img" href="pressefotos.html#${esc(bild.get(n.id).id)}" title="${esc(t('Zum Pressefoto'))}">${fotoImg(bild.get(n.id), 's')}</a>` : ''}
           </article>`).join('') : empty('Keine Meldungen gefunden.');
         reveal();
       }
+      fotoStrip($('#foto-strip'), fotos, ['portraet-studio', 'pressekonferenz', 'statement-reichstag', 'radiointerview', 'presse-mikrofone', 'rede-plenum']);
       $('#f-kat').addEventListener('change', (e) => { state.kat = e.target.value; render(); });
       $('#q').addEventListener('input', (e) => { state.q = e.target.value; render(); });
       render();

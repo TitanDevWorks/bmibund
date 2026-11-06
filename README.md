@@ -18,3 +18,17 @@ Lokal ansehen:
 ```bash
 python3 -m http.server 8080
 ```
+
+## Pressefotos
+
+Bilder von Minister Dr. Niels Fiedel liegen unter `assets/presse/fiedel/`, die Liste mit Titel, Thema
+und Stichworten in `data/pressefotos.json`. Je Bild gibt es drei Dateien:
+`<id>.jpg` (Download, bis 1920 px), `<id>.webp` (Webseite) und `<id>-s.webp` (Vorschau).
+
+- Seite `pressefotos.html`: alle Bilder nach Thema, Großansicht, Bildunterschrift und JPG-Download.
+- Pressemitteilungen bekommen automatisch ein passendes Bild über die Stichworte
+  (z. B. „Verfassungsschutz“ → Bild vor dem BfV). Ein festes Bild geht über das Feld `bild` mit der Bild-ID.
+- Neues Bild aufnehmen: `python3 tools/pressefoto.py <datei> <id> <thema> "<Titel>" --en "<title>" --tags "a,b"`
+  (Themen: portraet, bundestag, ministerium, presse, sicherheit, einsatz, migration, vorort, berlin).
+
+Alle Bilder sind KI-generierte, fiktive Szenen für das Rollenspiel.

@@ -568,6 +568,84 @@ body[data-page="verfassungsschutz"] main > section[id], #leitung { scroll-margin
   .ms-in { padding-block: 8px 56px; }
 }
 
+/* Pressefotos (Version 9) */
+.teaser.has-img { overflow: hidden; }
+.teaser-img { display: block; margin: -28px -28px 6px; aspect-ratio: 16 / 9; overflow: hidden; background: var(--bg-3); border-bottom: 1px solid var(--line); }
+.teaser-img img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; transition: transform 1.2s var(--ease), filter 0.6s; filter: saturate(0.92); }
+a.teaser:hover .teaser-img img { transform: scale(1.04); filter: saturate(1); }
+.news-grid:has(> :nth-child(3)) .teaser:not(:first-child) .teaser-img { aspect-ratio: 21 / 9; }
+.news-grid:has(> :nth-child(3)) .teaser.has-img:first-child { background: var(--surface); }
+.news-grid:has(> :nth-child(3)) .teaser.has-img:first-child .teaser-img { position: absolute; inset: 0; z-index: -2; margin: 0; aspect-ratio: auto; border: 0; }
+.news-grid:has(> :nth-child(3)) .teaser.has-img:first-child .teaser-img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgb(7 8 10 / 0.97) 8%, rgb(7 8 10 / 0.72) 42%, rgb(7 8 10 / 0.08) 78%); }
+.news-grid:has(> :nth-child(3)) .teaser.has-img:first-child p { color: #c9cbcf; }
+
+.press-item.has-img { grid-template-columns: 170px minmax(0, 1fr) 240px; align-items: start; }
+.press-img { display: block; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); aspect-ratio: 4 / 3; background: var(--bg-3); }
+.press-img img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; transition: transform 1s var(--ease); }
+.press-img:hover img { transform: scale(1.04); }
+
+.strip-section { padding-block: 72px; }
+.strip { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(220px, 1fr); gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; scrollbar-width: thin; scrollbar-color: var(--line-2) transparent; }
+.strip-item { position: relative; display: block; aspect-ratio: 3 / 4; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); scroll-snap-align: start; background: var(--bg-3); color: var(--text); text-decoration: none; isolation: isolate; }
+.strip-item img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; transition: transform 1.2s var(--ease); }
+.strip-item::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgb(7 8 10 / 0.92) 0%, rgb(7 8 10 / 0.2) 45%, transparent 70%); }
+.strip-item span { position: absolute; left: 16px; right: 16px; bottom: 14px; font-size: 0.9rem; font-weight: 500; line-height: 1.3; }
+.strip-item:hover { color: #fff; border-color: var(--line-2); }
+.strip-item:hover img { transform: scale(1.05); }
+
+.home-stage img { object-position: 58% 40%; }
+.ms-name { font: italic 400 clamp(2.6rem, 6vw, 4.6rem)/1 var(--serif); letter-spacing: -0.02em; margin: 6px 0 12px; }
+.ms-role { color: var(--text-2); margin-bottom: 28px; max-width: 34ch; }
+
+.photo-band { margin: 0 0 32px; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: center; border-radius: 20px; overflow: hidden; border: 1px solid var(--line); background: radial-gradient(120% 120% at 100% 100%, rgb(233 196 106 / 0.08), transparent 55%), var(--surface); }
+.photo-band img { width: 100%; height: 100%; aspect-ratio: 978 / 684; object-fit: cover; object-position: 30% 30%; }
+.photo-band figcaption { display: grid; gap: 8px; margin: 32px 40px; padding-left: 18px; border-left: 2px solid var(--gold); }
+.photo-band figcaption b { font-size: clamp(1.3rem, 2.2vw, 1.8rem); letter-spacing: -0.025em; line-height: 1.15; }
+.photo-band figcaption span { color: var(--text-2); }
+.photo-band figcaption a { font-size: 0.88rem; color: var(--gold); justify-self: start; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+.chips button { font: 500 0.88rem var(--font); padding: 8px 14px; border-radius: 99px; border: 1px solid var(--line-2); background: var(--bg-2); color: var(--text-2); cursor: pointer; transition: background 0.2s, color 0.2s, border-color 0.2s; }
+.chips button small { color: var(--text-3); margin-left: 4px; }
+.chips button:hover { color: var(--text); border-color: var(--text-3); }
+.chips button[aria-pressed="true"] { background: var(--text); color: #000; border-color: var(--text); }
+.chips button[aria-pressed="true"] small { color: #444; }
+.foto-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+.foto { margin: 0; display: grid; gap: 12px; scroll-margin-top: 140px; }
+.foto[hidden] { display: none; }
+.foto-open { display: block; padding: 0; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; aspect-ratio: 4 / 3; background: var(--bg-3); cursor: zoom-in; }
+.foto-open img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; transition: transform 1s var(--ease); }
+.foto-open:hover img { transform: scale(1.04); }
+.foto figcaption { display: grid; gap: 2px; font-size: 0.9rem; }
+.foto figcaption span { color: var(--text-3); font-size: 0.8rem; }
+.foto figcaption code { font-family: var(--mono); color: var(--text-2); overflow-wrap: anywhere; }
+.foto figcaption a { font-size: 0.82rem; color: var(--gold); justify-self: start; }
+.foto-note { margin-top: 40px; color: var(--text-3); font-size: 0.88rem; max-width: 70ch; }
+
+.foto-dlg { width: min(1180px, calc(100vw - 32px)); max-height: calc(100vh - 32px); padding: 0; border: 1px solid var(--line-2); border-radius: 20px; background: var(--surface); color: var(--text); overflow: hidden; }
+.foto-dlg[open] { display: grid; grid-template-columns: minmax(0, 1fr) 320px; }
+.foto-dlg::backdrop { background: rgb(0 0 0 / 0.8); backdrop-filter: blur(6px); }
+.fd-img { background: #000; display: grid; place-items: center; min-height: 0; }
+.fd-img img { width: 100%; height: 100%; max-height: calc(100vh - 34px); object-fit: contain; }
+.fd-side { position: relative; padding: 32px 28px; display: flex; flex-direction: column; gap: 10px; }
+.fd-side h2 { font-size: 1.5rem; letter-spacing: -0.025em; padding-right: 32px; }
+.fd-side .actions { display: grid; gap: 10px; margin-top: auto; }
+.fd-side code { font-family: var(--mono); color: var(--gold); }
+.fd-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line-2); background: var(--bg-2); color: var(--text); font-size: 1.3rem; line-height: 1; cursor: pointer; }
+
+@media (max-width: 1000px) { .press-item.has-img { grid-template-columns: 150px minmax(0, 1fr) 180px; } }
+@media (max-width: 760px) {
+  .press-item.has-img { grid-template-columns: minmax(0, 1fr); }
+  .press-item.has-img .press-img { order: -1; aspect-ratio: 16 / 9; }
+  .strip { grid-auto-columns: 62%; }
+  .photo-band { grid-template-columns: minmax(0, 1fr); }
+  .photo-band figcaption { margin: 22px 20px 24px; }
+  .foto-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .foto-dlg[open] { grid-template-columns: minmax(0, 1fr); overflow-y: auto; }
+  .fd-img img { max-height: 60vh; }
+  .news-grid:has(> :nth-child(3)) .teaser.has-img:first-child { min-height: 380px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .mega span, .poster .lead, .poster .actions { animation: none !important; clip-path: none; transform: none; opacity: 1; }
   .reveal { filter: none; }

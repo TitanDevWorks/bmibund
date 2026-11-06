@@ -154,7 +154,7 @@
     ['index.html', 'Startseite', 'Home'], ['verfassungsschutz.html', 'Verfassungsschutz und VSNOG', 'Domestic intelligence and VSNOG'],
     ['gesetze.html', 'Gesetzesvorhaben', 'Bills'], ['massnahmen.html', 'Maßnahmenplan', 'Action plan'],
     ['minister.html', 'Minister Dr. Niels Fiedel', 'Minister Dr. Niels Fiedel'], ['ministerium.html', 'Das Ministerium', 'The ministry'],
-    ['presse.html', 'Pressemitteilungen', 'Press releases'], ['termine.html', 'Termine', 'Schedule'],
+    ['presse.html', 'Pressemitteilungen', 'Press releases'], ['pressefotos.html', 'Pressefotos des Ministers', 'Press photos of the minister'], ['termine.html', 'Termine', 'Schedule'],
     ['kontakt.html', 'Kontakt', 'Contact'], ['impressum.html', 'Impressum', 'Legal notice'], ['datenschutz.html', 'Datenschutz', 'Privacy']
   ];
   const VS = [

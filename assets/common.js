@@ -93,9 +93,43 @@ window.BMIH = (() => {
       </article>`;
   }
 
-  function newsTeaser(n) {
+  // Pressefotos (data/pressefotos.json, Dateien unter assets/presse/fiedel/).
+  const FOTO_DIR = 'assets/presse/fiedel/';
+  const fotoSrc = (f, size = '') => `${FOTO_DIR}${f.id}${size === 's' ? '-s.webp' : size === 'jpg' ? '.jpg' : '.webp'}`;
+  const fotoTitle = (f) => (P.lang === 'en' && f.titelEn) || f.titel;
+  const fold = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  // Statische Datei, kein Backend nötig.
+  const loadFotos = () => (cache['#fotos'] ||= fetch('data/pressefotos.json').then((r) => (r.ok ? r.json() : [])).catch(() => []));
+  const FALLBACK = ['presse', 'portraet', 'ministerium', 'bundestag'];
+  // Bild zu einer Meldung: festes Feld „bild“, sonst passendes Stichwort, sonst ein ruhiges Standardmotiv.
+  // Einsatzlagen (Ausschreitungen) kommen nur bei passendem Stichwort.
+  function fotoFor(n, fotos, used = new Set()) {
+    if (!Array.isArray(fotos) || !fotos.length) return null;
+    const fixed = n.bild && fotos.find((f) => f.id === n.bild);
+    if (fixed) { used.add(fixed.id); return fixed; }
+    const hay = ` ${fold(`${n.titel} ${n.text}`).replace(/[^a-z0-9]+/g, ' ')}`;
+    // Bereits verwendete Bilder nur, wenn kein anderes passt.
+    let best = null;
+    let top = 0;
+    for (const f of fotos) {
+      const score = (f.tags || []).reduce((a, tag) => a + (hay.includes(` ${fold(tag)}`) ? 1 : 0), 0) - (used.has(f.id) ? 10 : 0);
+      if (score > top) { top = score; best = f; }
+    }
+    if (!best) {
+      const pool = fotos.filter((f) => FALLBACK.includes(f.thema) && !used.has(f.id));
+      const list = pool.length ? pool : fotos.filter((f) => FALLBACK.includes(f.thema));
+      const h = [...String(n.id || n.titel)].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
+      best = list[h % list.length] || fotos[0];
+    }
+    used.add(best.id);
+    return best;
+  }
+  const fotoImg = (f, size, cls = '', lazy = true) => (f ? `<img${cls ? ` class="${cls}"` : ''} src="${esc(fotoSrc(f, size))}" alt="${esc(fotoTitle(f))}" width="${f.w}" height="${f.h}"${lazy ? ' loading="lazy"' : ''} decoding="async">` : '');
+
+  function newsTeaser(n, foto, size = 's') {
     return `
-      <a class="teaser reveal" href="presse.html#${esc(n.id)}">
+      <a class="teaser reveal${foto ? ' has-img' : ''}" href="presse.html#${esc(n.id)}">
+        ${foto ? `<span class="teaser-img">${fotoImg(foto, size)}</span>` : ''}
         <div class="meta"><span class="tag">${esc(t(n.kategorie || 'Pressemitteilung'))}</span><time datetime="${esc(n.datum)}">${fmtDate(n.datum)}</time></div>
         <h3>${esc(n.titel)}</h3>
         <p>${esc(n.text)}</p>
@@ -196,6 +230,6 @@ window.BMIH = (() => {
   return {
     PHASES, STATUSES, STATUS_KEY, NEWS_KIND, EVENT_KIND, LAW_STAGES, DAY, t, tPhase, P,
     esc, fmtDate, today, load, byDateDesc, byDateAsc, progressOf, dayDate, dueLabel,
-    zday, statusBadge, bar, fillBars, measureItem, measureCard, newsTeaser, eventItem, lawSteps, lawItem, reveal, countUp, transition
+    zday, statusBadge, bar, fillBars, measureItem, measureCard, newsTeaser, loadFotos, fotoFor, fotoSrc, fotoTitle, fotoImg, eventItem, lawSteps, lawItem, reveal, countUp, transition
   };
 })();
