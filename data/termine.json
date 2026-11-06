@@ -25,5 +25,14 @@
     "ort": "Reichstagsgebäude, Berlin",
     "art": "Bundestag",
     "beschreibung": ""
+  },
+  {
+    "id": "vsnog-veroeffentlichung",
+    "titel": "Veröffentlichung VSNOG (Drucksache 3/15)",
+    "datum": "2026-11-07",
+    "zeit": "",
+    "ort": "Deutscher Bundestag, Berlin",
+    "art": "Bundestag",
+    "beschreibung": "Gesetzentwurf zur Neuordnung und parlamentarischen Kontrolle des Verfassungsschutzes."
   }
 ]

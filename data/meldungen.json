@@ -1,5 +1,29 @@
 [
   {
+    "id": "vsnog-drucksache",
+    "datum": "2026-11-06",
+    "titel": "VSNOG erscheint am Samstag: Drucksache 3/15",
+    "text": "Der Entwurf eines Gesetzes zur Neuordnung und parlamentarischen Kontrolle des Verfassungsschutzes (VSNOG) wird am Samstag, 07.11.2026 veröffentlicht. Kernpunkte: Richtervorbehalt bei der Beobachtung von Parteien und Abgeordneten, keine öffentlichen Einstufungen ohne Gericht, Wahl der BfV-Spitze durch den Bundestag und eine jährliche Leistungsbilanz.",
+    "kategorie": "Pressemitteilung",
+    "status": "Veröffentlicht"
+  },
+  {
+    "id": "bfv-neue-leitung",
+    "datum": "2026-11-06",
+    "titel": "Neue Leitung für das Bundesamt für Verfassungsschutz",
+    "text": "Die bisherigen Präsidenten des BfV werden entlassen. Neue Präsidenten sind Dr. Peter Thiel und Hans-Jörg Maaßen (beide ohne Parteibuch), Vizepräsidenten werden Mathias Andreas Fuchs (ohne Parteibuch) und Prof. Dr. Max Kruse.",
+    "kategorie": "Pressemitteilung",
+    "status": "Veröffentlicht"
+  },
+  {
+    "id": "bfv-ermittler",
+    "datum": "2026-11-06",
+    "titel": "Alle Ermittler des Verfassungsschutzes entlassen",
+    "text": "Bundesminister Dr. Niels Fiedel hat sämtliche Ermittler des Bundesamtes für Verfassungsschutz entlassen. Die Ermittlungsarbeit wird unter der neuen Amtsleitung neu aufgebaut.",
+    "kategorie": "Pressemitteilung",
+    "status": "Veröffentlicht"
+  },
+  {
     "id": "amtsantritt",
     "datum": "2026-10-30",
     "titel": "Dr. Niels Fiedel übernimmt das Bundesministerium für Inneres und Heimat",
