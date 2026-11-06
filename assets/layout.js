@@ -23,10 +23,6 @@
   const links = PAGES.map(([href, label]) =>
     `<a href="${href}"${HOT.has(href) ? ' class="hot"' : ''}${href === here ? ' aria-current="page"' : ''}>${esc(t(label))}</a>`).join('');
 
-  const sun = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
-  const moon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>';
-  const dark = P.theme === 'dark';
-  const themeLabel = dark ? (en ? 'Switch to light mode' : 'Hellen Modus einschalten') : (en ? 'Switch to dark mode' : 'Dunklen Modus einschalten');
 
   const head = document.createElement('div');
   head.innerHTML = `
@@ -45,7 +41,6 @@
             <button type="button" data-lang-set="de" aria-pressed="${!en}" lang="de" title="Deutsch">DE</button>
             <button type="button" data-lang-set="en" aria-pressed="${en}" lang="en" title="English">EN</button>
           </div>
-          <button class="theme-btn" type="button" data-theme-toggle aria-label="${themeLabel}" title="${themeLabel}">${dark ? sun : moon}<span>${esc(t(dark ? 'Hell' : 'Dunkel'))}</span></button>
         </div>
       </div>
     </div>
@@ -80,12 +75,6 @@
     P.set('lang', b.dataset.langSet);
     location.reload();
   }));
-  document.querySelector('[data-theme-toggle]').addEventListener('click', () => {
-    const next = dark ? 'light' : 'dark';
-    P.set('theme', next);
-    document.documentElement.dataset.theme = next;
-    location.reload();
-  });
 
   const header = document.querySelector('.site-header');
   const btn = header.querySelector('.menu-btn');

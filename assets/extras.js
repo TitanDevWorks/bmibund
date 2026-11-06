@@ -21,6 +21,24 @@
 
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Lichtkegel auf der Startseite folgt dem Mauszeiger.
+  const poster = document.querySelector('.poster');
+  if (poster && !calm) {
+    poster.addEventListener('pointermove', (e) => {
+      const r = poster.getBoundingClientRect();
+      poster.style.setProperty('--sx', `${e.clientX - r.left}px`);
+      poster.style.setProperty('--sy', `${e.clientY - r.top}px`);
+    }, { passive: true });
+  }
+  // Lichtpunkt auf Karten
+  document.addEventListener('pointermove', (e) => {
+    const el = e.target.closest?.('.teaser, .topic, .track, .point, .card');
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    el.style.setProperty('--mx', `${e.clientX - r.left}px`);
+    el.style.setProperty('--my', `${e.clientY - r.top}px`);
+  }, { passive: true });
+
   // Dienstausweise kippen mit dem Mauszeiger, Hologramm-Glanz wandert mit.
   if (!calm) {
     document.querySelectorAll('.person').forEach((card) => {
@@ -58,7 +76,7 @@
   // Konfetti in Schwarz-Rot-Gold
   function confetti(x, y, n = 70) {
     if (calm) return;
-    const colors = ['#111111', '#e10600', '#ffc800'];
+    const colors = ['#555555', '#e5484d', '#e9c46a'];
     for (let i = 0; i < n; i++) {
       const c = document.createElement('i');
       c.className = 'confetti';
