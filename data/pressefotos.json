@@ -1,0 +1,599 @@
+[
+  {
+    "id": "portraet-studio",
+    "thema": "portraet",
+    "titel": "Offizielles Porträt",
+    "titelEn": "Official portrait",
+    "tags": [
+      "portrait",
+      "minister",
+      "amtsantritt",
+      "personal"
+    ],
+    "w": 1145,
+    "h": 1374
+  },
+  {
+    "id": "portraet-reichstag",
+    "thema": "portraet",
+    "titel": "Porträt vor dem Reichstagsgebäude",
+    "titelEn": "Portrait in front of the Reichstag",
+    "tags": [
+      "portrait",
+      "bundestag",
+      "berlin"
+    ],
+    "w": 1672,
+    "h": 941
+  },
+  {
+    "id": "portraet-reichstag-2",
+    "thema": "portraet",
+    "titel": "Vor dem Reichstagsgebäude",
+    "titelEn": "In front of the Reichstag",
+    "tags": [
+      "portrait",
+      "bundestag",
+      "berlin"
+    ],
+    "w": 1672,
+    "h": 941
+  },
+  {
+    "id": "portraet-profil",
+    "thema": "portraet",
+    "titel": "Porträt im Profil",
+    "titelEn": "Portrait in profile",
+    "tags": [
+      "portrait"
+    ],
+    "w": 1032,
+    "h": 915
+  },
+  {
+    "id": "portraet-nachdenklich",
+    "thema": "portraet",
+    "titel": "Nachdenklich",
+    "titelEn": "Thoughtful",
+    "tags": [
+      "portrait",
+      "bilanz"
+    ],
+    "w": 588,
+    "h": 684
+  },
+  {
+    "id": "portraet-nah",
+    "thema": "portraet",
+    "titel": "Nahaufnahme",
+    "titelEn": "Close-up",
+    "tags": [
+      "portrait"
+    ],
+    "w": 702,
+    "h": 711
+  },
+  {
+    "id": "portraet-presse",
+    "thema": "portraet",
+    "titel": "Porträt am Rande eines Pressetermins",
+    "titelEn": "Portrait at a press event",
+    "tags": [
+      "portrait",
+      "presse"
+    ],
+    "w": 969,
+    "h": 726
+  },
+  {
+    "id": "portraet-innenraum",
+    "thema": "portraet",
+    "titel": "Porträt im Innenraum",
+    "titelEn": "Indoor portrait",
+    "tags": [
+      "portrait"
+    ],
+    "w": 696,
+    "h": 726
+  },
+  {
+    "id": "rede-plenum",
+    "thema": "bundestag",
+    "titel": "Rede im Plenum des Deutschen Bundestages",
+    "titelEn": "Speech in the Bundestag plenary",
+    "tags": [
+      "bundestag",
+      "rede",
+      "gesetz",
+      "drucksache",
+      "lesung",
+      "plenum"
+    ],
+    "w": 1672,
+    "h": 941
+  },
+  {
+    "id": "rede-plenum-2",
+    "thema": "bundestag",
+    "titel": "Am Rednerpult im Plenarsaal",
+    "titelEn": "At the lectern in the plenary hall",
+    "tags": [
+      "bundestag",
+      "rede",
+      "gesetz",
+      "vsnog",
+      "verfassungsschutz"
+    ],
+    "w": 1672,
+    "h": 941
+  },
+  {
+    "id": "rede-rednerpult",
+    "thema": "bundestag",
+    "titel": "Am Rednerpult des Bundestages",
+    "titelEn": "At the Bundestag lectern",
+    "tags": [
+      "bundestag",
+      "rede",
+      "gesetz"
+    ],
+    "w": 909,
+    "h": 711
+  },
+  {
+    "id": "innenausschuss",
+    "thema": "bundestag",
+    "titel": "Sitzung im Innenausschuss",
+    "titelEn": "Committee on Internal Affairs",
+    "tags": [
+      "ausschuss",
+      "bundestag",
+      "kontrollgremium",
+      "anhörung"
+    ],
+    "w": 1672,
+    "h": 941
+  },
+  {
+    "id": "buero-unterschrift",
+    "thema": "ministerium",
+    "titel": "Unterzeichnung im Ministerbüro",
+    "titelEn": "Signing in the minister's office",
+    "tags": [
+      "unterschrift",
+      "erlass",
+      "verordnung",
+      "ernennung",
+      "entlassen",
+      "gesetz",
+      "beschluss"
+    ],
+    "w": 1672,
+    "h": 941
+  },
+  {
+    "id": "buero-telefonat",
+    "thema": "ministerium",
+    "titel": "Telefonat am Abend im Ministerbüro",
+    "titelEn": "Evening phone call in the office",
+    "tags": [
+      "telefonat",
+      "lage",
+      "krise",
+      "abstimmung"
+    ],
+    "w": 1672,
+    "h": 941
+  },
+  {
+    "id": "ministerium-eingang",
+    "thema": "ministerium",
+    "titel": "Vor dem Bundesministerium des Innern und für Heimat",
+    "titelEn": "Outside the Federal Ministry of the Interior",
+    "tags": [
+      "ministerium",
+      "amtsantritt",
+      "haus"
+    ],
+    "w": 1197,
+    "h": 684
+  },
+  {
+    "id": "ministerium-flur",
+    "thema": "ministerium",
+    "titel": "Auf dem Weg durch das Ministerium",
+    "titelEn": "Walking through the ministry",
+    "tags": [
+      "ministerium",
+      "haus"
+    ],
+    "w": 618,
+    "h": 711
+  },
+  {
+    "id": "besprechung",
+    "thema": "ministerium",
+    "titel": "Besprechung im Ministerium",
+    "titelEn": "Meeting at the ministry",
+    "tags": [
+      "besprechung",
+      "kabinett",
+      "koalition",
+      "abstimmung"
+    ],
+    "w": 906,
+    "h": 726
+  },
+  {
+    "id": "pressekonferenz",
+    "thema": "presse",
+    "titel": "Pressekonferenz",
+    "titelEn": "Press conference",
+    "tags": [
+      "pressekonferenz",
+      "presse",
+      "statement",
+      "bilanz"
+    ],
+    "w": 1672,
+    "h": 940
+  },
+  {
+    "id": "pressekonferenz-2",
+    "thema": "presse",
+    "titel": "Pressekonferenz vor Fahnen",
+    "titelEn": "Press conference",
+    "tags": [
+      "pressekonferenz",
+      "presse",
+      "statement"
+    ],
+    "w": 1672,
+    "h": 941
+  },
+  {
+    "id": "statement-ministerium",
+    "thema": "presse",
+    "titel": "Pressestatement vor dem Ministerium",
+    "titelEn": "Statement outside the ministry",
+    "tags": [
+      "statement",
+      "presse",
+      "pressekonferenz"
+    ],
+    "w": 1672,
+    "h": 941
+  },
+  {
+    "id": "statement-reichstag",
+    "thema": "presse",
+    "titel": "Pressestatement am Abend vor dem Reichstag",
+    "titelEn": "Evening statement at the Reichstag",
+    "tags": [
+      "statement",
+      "presse",
+      "interview",
+      "bundestag"
+    ],
+    "w": 1672,
+    "h": 941
+  },
+  {
+    "id": "radiointerview",
+    "thema": "presse",
+    "titel": "Radiointerview im Studio",
+    "titelEn": "Radio interview",
+    "tags": [
+      "interview",
+      "radio"
+    ],
+    "w": 1672,
+    "h": 941
+  },
+  {
+    "id": "presse-mikrofone",
+    "thema": "presse",
+    "titel": "Vor den Mikrofonen der Presse",
+    "titelEn": "Speaking to the press",
+    "tags": [
+      "statement",
+      "interview",
+      "presse"
+    ],
+    "w": 1107,
+    "h": 915
+  },
+  {
+    "id": "interview",
+    "thema": "presse",
+    "titel": "Im Interview",
+    "titelEn": "Interview",
+    "tags": [
+      "interview"
+    ],
+    "w": 918,
+    "h": 711
+  },
+  {
+    "id": "presseauftritt",
+    "thema": "presse",
+    "titel": "Ankunft vor Kameras",
+    "titelEn": "Arriving in front of cameras",
+    "tags": [
+      "presse",
+      "ankunft",
+      "termin"
+    ],
+    "w": 990,
+    "h": 726
+  },
+  {
+    "id": "rede-polizei",
+    "thema": "sicherheit",
+    "titel": "Rede vor Polizeikräften",
+    "titelEn": "Speech to police officers",
+    "tags": [
+      "polizei",
+      "bundespolizei",
+      "vereidigung",
+      "bka",
+      "stellen"
+    ],
+    "w": 1672,
+    "h": 941
+  },
+  {
+    "id": "dank-polizei",
+    "thema": "sicherheit",
+    "titel": "Dank an die Einsatzkräfte der Polizei",
+    "titelEn": "Thanking police officers",
+    "tags": [
+      "polizei",
+      "dank",
+      "einsatz"
+    ],
+    "w": 1672,
+    "h": 941
+  },
+  {
+    "id": "lage-polizei",
+    "thema": "sicherheit",
+    "titel": "Lagebesprechung mit der Polizei",
+    "titelEn": "Briefing with the police",
+    "tags": [
+      "polizei",
+      "lage",
+      "einsatz",
+      "sicherheit"
+    ],
+    "w": 1672,
+    "h": 941
+  },
+  {
+    "id": "bundespolizei",
+    "thema": "sicherheit",
+    "titel": "Gespräch mit der Bundespolizei",
+    "titelEn": "Talking to the Federal Police",
+    "tags": [
+      "bundespolizei",
+      "polizei",
+      "grenze",
+      "grenzschutz"
+    ],
+    "w": 1672,
+    "h": 941
+  },
+  {
+    "id": "gespraech-polizist",
+    "thema": "sicherheit",
+    "titel": "Im Gespräch mit einem Polizisten",
+    "titelEn": "Talking to a police officer",
+    "tags": [
+      "polizei"
+    ],
+    "w": 867,
+    "h": 684
+  },
+  {
+    "id": "bfv",
+    "thema": "sicherheit",
+    "titel": "Vor dem Bundesamt für Verfassungsschutz",
+    "titelEn": "Outside the Federal Office for the Protection of the Constitution",
+    "tags": [
+      "verfassungsschutz",
+      "bfv",
+      "vsnog",
+      "ermittler",
+      "präsident"
+    ],
+    "w": 978,
+    "h": 684
+  },
+  {
+    "id": "aussentermin",
+    "thema": "sicherheit",
+    "titel": "Außentermin mit Hubschrauber",
+    "titelEn": "Field visit by helicopter",
+    "tags": [
+      "reise",
+      "termin",
+      "bundespolizei",
+      "katastrophenschutz",
+      "thw"
+    ],
+    "w": 999,
+    "h": 726
+  },
+  {
+    "id": "einsatzlage",
+    "thema": "einsatz",
+    "titel": "Vor Ort bei einer Einsatzlage",
+    "titelEn": "On site during a police operation",
+    "tags": [
+      "einsatz",
+      "ausschreitungen",
+      "krawall",
+      "demonstration",
+      "extremismus",
+      "linksextremismus",
+      "antifa"
+    ],
+    "w": 1672,
+    "h": 941
+  },
+  {
+    "id": "einsatzlage-2",
+    "thema": "einsatz",
+    "titel": "Mit Einsatzkräften bei einer Großlage",
+    "titelEn": "With officers at a major operation",
+    "tags": [
+      "einsatz",
+      "ausschreitungen",
+      "krawall",
+      "demonstration"
+    ],
+    "w": 1672,
+    "h": 941
+  },
+  {
+    "id": "einsatzlage-tor",
+    "thema": "einsatz",
+    "titel": "Ausschreitungen am Brandenburger Tor",
+    "titelEn": "Riots at the Brandenburg Gate",
+    "tags": [
+      "ausschreitungen",
+      "krawall",
+      "linksextremismus",
+      "antifa",
+      "gewalt"
+    ],
+    "w": 1672,
+    "h": 941
+  },
+  {
+    "id": "einsatzlage-linden",
+    "thema": "einsatz",
+    "titel": "Ausschreitungen Unter den Linden",
+    "titelEn": "Riots on Unter den Linden",
+    "tags": [
+      "ausschreitungen",
+      "krawall",
+      "linksextremismus",
+      "antifa",
+      "gewalt"
+    ],
+    "w": 1672,
+    "h": 941
+  },
+  {
+    "id": "abschiebung",
+    "thema": "migration",
+    "titel": "Besuch einer Abschiebeeinrichtung",
+    "titelEn": "Visiting a deportation facility",
+    "tags": [
+      "abschiebung",
+      "rückführung",
+      "ausreise",
+      "migration",
+      "asyl",
+      "ausreisepflicht"
+    ],
+    "w": 1413,
+    "h": 711
+  },
+  {
+    "id": "buerger-tor",
+    "thema": "vorort",
+    "titel": "Begegnung mit Bürgern am Brandenburger Tor",
+    "titelEn": "Meeting citizens at the Brandenburg Gate",
+    "tags": [
+      "bürger",
+      "heimat",
+      "besuch"
+    ],
+    "w": 1672,
+    "h": 941
+  },
+  {
+    "id": "buerger-altstadt",
+    "thema": "vorort",
+    "titel": "Bürgergespräch in einer Altstadt",
+    "titelEn": "Talking to citizens in a town square",
+    "tags": [
+      "heimat",
+      "bürger",
+      "ehrenamt",
+      "besuch",
+      "kommune"
+    ],
+    "w": 1672,
+    "h": 941
+  },
+  {
+    "id": "ankunft",
+    "thema": "vorort",
+    "titel": "Ankunft mit dem Dienstwagen",
+    "titelEn": "Arriving by official car",
+    "tags": [
+      "termin",
+      "ankunft",
+      "reise",
+      "kabinett"
+    ],
+    "w": 930,
+    "h": 684
+  },
+  {
+    "id": "kanzleramt",
+    "thema": "berlin",
+    "titel": "Auf dem Weg ins Kanzleramt",
+    "titelEn": "On the way to the Chancellery",
+    "tags": [
+      "kabinett",
+      "kanzleramt",
+      "koalition",
+      "regierung"
+    ],
+    "w": 1672,
+    "h": 941
+  },
+  {
+    "id": "reichstagskuppel",
+    "thema": "berlin",
+    "titel": "In der Reichstagskuppel",
+    "titelEn": "In the Reichstag dome",
+    "tags": [
+      "bundestag",
+      "berlin",
+      "heimat"
+    ],
+    "w": 1672,
+    "h": 941
+  },
+  {
+    "id": "brandenburger-tor",
+    "thema": "berlin",
+    "titel": "Am Brandenburger Tor bei Sonnenuntergang",
+    "titelEn": "Brandenburg Gate at sunset",
+    "tags": [
+      "berlin",
+      "heimat",
+      "einheit"
+    ],
+    "w": 1672,
+    "h": 941
+  },
+  {
+    "id": "reichstag",
+    "thema": "berlin",
+    "titel": "Auf dem Platz der Republik",
+    "titelEn": "On the Platz der Republik",
+    "tags": [
+      "bundestag",
+      "berlin",
+      "ankunft"
+    ],
+    "w": 1080,
+    "h": 915
+  }
+]

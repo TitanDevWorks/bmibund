@@ -12,7 +12,7 @@
     ['termine.html', 'Termine'],
     ['kontakt.html', 'Kontakt']
   ];
-  const EXTRA = { 'impressum.html': 'Impressum', 'datenschutz.html': 'Datenschutz' };
+  const EXTRA = { 'pressefotos.html': 'Pressefotos', 'impressum.html': 'Impressum', 'datenschutz.html': 'Datenschutz' };
   const here = location.pathname.split('/').pop() || 'index.html';
   const en = P.lang === 'en';
   const logo = `<span class="flag" aria-hidden="true"><i></i><i></i><i></i></span>${en
@@ -34,6 +34,7 @@
         <div class="prefs">
           <nav aria-label="Service">
             <a href="presse.html#pressekontakt">${esc(t('Pressestelle'))}</a>
+            <a href="pressefotos.html">${esc(t('Pressefotos'))}</a>
             <a href="termine.html">${esc(t('Termine'))}</a>
             <a href="kontakt.html">${esc(t('Kontakt'))}</a>
           </nav>
@@ -110,6 +111,7 @@
           <h4>${esc(t('Presse'))}</h4>
           <ul>
             <li><a href="presse.html">${esc(t('Pressemitteilungen'))}</a></li>
+            <li><a href="pressefotos.html">${esc(t('Pressefotos'))}</a></li>
             <li><a href="termine.html">${esc(t('Termine'))}</a></li>
             <li><a href="presse.html#pressekontakt">${esc(t('Pressestelle'))}</a></li>
           </ul>
