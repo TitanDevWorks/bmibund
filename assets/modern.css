@@ -500,6 +500,74 @@ a.agency:hover { background: var(--surface-2); color: var(--text); }
   .sticker { display: none; }
   .ticket { padding: 22px; }
 }
+
+/* v8: Verfassungsschutz erklärt */
+body[data-page="verfassungsschutz"] main > section[id], #leitung { scroll-margin-top: 120px; }
+.vs-nav { position: sticky; top: var(--head-h, 64px); z-index: 20; background: rgb(7 8 10 / 0.78); backdrop-filter: blur(14px) saturate(1.4); -webkit-backdrop-filter: blur(14px) saturate(1.4); border-bottom: 1px solid var(--line); }
+.vs-nav-in { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; padding-block: 10px; }
+.vs-nav-in::-webkit-scrollbar { display: none; }
+.vs-nav a { flex: none; padding: 6px 14px; border-radius: 99px; font-size: 0.84rem; color: var(--text-2); text-decoration: none; border: 1px solid transparent; transition: color 0.25s, background 0.25s, border-color 0.25s; }
+.vs-nav a:hover { color: var(--text); background: var(--bg-3); }
+.vs-nav a.on { color: #000; background: var(--gold); }
+
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; position: relative; }
+.step { position: relative; padding: 34px 30px 30px; border-radius: 22px; border: 1px solid var(--line); background: linear-gradient(180deg, var(--surface-2), var(--surface)); overflow: hidden; }
+.step-n { position: absolute; right: 18px; top: -18px; font: italic 400 8rem/1 var(--serif); color: rgb(233 196 106 / 0.08); pointer-events: none; }
+.step-ic { width: 52px; height: 52px; display: grid; place-items: center; border-radius: 14px; margin-bottom: 26px; color: var(--gold); background: rgb(233 196 106 / 0.1); border: 1px solid rgb(233 196 106 / 0.25); }
+.step-ic svg { width: 24px; height: 24px; }
+.step h3 { font-size: 1.5rem; letter-spacing: -0.03em; margin-bottom: 10px; }
+.step p { color: var(--text-2); font-size: 1rem; }
+
+.compare { border: 1px solid var(--line); border-radius: 22px; overflow: hidden; background: var(--surface); }
+.cmp-row { display: grid; grid-template-columns: 1fr 1.3fr 1.3fr; gap: 24px; padding: 20px 28px; border-top: 1px solid var(--line); align-items: center; transition: background 0.25s; }
+.cmp-row:first-child { border-top: 0; }
+.cmp-row:not(.cmp-head):hover { background: var(--surface-2); }
+.cmp-head { padding-block: 14px; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); background: var(--bg-2); }
+.cmp-head .g { color: var(--gold); }
+.cmp-row b { font-weight: 600; letter-spacing: -0.02em; }
+.cmp-row .old { color: var(--text-3); padding-left: 26px; position: relative; }
+.cmp-row .new { color: var(--text); padding-left: 26px; position: relative; }
+.cmp-row .old::before, .cmp-row .new::before { position: absolute; left: 0; top: 0.1em; width: 17px; height: 17px; border-radius: 50%; display: grid; place-items: center; font-size: 0.7rem; font-weight: 700; }
+.cmp-row .old::before { content: "✕"; color: #ff8f93; background: rgb(229 72 77 / 0.14); }
+.cmp-row .new::before { content: "✓"; color: #000; background: var(--gold); }
+
+.minister-stage { position: relative; isolation: isolate; min-height: min(78vh, 720px); display: flex; align-items: flex-end; overflow: hidden; border-block: 1px solid var(--line); }
+.minister-stage img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 45% 25%; transform: scale(1.06); transition: transform 1.6s var(--ease); }
+.minister-stage:hover img { transform: scale(1.02); }
+.minister-stage::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(7 8 10 / 0.96) 0%, rgb(7 8 10 / 0.75) 38%, rgb(7 8 10 / 0.1) 70%), linear-gradient(0deg, var(--bg) 0%, transparent 35%); }
+.ms-in { padding-block: 80px; }
+.ms-quote { margin: 0; max-width: 560px; }
+.ms-quote blockquote { margin: 14px 0 26px; font: italic 400 clamp(1.7rem, 3.4vw, 2.6rem)/1.15 var(--serif); letter-spacing: -0.01em; color: var(--text); }
+.ms-quote figcaption { display: grid; gap: 2px; padding-left: 16px; border-left: 2px solid var(--gold); margin-bottom: 24px; }
+.ms-quote figcaption span { color: var(--text-2); font-size: 0.9rem; }
+
+.org-chart { display: grid; justify-items: center; gap: 0; }
+.oc-top { display: flex; align-items: center; gap: 20px; padding: 18px 28px 18px 18px; border-radius: 99px; border: 1px solid rgb(233 196 106 / 0.35); background: radial-gradient(120% 140% at 0% 50%, rgb(233 196 106 / 0.12), transparent 60%), var(--surface); box-shadow: 0 20px 60px -30px rgb(233 196 106 / 0.4); }
+.oc-top img { width: 76px; height: 76px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); }
+.oc-top h3 { font-size: 1.25rem; letter-spacing: -0.02em; }
+.oc-top .role-l { font-size: 0.74rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.08em; }
+.oc-top .muted { font-size: 0.86rem; }
+.oc-line { width: 1px; height: 40px; background: linear-gradient(var(--gold), var(--line-2)); }
+.oc-tier { margin: 6px 0 14px; padding: 3px 12px; border-radius: 99px; border: 1px solid var(--line-2); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-3); background: var(--bg); }
+.org-chart .oc-row { width: 100%; grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 860px; margin-bottom: 26px; }
+
+.portrait.photo { padding: 0; }
+.portrait.photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.quote-box .q-who { display: flex; align-items: center; gap: 12px; }
+.quote-box .q-who img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gold); }
+
+@media (max-width: 1000px) { .steps { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 760px) {
+  .cmp-head { display: none; }
+  .cmp-row { grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 18px 20px; }
+  .org-chart .oc-row { grid-template-columns: minmax(0, 1fr); }
+  .oc-top { border-radius: 22px; }
+  .minister-stage { min-height: 0; flex-direction: column; align-items: stretch; }
+  .minister-stage img { position: relative; height: 62vw; transform: none; -webkit-mask-image: linear-gradient(#000 70%, transparent); mask-image: linear-gradient(#000 70%, transparent); }
+  .minister-stage::after { display: none; }
+  .ms-in { padding-block: 8px 56px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .mega span, .poster .lead, .poster .actions { animation: none !important; clip-path: none; transform: none; opacity: 1; }
   .reveal { filter: none; }

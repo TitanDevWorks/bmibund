@@ -131,15 +131,23 @@
   });
 
   // Inhaltsverzeichnis mit aktivem Abschnitt
-  const toc = document.querySelector('.law-toc');
-  if (toc && 'IntersectionObserver' in window) {
+  document.querySelectorAll('.law-toc, .vs-nav').forEach((toc) => {
+    if (!('IntersectionObserver' in window)) return;
     const links = [...toc.querySelectorAll('a[href^="#"]')];
     const io = new IntersectionObserver((entries) => entries.forEach((ent) => {
       if (!ent.isIntersecting) return;
-      links.forEach((a) => a.classList.toggle('on', a.getAttribute('href') === `#${ent.target.id}`));
+      links.forEach((a) => {
+        const on = a.getAttribute('href') === `#${ent.target.id}`;
+        a.classList.toggle('on', on);
+        if (on && toc.classList.contains('vs-nav')) { const box = a.parentElement; box.scrollTo({ left: a.offsetLeft - box.clientWidth / 2 + a.offsetWidth / 2, behavior: 'smooth' }); }
+      });
     }), { rootMargin: '-30% 0px -60% 0px' });
     links.forEach((a) => { const s = document.getElementById(a.getAttribute('href').slice(1)); if (s) io.observe(s); });
-  }
+  });
+  // Höhe des Kopfbereichs für die klebende Seitennavigation
+  const head = document.querySelector('.site-header');
+  const setHead = () => { if (head) document.documentElement.style.setProperty('--head-h', getComputedStyle(head).position === 'sticky' ? `${head.offsetHeight}px` : '0px'); };
+  setHead(); addEventListener('resize', setHead);
 
   // ---------- Schnellsuche ----------
   const PAGES = [
