@@ -19,14 +19,65 @@
     upd();
   }
 
-  // Lichtpunkt folgt dem Mauszeiger
-  document.addEventListener('pointermove', (e) => {
-    const el = e.target.closest?.('.tile, .teaser, .topic, .track, .card, .person');
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    el.style.setProperty('--mx', `${e.clientX - r.left}px`);
-    el.style.setProperty('--my', `${e.clientY - r.top}px`);
-  }, { passive: true });
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Dienstausweise kippen mit dem Mauszeiger, Hologramm-Glanz wandert mit.
+  if (!calm) {
+    document.querySelectorAll('.person').forEach((card) => {
+      card.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width;
+        const y = (e.clientY - r.top) / r.height;
+        card.style.setProperty('--ry', `${(x - 0.5) * 16}deg`);
+        card.style.setProperty('--rx', `${(0.5 - y) * 12}deg`);
+        card.style.setProperty('--hx', `${x * 100}%`);
+      });
+      card.addEventListener('pointerleave', () => { card.style.removeProperty('--rx'); card.style.removeProperty('--ry'); });
+    });
+  }
+
+  // Stempel knallen beim Hineinscrollen auf, Klick stempelt erneut.
+  const stamps = document.querySelectorAll('[data-stamp]');
+  if (stamps.length && 'IntersectionObserver' in window && !calm) {
+    const so = new IntersectionObserver((entries) => entries.forEach((ent) => {
+      if (!ent.isIntersecting) return;
+      setTimeout(() => ent.target.classList.add('slam'), 350);
+      so.unobserve(ent.target);
+    }), { threshold: 0.6 });
+    stamps.forEach((st) => {
+      st.style.opacity = '0';
+      st.addEventListener('animationend', () => { st.style.opacity = ''; });
+      st.parentElement.addEventListener('click', (e) => {
+        if (e.target.closest('a, button, summary')) return;
+        st.classList.remove('slam'); void st.offsetWidth; st.classList.add('slam');
+      });
+      so.observe(st);
+    });
+  }
+
+  // Konfetti in Schwarz-Rot-Gold
+  function confetti(x, y, n = 70) {
+    if (calm) return;
+    const colors = ['#111111', '#e10600', '#ffc800'];
+    for (let i = 0; i < n; i++) {
+      const c = document.createElement('i');
+      c.className = 'confetti';
+      c.style.left = `${x}px`;
+      c.style.top = `${y}px`;
+      c.style.background = colors[i % 3];
+      document.body.append(c);
+      const a = Math.random() * Math.PI * 2;
+      const v = 140 + Math.random() * 260;
+      c.animate([
+        { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+        { transform: `translate(${Math.cos(a) * v}px, ${Math.sin(a) * v + 320}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+      ], { duration: 1200 + Math.random() * 700, easing: 'cubic-bezier(.2,.6,.4,1)' }).onfinish = () => c.remove();
+    }
+  }
+  document.querySelectorAll('.ticket-day b, .release .live').forEach((el) => {
+    el.style.cursor = 'pointer';
+    el.addEventListener('click', (e) => confetti(e.clientX, e.clientY));
+  });
 
   // Countdown: <div class="release" data-release="2026-11-07T00:00"> mit .clock b (Tage, Std., Min., Sek.)
   function berlinToUtc(local) {
@@ -49,7 +100,13 @@
         return false;
       }
       const parts = [Math.floor(left / 86400000), Math.floor(left / 3600000) % 24, Math.floor(left / 60000) % 60, Math.floor(left / 1000) % 60];
-      cells.forEach((c, i) => { c.textContent = String(parts[i]).padStart(2, '0'); });
+      cells.forEach((c, i) => {
+        const v = String(parts[i]).padStart(2, '0');
+        if (c.textContent !== v) {
+          c.textContent = v;
+          if (!calm) { c.classList.remove('flip'); void c.offsetWidth; c.classList.add('flip'); }
+        }
+      });
       return true;
     };
     if (tick()) { const id = setInterval(() => { if (!tick()) clearInterval(id); }, 1000); }

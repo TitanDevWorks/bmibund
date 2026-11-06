@@ -10,22 +10,17 @@
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
   <script src="assets/prefs.js"></script>
   <link rel="stylesheet" href="assets/style.css">
-  <link rel="stylesheet" href="assets/modern.css">
+  <link rel="stylesheet" href="assets/modern.css?v=6">
 </head>
 <body data-page="verfassungsschutz" data-title-en="Domestic intelligence and VSNOG · Federal Ministry of the Interior and Homeland">
   <main id="main">
-    <section class="vs-hero">
+    <section class="vs-cover">
       <div class="container vs-grid">
         <div>
-          <span class="kicker" data-en="Bill of the NVP group · Printed paper 3/15">Gesetzentwurf der Fraktion der NVP · Drucksache 3/15</span>
-          <h1>VSNOG<small data-en="Act on the reorganisation and parliamentary oversight of the Federal Office for the Protection of the Constitution">Gesetz zur Neuordnung und parlamentarischen Kontrolle des Verfassungsschutzes</small></h1>
+          <div class="ds-strip"><span class="red" data-en="Bill">Gesetzentwurf</span><span>Drucksache 3/15</span><span>04.11.2026</span><span data-en="NVP group">Fraktion der NVP</span></div>
+          <h1>VS<span class="o">NOG</span></h1>
+          <p class="full" data-en="Act on the reorganisation and parliamentary oversight of the Federal Office for the Protection of the Constitution">Gesetz zur Neuordnung und parlamentarischen Kontrolle des Verfassungsschutzes</p>
           <p class="lead" data-en="Back to the core mission: counter-terrorism, counter-espionage and cyber defence. No more political ratings of parties, judicial approval for monitoring MPs and parties, and much stronger oversight by the Bundestag.">Zurück zum Kernauftrag: Terror-, Spionage- und Cyberabwehr. Schluss mit politischen Bewertungen von Parteien, Richtervorbehalt bei der Beobachtung von Parteien und Abgeordneten und eine deutlich stärkere Kontrolle durch den Bundestag.</p>
-          <div class="ds-meta">
-            <span><span data-en="Printed paper">Drucksache</span> <b>3/15</b></span>
-            <span><span data-en="Dated">Datum</span> <b>04.11.2026</b></span>
-            <span><span data-en="Legislative term">Wahlperiode</span> <b>3</b></span>
-            <span><span data-en="Signed by">Unterzeichnet</span> <b>Dr. Niels Fiedel <span data-en="and group">und Fraktion</span></b></span>
-          </div>
         </div>
         <aside class="release reveal" data-release="2026-11-07T00:00" aria-labelledby="rel-title">
           <span class="label mono" data-en="Publication">Veröffentlichung</span>
@@ -42,6 +37,11 @@
         </aside>
       </div>
     </section>
+
+    <div class="marquee dark" aria-hidden="true"><div class="marquee-run">
+      <span>Richtervorbehalt</span><span>Keine Einstufung ohne Gericht</span><span>Terror · Spionage · Cyber</span><span>Wahl durch den Bundestag</span><span>Leistungsbilanz</span>
+      <span>Richtervorbehalt</span><span>Keine Einstufung ohne Gericht</span><span>Terror · Spionage · Cyber</span><span>Wahl durch den Bundestag</span><span>Leistungsbilanz</span>
+    </div></div>
 
     <section class="section" id="ziele">
       <div class="container">
@@ -74,11 +74,11 @@
       <div class="container">
         <div class="section-head"><div><span class="kicker" data-en="Personnel">Personal</span><h2 data-en="New start at the Federal Office">Neuaufstellung des Bundesamtes</h2></div></div>
         <div class="alert-list">
-          <article class="alert-card reveal">
+          <article class="alert-card reveal"><span class="stamp" data-stamp data-en="Dismissed">Entlassen</span>
             <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6M17 8l5 5M22 8l-5 5"/></svg></div>
             <div><time datetime="2026-11-06" data-en="6 November 2026">06. November 2026</time><h3 data-en="All investigators of the BfV dismissed">Alle Ermittler des BfV entlassen</h3><p data-en="Federal Minister Dr. Niels Fiedel has dismissed all investigators of the Federal Office for the Protection of the Constitution. Investigative work will be rebuilt under the new leadership and focused on the statutory priorities.">Bundesminister Dr. Niels Fiedel hat sämtliche Ermittler des Bundesamtes für Verfassungsschutz entlassen. Die Ermittlungsarbeit wird unter der neuen Amtsleitung neu aufgebaut und auf die gesetzlichen Schwerpunkte ausgerichtet.</p></div>
           </article>
-          <article class="alert-card reveal" style="--d:.05s">
+          <article class="alert-card reveal" style="--d:.05s"><span class="stamp" data-stamp data-en="Dismissed">Entlassen</span>
             <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12h13M12 7l5 5-5 5M20 4v16"/></svg></div>
             <div><time datetime="2026-11-06" data-en="6 November 2026">06. November 2026</time><h3 data-en="Previous presidents dismissed">Bisherige Präsidenten entlassen</h3><p data-en="The previous leadership of the Office is being dismissed. The new leadership listed below takes over the Federal Office.">Die bisherige Amtsleitung wird entlassen. Die unten genannte neue Leitung übernimmt das Bundesamt.</p></div>
           </article>
@@ -86,10 +86,10 @@
 
         <div class="section-head" id="leitung" style="margin-top:56px"><div><span class="kicker" data-en="Leadership of the BfV">Leitung des BfV</span><h2 data-en="The new leadership">Die neue Amtsleitung</h2></div></div>
         <div class="people">
-          <article class="person reveal" data-rank="p"><span class="new" data-en="New">Neu</span><div class="av" aria-hidden="true">PT</div><span class="role-l" data-en="President">Präsident</span><h3>Dr. Peter Thiel</h3><span class="party" data-en="No party membership">Kein Parteibuch</span></article>
-          <article class="person reveal" data-rank="p" style="--d:.05s"><span class="new" data-en="New">Neu</span><div class="av" aria-hidden="true">HM</div><span class="role-l" data-en="President">Präsident</span><h3>Hans-Jörg Maaßen</h3><span class="party" data-en="No party membership">Kein Parteibuch</span></article>
-          <article class="person reveal" data-rank="v" style="--d:.1s"><span class="new" data-en="New">Neu</span><div class="av" aria-hidden="true">MF</div><span class="role-l" data-en="Vice President">Vizepräsident</span><h3>Mathias Andreas Fuchs</h3><span class="party" data-en="No party membership">Kein Parteibuch</span></article>
-          <article class="person reveal" data-rank="v" style="--d:.15s"><span class="new" data-en="New">Neu</span><div class="av" aria-hidden="true">MK</div><span class="role-l" data-en="Vice President">Vizepräsident</span><h3>Prof. Dr. Max Kruse</h3></article>
+          <article class="person reveal" data-rank="p" data-head="BfV · Dienstausweis"><span class="new" data-en="New">Neu</span><div class="av" aria-hidden="true">PT</div><span class="role-l" data-en="President">Präsident</span><h3>Dr. Peter Thiel</h3><span class="party" data-en="No party membership">Kein Parteibuch</span><div class="code" aria-hidden="true"></div></article>
+          <article class="person reveal" data-rank="p" data-head="BfV · Dienstausweis" style="--d:.05s"><span class="new" data-en="New">Neu</span><div class="av" aria-hidden="true">HM</div><span class="role-l" data-en="President">Präsident</span><h3>Hans-Jörg Maaßen</h3><span class="party" data-en="No party membership">Kein Parteibuch</span><div class="code" aria-hidden="true"></div></article>
+          <article class="person reveal" data-rank="v" data-head="BfV · Dienstausweis" style="--d:.1s"><span class="new" data-en="New">Neu</span><div class="av" aria-hidden="true">MF</div><span class="role-l" data-en="Vice President">Vizepräsident</span><h3>Mathias Andreas Fuchs</h3><span class="party" data-en="No party membership">Kein Parteibuch</span><div class="code" aria-hidden="true"></div></article>
+          <article class="person reveal" data-rank="v" data-head="BfV · Dienstausweis" style="--d:.15s"><span class="new" data-en="New">Neu</span><div class="av" aria-hidden="true">MK</div><span class="role-l" data-en="Vice President">Vizepräsident</span><h3>Prof. Dr. Max Kruse</h3><div class="code" aria-hidden="true"></div></article>
         </div>
       </div>
     </section>
@@ -209,7 +209,7 @@
 
   <script src="assets/common.js"></script>
   <script src="assets/layout.js"></script>
-  <script src="assets/extras.js"></script>
+  <script src="assets/extras.js?v=6"></script>
   <script src="assets/pages.js"></script>
 </body>
 </html>
