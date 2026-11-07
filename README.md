@@ -7,7 +7,10 @@
 Statisches Frontend ohne Build-Schritt:
 
 - `index.html` – Startseite mit Maßnahmenplan (Filter nach Phase und Status), Minister, Schwerpunkten, Pressemitteilungen
-- `admin.html` – Verwaltung: Status/Phase ändern, Maßnahmen und Pressemitteilungen anlegen
+- `admin.html` – Verwaltung (nur dunkel, `assets/admin-nacht.css`): Cockpit mit „Heute wichtig“, Maßnahmen-Board
+  (Ziehen zwischen den Spalten ändert den Status), Terminkalender, Presse-Editor mit Live-Vorschau und Bildauswahl,
+  Postfach mit Antworten und Bürgerdialog, Schnellsuche mit Strg+K (`assets/admin-plus.js`)
+- `buergerdialog.html` – öffentlich beantwortete Fragen (nur mit Zustimmung im Kontaktformular, Vorname + Anfangsbuchstabe)
 - `data/*.json` – statische Kopie der Daten, falls das Backend nicht erreichbar ist
 
 Die Daten kommen live aus dem Backend unter `/api/...`

@@ -10,10 +10,10 @@
     ['ministerium.html', 'Ministerium'],
     ['erlasse.html', 'Erlasse'],
     ['presse.html', 'Presse'],
-    ['kontakt.html', 'Kontakt']
+    ['buergerdialog.html', 'Bürgerdialog']
   ];
   const BFV = 'https://verfassungsschutz.duckdns.org';
-  const EXTRA = { 'termine.html': 'Termine', 'pressefotos.html': 'Pressefotos', 'impressum.html': 'Impressum', 'datenschutz.html': 'Datenschutz' };
+  const EXTRA = { 'kontakt.html': 'Kontakt', 'termine.html': 'Termine', 'pressefotos.html': 'Pressefotos', 'impressum.html': 'Impressum', 'datenschutz.html': 'Datenschutz' };
   const here = location.pathname.split('/').pop() || 'index.html';
   const en = P.lang === 'en';
   const logo = `<span class="flag" aria-hidden="true"><i></i><i></i><i></i></span>${en
@@ -124,6 +124,7 @@
           <h4>${esc(t('Service'))}</h4>
           <ul>
             <li><a href="kontakt.html">${esc(t('Kontakt'))}</a></li>
+            <li><a href="buergerdialog.html">${esc(t('Bürgerdialog'))}</a></li>
             <li><a href="${BFV}/antraege.html" rel="noopener">${en ? 'BfV application portal ↗' : 'Anträge beim BfV ↗'}</a></li>
             <li><a href="${BFV}/antraege.html#widerspruch" rel="noopener">${en ? 'Lodge an objection ↗' : 'Widerspruch einlegen ↗'}</a></li>
             <li><a href="impressum.html">${esc(t('Impressum'))}</a></li>

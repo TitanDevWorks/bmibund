@@ -132,7 +132,7 @@ window.BMIH = (() => {
         ${foto ? `<span class="teaser-img">${fotoImg(foto, size)}</span>` : ''}
         <div class="meta"><span class="tag">${esc(t(n.kategorie || 'Pressemitteilung'))}</span><time datetime="${esc(n.datum)}">${fmtDate(n.datum)}</time></div>
         <h3>${esc(n.titel)}</h3>
-        <p>${esc(n.text)}</p>
+        <p>${esc(n.teaser || n.text)}</p>
       </a>`;
   }
 
