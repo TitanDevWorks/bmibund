@@ -1,5 +1,5 @@
 {
-  "hinweis": "Fiktive Dokumente aus dem Rollenspiel BDR. Ohne Bundesadler; die unterschriebenen Fassungen liegen im Dienstportal.",
+  "hinweis": "Fiktive Dokumente aus dem Rollenspiel BDR, vom Minister bisher selbst ausgefertigt. Ohne Bundesadler; die unterschriebenen Fassungen liegen im Dienstportal.",
   "dokumente": [
     {
       "id": "d1-001-2026",
@@ -10,7 +10,7 @@
       "kurz": "Regelt, wie man Widerspruch gegen eine Verfügung einlegt, wer darüber entscheidet und wann man danach klagen kann.",
       "punkte": [
         "Neue, unabhängige Widerspruchsstelle im Bundesinnenministerium",
-        "Widerspruch innerhalb eines Monats, nur wer selbst betroffen ist",
+        "Widerspruch innerhalb von 24 Stunden, nur wer selbst betroffen ist",
         "Über das Ticket „Widerspruch“ oder das Antragsportal des BfV",
         "Danach Klage beim Bundesverfassungsgericht möglich",
         "Die Verfügung gilt bis zur Entscheidung weiter"
@@ -21,7 +21,7 @@
           "absaetze": [
             "(1) Beim Bundesministerium des Innern und für Heimat wird eine Widerspruchsstelle eingerichtet. Sie entscheidet über Widersprüche gegen Verfügungen des BMI und des BfV, insbesondere Entlassungen, Entbindungen, Umsetzungen und Disziplinarmaßnahmen. Sie ist an Weisungen im Einzelfall nicht gebunden (§ 126 Abs. 2 BBG, §§ 68 ff. VwGO).",
             "(2) Widerspruch einlegen darf nur, wer durch die Verfügung selbst in seinen Rechten betroffen ist. Vertretung durch einen Bevollmächtigten ist zulässig.",
-            "(3) Der Widerspruch ist innerhalb eines Monats nach Bekanntgabe der Verfügung einzulegen. Fehlt eine Rechtsbehelfsbelehrung, gilt eine Frist von einem Jahr. Bekanntgegeben ist eine Verfügung mit ihrer Veröffentlichung im Dienstportal oder auf dem Dienst-Discord oder mit Zustellung per Direktnachricht. Wer die Frist ohne Verschulden versäumt, kann binnen zwei Wochen Wiedereinsetzung beantragen (§ 60 VwGO).",
+            "(3) Der Widerspruch ist innerhalb 24 Stunden nach Bekanntgabe der Verfügung einzulegen. Fehlt eine Rechtsbehelfsbelehrung, gilt eine Frist von einem Jahr. Bekanntgegeben ist eine Verfügung mit ihrer Veröffentlichung im Dienstportal oder auf dem Dienst-Discord oder mit Zustellung per Direktnachricht. Wer die Frist ohne Verschulden versäumt, kann binnen 7 Tagen Wiedereinsetzung beantragen (§ 60 VwGO).",
             "(4) Form: Der Widerspruch wird über das Ticket „Widerspruch“ im Kanal Widerspruch-Klage eingelegt. Er muss enthalten: Aktenzeichen der Verfügung, Gegenstand, die verletzte Rechtsgrundlage, einen Antrag und eine Begründung. Er erhält ein Aktenzeichen im Widerspruchsregister (W n/jj).",
             "(5) Die Widerspruchsstelle prüft zuerst die Zulässigkeit (Frist, Form, Befugnis), dann die Begründetheit, also ob die Verfügung rechtswidrig ist und den Widerspruchsführer in seinen Rechten verletzt. Sie hört die erlassende Stelle an und gibt dem Widerspruchsführer Gelegenheit zur Äußerung.",
             "(6) Die Widerspruchsstelle erlässt einen schriftlichen Bescheid mit Tenor und Gründen: Abhilfe, teilweise Abhilfe, Zurückweisung oder Verwerfung als unzulässig. Bei Zurückweisung und Verwerfung ist eine Rechtsbehelfsbelehrung beizufügen. Der Widerspruch kann bis zum Bescheid zurückgenommen werden.",
@@ -49,19 +49,284 @@
       "unterschrift": "Berlin, den 7. November 2026 · Dr. Niels Fiedel, Bundesminister des Innern und für Heimat"
     },
     {
-      "id": "z-006-008-2026",
-      "art": "Verfügungen",
-      "nr": "Z – 006 bis 008/2026",
-      "datum": "2026-11-07",
-      "titel": "Bisherige Leitung des Verfassungsschutzes entbunden",
-      "kurz": "Ulrich Goldnatz, Tobias Rausch und Leo Kranz wurden von ihren Funktionen beim Bundesamt entbunden und in das Bundesministerium umgesetzt. Über ihre weitere Verwendung wird gesondert entschieden.",
+      "id": "z-001-2026",
+      "art": "Verfügung",
+      "nr": "Z – 001/2026",
+      "datum": "2026-11-05",
+      "titel": "Prof. Dr. Jens Weissflog: Entbindung von der Funktion und Umsetzung",
+      "kurz": "Wurde von der bisherigen Aufgabe beim Verfassungsschutz entbunden und arbeitet jetzt im Bundesinnenministerium. Wie es weitergeht, wird später entschieden.",
       "punkte": [
-        "Z – 006/2026: Ulrich Goldnatz, Präsident des BfV / BVFG",
-        "Z – 007/2026: Tobias Rausch, Präsident des BfV",
-        "Z – 008/2026: Leo Kranz, Vizepräsident des BfV",
-        "Neue Amtsleitung: Dr. Peter Thiel, Hans-Jörg Maaßen, Mathias Andreas Fuchs, Prof. Dr. Max Kruse",
-        "Widerspruch ist nach dem Erlass D 1 – 001/2026 möglich"
-      ]
+        "An: Prof. Dr. Jens Weissflog, Bundesamt für Verfassungsschutz",
+        "Gilt sofort",
+        "Widerspruch nach dem Erlass D 1 – 001/2026 möglich"
+      ],
+      "abschnitte": [
+        {
+          "titel": "Verfügung",
+          "absaetze": [
+            "An: Prof. Dr. Jens Weissflog, Bundesamt für Verfassungsschutz",
+            "Betreff: Entbindung von der Funktion und Umsetzung",
+            "Mit sofortiger Wirkung werden Sie von Ihrer bisherigen Funktion beim Bundesamt für Verfassungsschutz entbunden und in das Bundesministerium des Innern und für Heimat umgesetzt. Über Ihre weitere Verwendung wird gesondert entschieden."
+          ]
+        }
+      ],
+      "unterschrift": "Berlin, den 5. November 2026 · Dr. Niels Fiedel, Bundesminister des Innern und für Heimat"
+    },
+    {
+      "id": "z-002-2026",
+      "art": "Verfügung",
+      "nr": "Z – 002/2026",
+      "datum": "2026-11-05",
+      "titel": "Markus Müller: Entbindung von der Funktion und Umsetzung",
+      "kurz": "Wurde von der bisherigen Aufgabe beim Verfassungsschutz entbunden und arbeitet jetzt im Bundesinnenministerium. Wie es weitergeht, wird später entschieden.",
+      "punkte": [
+        "An: Markus Müller, Bundesamt für Verfassungsschutz",
+        "Gilt sofort",
+        "Widerspruch nach dem Erlass D 1 – 001/2026 möglich"
+      ],
+      "abschnitte": [
+        {
+          "titel": "Verfügung",
+          "absaetze": [
+            "An: Markus Müller, Bundesamt für Verfassungsschutz",
+            "Betreff: Entbindung von der Funktion und Umsetzung",
+            "Mit sofortiger Wirkung werden Sie von Ihrer bisherigen Funktion beim Bundesamt für Verfassungsschutz entbunden und in das Bundesministerium des Innern und für Heimat umgesetzt. Über Ihre weitere Verwendung wird gesondert entschieden."
+          ]
+        }
+      ],
+      "unterschrift": "Berlin, den 5. November 2026 · Dr. Niels Fiedel, Bundesminister des Innern und für Heimat"
+    },
+    {
+      "id": "z-003-2026",
+      "art": "Verfügung",
+      "nr": "Z – 003/2026",
+      "datum": "2026-11-05",
+      "titel": "Lio Neumann: Entbindung von der Funktion und Umsetzung",
+      "kurz": "Wurde von der bisherigen Aufgabe beim Verfassungsschutz entbunden und arbeitet jetzt im Bundesinnenministerium. Wie es weitergeht, wird später entschieden.",
+      "punkte": [
+        "An: Lio Neumann, Bundesamt für Verfassungsschutz",
+        "Gilt sofort",
+        "Widerspruch nach dem Erlass D 1 – 001/2026 möglich"
+      ],
+      "abschnitte": [
+        {
+          "titel": "Verfügung",
+          "absaetze": [
+            "An: Lio Neumann, Bundesamt für Verfassungsschutz",
+            "Betreff: Entbindung von der Funktion und Umsetzung",
+            "Mit sofortiger Wirkung werden Sie von Ihrer bisherigen Funktion beim Bundesamt für Verfassungsschutz entbunden und in das Bundesministerium des Innern und für Heimat umgesetzt. Über Ihre weitere Verwendung wird gesondert entschieden."
+          ]
+        }
+      ],
+      "unterschrift": "Berlin, den 5. November 2026 · Dr. Niels Fiedel, Bundesminister des Innern und für Heimat"
+    },
+    {
+      "id": "z-004-2026",
+      "art": "Verfügung",
+      "nr": "Z – 004/2026",
+      "datum": "2026-11-05",
+      "titel": "Bruno Marx: Entbindung von der Funktion und Umsetzung",
+      "kurz": "Wurde von der bisherigen Aufgabe beim Verfassungsschutz entbunden und arbeitet jetzt im Bundesinnenministerium. Wie es weitergeht, wird später entschieden.",
+      "punkte": [
+        "An: Bruno Marx, Bundesamt für Verfassungsschutz",
+        "Gilt sofort",
+        "Widerspruch nach dem Erlass D 1 – 001/2026 möglich"
+      ],
+      "abschnitte": [
+        {
+          "titel": "Verfügung",
+          "absaetze": [
+            "An: Bruno Marx, Bundesamt für Verfassungsschutz",
+            "Betreff: Entbindung von der Funktion und Umsetzung",
+            "Mit sofortiger Wirkung werden Sie von Ihrer bisherigen Funktion beim Bundesamt für Verfassungsschutz entbunden und in das Bundesministerium des Innern und für Heimat umgesetzt. Über Ihre weitere Verwendung wird gesondert entschieden."
+          ]
+        }
+      ],
+      "unterschrift": "Berlin, den 5. November 2026 · Dr. Niels Fiedel, Bundesminister des Innern und für Heimat"
+    },
+    {
+      "id": "z-005-2026",
+      "art": "Verfügung",
+      "nr": "Z – 005/2026",
+      "datum": "2026-11-05",
+      "titel": "Björn von Hagen: Entbindung von der Funktion und Umsetzung",
+      "kurz": "Wurde von der bisherigen Aufgabe beim Verfassungsschutz entbunden und arbeitet jetzt im Bundesinnenministerium. Wie es weitergeht, wird später entschieden.",
+      "punkte": [
+        "An: Björn von Hagen, Bundesamt für Verfassungsschutz",
+        "Gilt sofort",
+        "Widerspruch nach dem Erlass D 1 – 001/2026 möglich"
+      ],
+      "abschnitte": [
+        {
+          "titel": "Verfügung",
+          "absaetze": [
+            "An: Björn von Hagen, Bundesamt für Verfassungsschutz",
+            "Betreff: Entbindung von der Funktion und Umsetzung",
+            "Mit sofortiger Wirkung werden Sie von Ihrer bisherigen Funktion beim Bundesamt für Verfassungsschutz entbunden und in das Bundesministerium des Innern und für Heimat umgesetzt. Über Ihre weitere Verwendung wird gesondert entschieden."
+          ]
+        }
+      ],
+      "unterschrift": "Berlin, den 5. November 2026 · Dr. Niels Fiedel, Bundesminister des Innern und für Heimat"
+    },
+    {
+      "id": "z-006-2026",
+      "art": "Verfügung",
+      "nr": "Z – 006/2026",
+      "datum": "2026-11-07",
+      "titel": "Ulrich Goldnatz: Entbindung von der Funktion als Präsident des BfV / BVFG",
+      "kurz": "War Präsident des BfV / BVFG. Ist von diesem Posten entbunden und arbeitet jetzt im Bundesinnenministerium. Wie es weitergeht, wird später entschieden.",
+      "punkte": [
+        "An: Ulrich Goldnatz, BfV/BVFG",
+        "Gilt sofort",
+        "Widerspruch nach dem Erlass D 1 – 001/2026 möglich"
+      ],
+      "abschnitte": [
+        {
+          "titel": "Verfügung",
+          "absaetze": [
+            "An: Ulrich Goldnatz, BfV/BVFG",
+            "Betreff: Entbindung von der Funktion als Präsident des BfV / BVFG",
+            "Mit sofortiger Wirkung werden Sie von Ihrer Funktion als Präsident des BfV / BVFG entbunden und in das Bundesministerium des Innern und für Heimat umgesetzt. Über Ihre weitere Verwendung wird gesondert entschieden."
+          ]
+        }
+      ],
+      "unterschrift": "Berlin, den 7. November 2026 · Dr. Niels Fiedel, Bundesminister des Innern und für Heimat"
+    },
+    {
+      "id": "z-007-2026",
+      "art": "Verfügung",
+      "nr": "Z – 007/2026",
+      "datum": "2026-11-07",
+      "titel": "Tobias Rausch: Entbindung von der Funktion als Präsident des BfV",
+      "kurz": "War Präsident des BfV. Ist von diesem Posten entbunden und arbeitet jetzt im Bundesinnenministerium. Wie es weitergeht, wird später entschieden.",
+      "punkte": [
+        "An: Tobias Rausch, BfV",
+        "Gilt sofort",
+        "Widerspruch nach dem Erlass D 1 – 001/2026 möglich"
+      ],
+      "abschnitte": [
+        {
+          "titel": "Verfügung",
+          "absaetze": [
+            "An: Tobias Rausch, BfV",
+            "Betreff: Entbindung von der Funktion als Präsident des BfV",
+            "Mit sofortiger Wirkung werden Sie von Ihrer Funktion als Präsident des BfV entbunden und in das Bundesministerium des Innern und für Heimat umgesetzt. Über Ihre weitere Verwendung wird gesondert entschieden."
+          ]
+        }
+      ],
+      "unterschrift": "Berlin, den 7. November 2026 · Dr. Niels Fiedel, Bundesminister des Innern und für Heimat"
+    },
+    {
+      "id": "z-008-2026",
+      "art": "Verfügung",
+      "nr": "Z – 008/2026",
+      "datum": "2026-11-07",
+      "titel": "Leo Kranz: Entbindung von der Funktion als Vizepräsident des BfV",
+      "kurz": "War Vizepräsident des BfV. Ist von diesem Posten entbunden und arbeitet jetzt im Bundesinnenministerium. Wie es weitergeht, wird später entschieden.",
+      "punkte": [
+        "An: Leo Kranz, BfV",
+        "Gilt sofort",
+        "Widerspruch nach dem Erlass D 1 – 001/2026 möglich"
+      ],
+      "abschnitte": [
+        {
+          "titel": "Verfügung",
+          "absaetze": [
+            "An: Leo Kranz, BfV",
+            "Betreff: Entbindung von der Funktion als Vizepräsident des BfV",
+            "Mit sofortiger Wirkung werden Sie von Ihrer Funktion als Vizepräsident des BfV entbunden und in das Bundesministerium des Innern und für Heimat umgesetzt. Über Ihre weitere Verwendung wird gesondert entschieden."
+          ]
+        }
+      ],
+      "unterschrift": "Berlin, den 7. November 2026 · Dr. Niels Fiedel, Bundesminister des Innern und für Heimat"
+    },
+    {
+      "id": "drs-3-16",
+      "art": "Antrag",
+      "nr": "Drucksache 3/16",
+      "datum": "2026-11-05",
+      "titel": "Entschließungsantrag: Neubesetzung der Leitung des Bundesamtes für Verfassungsschutz",
+      "kurz": "Der Bundestag soll sagen, wen er sich an der Spitze des Verfassungsschutzes wünscht. Das ist noch keine Wahl, sondern eine Unterstützung.",
+      "punkte": [
+        "Präsident 1: Dr. Peter Thiel (parteilos)",
+        "Präsident 2: Hans-Jörg Maaßen (parteilos)",
+        "Vizepräsident 1: Mathias Andreas Fuchs (parteilos)",
+        "Vizepräsident 2: Prof. Dr. Max Kruse (parteilos)",
+        "Eingebracht von Dr. Niels Fiedel und Fraktion, 3. Wahlperiode"
+      ],
+      "abschnitte": [
+        {
+          "titel": "Der Bundestag wolle beschließen:",
+          "absaetze": []
+        },
+        {
+          "titel": "I. Der Deutsche Bundestag stellt fest:",
+          "absaetze": [
+            "Der Deutsche Bundestag begrüßt die mit dem Verfassungsschutz-Neuordnungsgesetz vorgesehene parlamentarische Mitwirkung bei der Besetzung der Leitung des Bundesamtes für Verfassungsschutz.",
+            "Der Deutsche Bundestag spricht sich dafür aus, folgende Personen mit den jeweils genannten Leitungsfunktionen zu betrauen:",
+            "• Präsident 1: Dr. Peter Thiel (parteilos)",
+            "• Präsident 2: Hans-Jörg Maaßen (parteilos)",
+            "• Vizepräsident 1: Mathias Andreas Fuchs (parteilos)",
+            "• Vizepräsident 2: Prof. Dr. Max Kruse (parteilos)",
+            "Diese Entschließung stellt keine Wahl im Sinne des künftigen § 2a Bundesverfassungsschutzgesetz dar."
+          ]
+        },
+        {
+          "titel": "II. Der Deutsche Bundestag fordert die Bundesregierung auf,",
+          "absaetze": [
+            "• die Unterstützung des Deutschen Bundestages für die genannten Personen bei der Neubesetzung der jeweiligen Leitungsfunktionen zu berücksichtigen;",
+            "• die erforderlichen Schritte zur Neubesetzung nach Maßgabe der geltenden Rechtslage einzuleiten;",
+            "• die vorgesehene parlamentarische Mitwirkung bei der Besetzung der Behördenleitung sicherzustellen."
+          ]
+        },
+        {
+          "titel": "Begründung",
+          "absaetze": [
+            "Mit dieser Entschließung bringt der Deutsche Bundestag seine politische Unterstützung für die vorgeschlagene Besetzung der Leitung des Bundesamtes für Verfassungsschutz zum Ausdruck.",
+            "Die Neubesetzung soll die organisatorische Neuausrichtung der Behörde unterstützen und klare Führungsverantwortung schaffen. Die mit dem Verfassungsschutz-Neuordnungsgesetz vorgesehene parlamentarische Mitwirkung wird ausdrücklich begrüßt.",
+            "Die Entschließung nimmt weder eine förmliche Wahl im Sinne des künftigen § 2a Bundesverfassungsschutzgesetz noch die erforderlichen Schritte zur Bestellung der genannten Personen vorweg."
+          ]
+        }
+      ],
+      "unterschrift": "Berlin, den 5. November 2026 · Dr. Niels Fiedel und Fraktion"
+    },
+    {
+      "id": "pm-001-2026",
+      "art": "Pressemitteilung",
+      "nr": "Nr. 001/2026",
+      "datum": "2026-11-05",
+      "titel": "Personelle Veränderungen im Bundesamt für Verfassungsschutz",
+      "kurz": "Fünf Mitarbeiter wurden von ihren Funktionen entbunden und in das Bundesministerium des Innern und für Heimat umgesetzt.",
+      "abschnitte": [
+        {
+          "titel": "Pressemitteilung",
+          "absaetze": [
+            "Berlin, 05.11.2026: Prof. Dr. Jens Weissflog, Markus Müller, Lio Neumann, Bruno Marx und Björn von Hagen wurden mit sofortiger Wirkung von ihren bisherigen Funktionen beim Bundesamt für Verfassungsschutz entbunden. Sie werden in das Bundesministerium des Innern und für Heimat umgesetzt; über ihre weitere Verwendung wird gesondert entschieden.",
+            "„Mit diesen personellen Veränderungen schaffen wir klare Zuständigkeiten und verbessern die organisatorischen Abläufe im Verfassungsschutz“, erklärte Dr. Niels Fiedel, Bundesminister des Innern und für Heimat.",
+            "Die Maßnahmen erfolgen im Rahmen der Neuausrichtung des Bundesamtes für Verfassungsschutz. Dazu gehören die Überprüfung interner Arbeitsabläufe und die Umsetzung organisatorischer Verbesserungen."
+          ]
+        }
+      ],
+      "unterschrift": "Pressestelle · Bundesministerium des Innern und für Heimat"
+    },
+    {
+      "id": "pm-002-2026",
+      "art": "Pressemitteilung",
+      "nr": "Nr. 002/2026",
+      "datum": "2026-11-07",
+      "titel": "Personelle Veränderungen an der Spitze des Verfassungsschutzes",
+      "kurz": "Zwei bisherige Präsidenten und ein Vizepräsident wurden mit sofortiger Wirkung von ihren Funktionen entbunden und ins Bundesinnenministerium umgesetzt.",
+      "abschnitte": [
+        {
+          "titel": "Pressemitteilung",
+          "absaetze": [
+            "Berlin. Bundesinnenminister Dr. Niels Fiedel hat am 7. November 2026 die bisherigen Präsidenten Ulrich Goldnatz und Tobias Rausch sowie den bisherigen Vizepräsidenten Leo Kranz mit sofortiger Wirkung von ihren Leitungsfunktionen beim Bundesamt für Verfassungsschutz entbunden. Alle drei wurden in das Bundesministerium des Innern und für Heimat umgesetzt.",
+            "„Mit diesen Personalentscheidungen setzen wir die begonnene Neustrukturierung des Verfassungsschutzes fort. Über die weitere Verwendung der drei Betroffenen entscheiden wir gesondert“, erklärte Dr. Niels Fiedel, Bundesminister des Innern und für Heimat.",
+            "Die drei Personalverfügungen ergingen vor der Beschlussfassung über das Verfassungsschutz-Neuordnungsgesetz. Sie werden unter den Aktenzeichen Z – 006/2026, Z – 007/2026 und Z – 008/2026 geführt."
+          ]
+        }
+      ],
+      "unterschrift": "Pressestelle · Bundesministerium des Innern und für Heimat"
     }
   ]
 }
