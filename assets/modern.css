@@ -770,3 +770,21 @@ a.teaser:hover .teaser-img img { transform: scale(1.04); filter: saturate(1); }
 @media (max-width: 900px) { .bd-home .bd-list, .bd-wrap { grid-template-columns: minmax(0, 1fr); } .bd-side { position: static; } }
 .zs-heute.links b { translate: -14px 0; }
 .zs-heute.rechts b { translate: calc(-100% + 14px) 0; }
+
+/* Abgelehnte Gesetze: Stufe Bundestag rot mit Kreuz, Punkt im Zeitstrahl rot durchgestrichen */
+.status[data-s="stop"] { --c: var(--err); }
+.status[data-s="stop"]::before { animation: none; }
+.steps.abgelehnt li:not(.done):not(.nein) { opacity: 0.45; }
+.steps li.nein { color: var(--err); font-weight: 700; }
+.steps li.nein::before { background: var(--err); }
+.steps li.nein::after { content: "✕"; background: var(--err); color: #fff; }
+.zs-pkt.abgelehnt { background: var(--err); border-color: var(--err); }
+.zs-pkt.abgelehnt::after { content: ""; position: absolute; inset: 50% -5px auto; height: 2px; background: var(--err); rotate: -35deg; }
+.zs-pkt.abgelehnt span { border-color: color-mix(in srgb, var(--err) 55%, transparent); }
+.zs-pkt.abgelehnt span small { color: var(--err); }
+.stamp.nein { border-color: rgb(229 72 77 / 0.45); background: rgb(229 72 77 / 0.12); color: #ff8f93; }
+.release .ergebnis-nein { display: none; align-items: center; gap: 10px; padding: 14px 16px; border-radius: 14px; background: rgb(229 72 77 / 0.12); color: #ff8f93; font-weight: 500; }
+.release.is-out .ergebnis-nein { display: flex; }
+.timeline li.nein::before { background: var(--err); border-color: var(--err); box-shadow: 0 0 0 6px rgb(229 72 77 / 0.15); }
+.timeline li.nein time, .timeline li.nein b { color: #ff8f93; }
+.ds-strip .red.nein { background: var(--err); color: #fff; }

@@ -39,7 +39,7 @@
     'Senden fehlgeschlagen.': 'Sending failed.',
     'Pressemitteilung': 'Press release', 'Rede': 'Speech', 'Interview': 'Interview', 'Statement': 'Statement',
     'Termin': 'Appointment', 'Pressekonferenz': 'Press conference', 'Kabinett': 'Cabinet', 'Bundestag': 'Bundestag',
-    'Reise': 'Trip', 'Bundesrat': 'Bundesrat', 'Verkündet': 'Enacted', 'Gestoppt': 'Stopped',
+    'Reise': 'Trip', 'Bundesrat': 'Bundesrat', 'Verkündet': 'Enacted', 'Gestoppt': 'Stopped', 'Abgelehnt': 'Rejected', 'abgelehnt': 'rejected',
     'In Vorbereitung': 'In preparation', 'Referentenentwurf': 'Draft bill',
     'Zieltag': 'Target day', 'Nächster Schritt': 'Next step', 'Kernpunkte': 'Key points',
     'Noch keine Gesetzesvorhaben.': 'No bills yet.',
