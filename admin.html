@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="assets/style.css">
   <link rel="stylesheet" href="assets/admin.css?v=11">
   <link rel="stylesheet" href="assets/admin-nacht.css?v=11">
+  <link rel="stylesheet" href="assets/admin-presse.css?v=1">
 </head>
 <body data-page="admin" class="admin-body">
   <section class="login" id="login-view" hidden>
@@ -40,6 +41,7 @@
         <span class="side-sep">Webseite</span>
         <button type="button" data-tab="massnahmen"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg>Maßnahmen</button>
         <button type="button" data-tab="meldungen"><svg viewBox="0 0 24 24"><path d="M4 5h13v14H6a2 2 0 0 1-2-2zM17 9h3v8a2 2 0 0 1-2 2M8 9h5M8 13h5"/></svg>Presse</button>
+        <button type="button" data-tab="discord"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg>Presse für Discord</button>
         <button type="button" data-tab="gesetze"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 7h14M7 7l-3 7a3 3 0 0 0 6 0zM17 7l-3 7a3 3 0 0 0 6 0zM8 21h8"/></svg>Gesetze</button>
         <button type="button" data-tab="termine"><svg viewBox="0 0 24 24"><path d="M4 6h16v14H4zM4 10h16M8 3v5M16 3v5"/></svg>Termine</button>
         <button type="button" data-tab="kontakt"><svg viewBox="0 0 24 24"><path d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg>Postfach <b class="badge" id="badge-inbox" hidden></b></button>
@@ -65,6 +67,7 @@
           <button class="btn btn-sm btn-primary" type="button" id="neu-btn" aria-haspopup="menu" aria-expanded="false">+ Neu</button>
           <div role="menu" id="neu-liste" hidden>
             <button type="button" role="menuitem" data-new="meldungen">Pressemitteilung <small>Presse</small></button>
+            <button type="button" role="menuitem" data-goto="discord">Statement für Discord <small>Presse</small></button>
             <button type="button" role="menuitem" data-new="massnahmen">Maßnahme <small>100-Tage-Plan</small></button>
             <button type="button" role="menuitem" data-new="termine">Termin <small>Kalender</small></button>
             <button type="button" role="menuitem" data-new="gesetze">Gesetzesvorhaben <small>Gesetze</small></button>
@@ -82,6 +85,7 @@
             <p id="dash-satz">Hier sehen Sie, was heute ansteht.</p>
             <div class="row-actions">
               <button class="btn btn-primary" type="button" data-new="meldungen">Pressemitteilung schreiben</button>
+              <button class="btn" type="button" data-goto="discord">Für Discord schreiben</button>
               <button class="btn" type="button" data-goto="erlasse">Erlass ausfertigen</button>
               <button class="btn" type="button" data-goto="einstellungen">Eilmeldung setzen</button>
             </div>
@@ -227,6 +231,100 @@
         <div class="table-wrap"><table class="table"><thead><tr><th>Datum</th><th>Titel</th><th>Art</th><th>Status</th><th><span class="sr-only">Aktionen</span></th></tr></thead><tbody id="list-meldungen"></tbody></table></div>
       </section>
 
+      <!-- Presse für Discord: Pressemitteilungen und BfV Informationen aus Vorlagen (assets/admin-presse.js) -->
+      <section class="tab" data-panel="discord" hidden>
+        <header class="work-head"><div><span class="kicker">Presse</span><h1>Presse für Discord</h1></div><div class="row-actions" style="margin:0"><span class="pd-stand" id="pd-stand" aria-live="polite"></span><button class="btn" type="button" id="pd-neu">Neu anfangen</button></div></header>
+        <ol class="pd-schritte" aria-label="So geht es">
+          <li><b>Vorlage wählen</b><span>Pressemitteilung oder BfV Informationen</span></li>
+          <li><b>Ausfüllen</b><span>Knöpfe statt Sonderzeichen, Rollen per Auswahl</span></li>
+          <li><b>Vorschau prüfen</b><span>rechts, genau wie im Discord</span></li>
+          <li><b>Kopieren und posten</b><span>im Kanal mit Strg+V einfügen</span></li>
+        </ol>
+        <div class="pd-vorlagen" id="pd-vorlagen" role="radiogroup" aria-label="Vorlage"></div>
+        <div class="pd-split">
+          <form class="pd-form" id="pd-form" novalidate autocomplete="off">
+            <fieldset class="panel pd-teil" id="pd-kopf">
+              <legend>Kopf</legend>
+              <div class="form">
+                <label class="field">Überschrift <small>steht fett ganz oben</small>
+                  <input name="kopf" maxlength="60" list="pd-koepfe"><datalist id="pd-koepfe"><option value="PRESSEMITTEILUNG"><option value="BfV INFORMATIONEN"><option value="MITTEILUNG"><option value="EILMELDUNG"><option value="BEKANNTMACHUNG"></datalist>
+                </label>
+                <label class="field">Wen anpingen? <small>Rolle, die benachrichtigt wird</small>
+                  <select name="rolle" id="pd-rolle"></select>
+                  <input id="pd-rolle-id" name="rolleId" inputmode="numeric" maxlength="40" placeholder="Rollen-ID, z. B. 1497698217708621995" hidden>
+                </label>
+                <label class="field full">Absender <small>Zeile 1</small><input name="absender1" maxlength="120"></label>
+                <label class="field full">Zuständigkeit <small>Zeile 2, leer lassen = fällt weg</small><input name="absender2" maxlength="120"></label>
+                <label class="field full">Betreff <small>leer lassen = keine Betreff-Zeile</small><input name="betreff" maxlength="200" placeholder="Worum geht es, in einem Satz?"></label>
+              </div>
+            </fieldset>
+            <fieldset class="panel pd-teil">
+              <legend>Inhalt</legend>
+              <p class="pd-hilfe">Jeder Baustein wird ein Absatz. Mit ↑ ↓ verschieben, mit ✕ entfernen.</p>
+              <div id="pd-bloecke" class="pd-bloecke"></div>
+              <div class="pd-add" id="pd-add" role="group" aria-label="Baustein hinzufügen">
+                <span>Hinzufügen:</span>
+                <button class="btn btn-sm" type="button" data-baustein="text">+ Text</button>
+                <button class="btn btn-sm" type="button" data-baustein="abschnitt">+ Abschnitt mit Überschrift</button>
+                <button class="btn btn-sm" type="button" data-baustein="personen">+ Personenliste</button>
+                <button class="btn btn-sm" type="button" data-baustein="dokumente">+ Dokumentenliste</button>
+              </div>
+            </fieldset>
+            <fieldset class="panel pd-teil" id="pd-fuss">
+              <legend>Unterschrift</legend>
+              <div class="form">
+                <label class="field">Wer unterschreibt? <small>wird erwähnt</small>
+                  <select name="person" id="pd-person"></select>
+                  <input id="pd-person-id" name="personId" inputmode="numeric" maxlength="40" placeholder="Discord-ID der Person" hidden>
+                </label>
+                <label class="field">Amt <small>Zeile unter der Erwähnung</small><input name="funktion" maxlength="160"></label>
+                <label class="field">Datum <small>für die Übersicht</small><input name="datum" type="date"></label>
+              </div>
+            </fieldset>
+          </form>
+          <aside class="pd-seite" aria-label="Vorschau und Aktionen">
+            <div class="pd-vorschau">
+              <div class="pd-v-head"><span>So sieht es im Discord aus</span><small>Live-Vorschau</small></div>
+              <div id="pd-chat"></div>
+              <div class="pd-meter"><span class="pd-balken" id="pd-balken"><i></i></span><span class="pd-zaehler" id="pd-zaehler"></span></div>
+              <ul class="pd-hinweise" id="pd-hinweise" hidden></ul>
+            </div>
+            <div class="pd-aktionen">
+              <button class="btn btn-primary pd-gross" type="button" id="pd-kopieren"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg>Text kopieren</button>
+              <div class="pd-reihe">
+                <button class="btn" type="button" id="pd-speichern">Entwurf speichern</button>
+                <button class="btn" type="button" id="pd-gepostet">Als gepostet vermerken</button>
+              </div>
+              <button class="btn pd-web" type="button" id="pd-web">Auch auf die Webseite (Presse) …</button>
+              <details class="pd-roh" id="pd-roh-box"><summary>Fertiger Text mit Discord-Zeichen</summary><textarea id="pd-roh" rows="8" readonly aria-label="Fertiger Text"></textarea></details>
+            </div>
+          </aside>
+        </div>
+        <div class="pd-unten">
+          <div>
+            <div class="panel-head list-head"><h2>Gespeichert</h2></div>
+            <div class="table-wrap"><table class="table">
+              <thead><tr><th>Datum</th><th>Art</th><th>Betreff</th><th>Stand</th><th><span class="sr-only">Aktionen</span></th></tr></thead>
+              <tbody id="pd-liste"></tbody>
+            </table></div>
+          </div>
+          <div>
+            <div class="panel-head list-head"><h2>Rollen und Personen</h2></div>
+            <div class="panel pd-erw-panel">
+              <p class="pd-hilfe">Diese Einträge erscheinen in der Auswahl und unter <b>@ Erwähnen</b>. So findest du eine ID: In Discord unter <i>Einstellungen → Erweitert</i> den <b>Entwicklermodus</b> einschalten. Dann Rechtsklick auf die Rolle oder Person → <b>ID kopieren</b>.</p>
+              <div id="pd-erw-liste" class="pd-erw-liste"></div>
+              <form class="form pd-erw-form" id="pd-erw-form" novalidate autocomplete="off">
+                <label class="field">Name <input name="titel" maxlength="80" placeholder="z. B. Presse oder Max Muster"></label>
+                <label class="field">Art <select name="art"><option>Rolle</option><option>Person</option></select></label>
+                <label class="field">Discord-ID <input name="discordId" inputmode="numeric" maxlength="40" placeholder="nur Ziffern"></label>
+                <label class="field">Zusatz <small>bei Personen: Amt</small><input name="zusatz" maxlength="160"></label>
+                <div class="full"><button class="btn btn-primary btn-sm" type="submit">+ Speichern</button></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Gesetze -->
       <section class="tab" data-panel="gesetze" hidden>
         <header class="work-head"><div><span class="kicker">Inhalte</span><h1>Gesetzesvorhaben</h1></div><button class="btn btn-primary" type="button" data-new="gesetze">+ Neues Gesetz</button></header>
@@ -363,5 +461,7 @@
   <script src="assets/admin.js?v=11"></script>
   <script src="assets/admin-bfv.js?v=11"></script>
   <script src="assets/admin-plus.js?v=11"></script>
+  <script src="assets/discord-text.js?v=1"></script>
+  <script src="assets/admin-presse.js?v=1"></script>
 </body>
 </html>
