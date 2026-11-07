@@ -3,7 +3,7 @@ window.BMIH = (() => {
   const PHASES = ['Tag 1–10', 'Tag 11–50', 'Tag 51–100'];
   const STATUSES = ['Offen', 'In Arbeit', 'Im Kabinett', 'Abgeschlossen'];
   const STATUS_KEY = { 'Offen': 'offen', 'In Arbeit': 'arbeit', 'Im Kabinett': 'kabinett', 'Abgeschlossen': 'fertig' };
-  const NEWS_KIND = ['Pressemitteilung', 'Rede', 'Interview', 'Statement'];
+  const NEWS_KIND = ['Pressemitteilung', 'Rede', 'Interview', 'Statement', 'Bekanntmachung'];
   const EVENT_KIND = ['Termin', 'Pressekonferenz', 'Kabinett', 'Bundestag', 'Reise'];
   const LAW_STAGES = ['In Vorbereitung', 'Referentenentwurf', 'Kabinett', 'Bundestag', 'Bundesrat', 'Verkündet', 'Gestoppt'];
   // Ohne prefs.js (Verwaltung) bleibt alles deutsch.

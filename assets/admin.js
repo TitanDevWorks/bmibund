@@ -360,6 +360,9 @@
     p.classList.toggle('off', !form.eilmeldungAktiv.checked);
   }
 
+  // Für assets/admin-bfv.js (Verbindung zum Verfassungsschutz)
+  window.BMIH_ADMIN = { api, toast, run, dateTime, emptyRow };
+
   // --- Navigation --------------------------------------------------------------
 
   function go(name) {
@@ -368,6 +371,7 @@
     $$('.tab').forEach((p) => { p.hidden = p.dataset.panel !== name; });
     if (history.replaceState) history.replaceState(null, '', `#${name}`);
     if (name === 'system') run(loadSession);
+    document.dispatchEvent(new CustomEvent('admin:tab', { detail: name }));
     $('#main').focus?.();
     scrollTo({ top: 0 });
   }

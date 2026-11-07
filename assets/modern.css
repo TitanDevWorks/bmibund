@@ -654,3 +654,55 @@ a.teaser:hover .teaser-img img { transform: scale(1.04); filter: saturate(1); }
 @media print {
   .read-progress, .ticker, .marquee, .cmdk, .search-btn, .law-toc, .sticker { display: none !important; }
 }
+
+/* ——— v10: Angleichung an die Seite des Verfassungsschutzes (gleiche Schriften, Mono-Beschriftungen, Fiktiv-Hinweis) ——— */
+:root { --mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace; }
+.mono { font-family: var(--mono); font-size: .84em; letter-spacing: 0; }
+.servicebar .day .fiktiv { margin-right: 4px; color: var(--gold); font-weight: 600; }
+.servicebar .day .rp { color: var(--text-3); }
+.servicebar a.extern { padding: 3px 10px; border: 1px solid var(--line-2); border-radius: 99px; color: var(--text-2); }
+.servicebar a.extern:hover { border-color: var(--gold); color: var(--text); }
+@media (max-width: 760px) { .servicebar .day .rp { display: none; } }
+.logo .words small { display: block; margin-top: 3px; color: var(--text-3); font: 500 .64rem var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+.footer .logo .words small { display: none; }
+.mono-label { font: 500 .7rem var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--text-3); }
+
+/* Verbund mit dem BfV (Startseite) */
+.verbund-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.verbund-grid .card { display: flex; flex-direction: column; gap: 10px; text-decoration: none; color: var(--text); }
+.verbund-grid .card h3 { font-size: 1.15rem; }
+.verbund-grid .card p { color: var(--text-2); font-size: .95rem; margin: 0; }
+.verbund-grid .card .go { margin-top: auto; padding-top: 10px; color: var(--gold); font-size: .9rem; font-weight: 500; }
+@media (max-width: 900px) { .verbund-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* Erlasse und Verfügungen */
+.erklaer { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-bottom: 48px; }
+.erklaer .card h3 { font-size: 1.05rem; margin-bottom: 6px; }
+.erklaer .card p { color: var(--text-2); font-size: .94rem; margin: 0; }
+@media (max-width: 900px) { .erklaer { grid-template-columns: minmax(0, 1fr); } }
+.erlass-liste { display: grid; gap: 16px; }
+.erlass { padding: 26px 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-2); }
+.erlass-kopf { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-bottom: 10px; }
+.erlass-kopf .az { padding: 3px 10px; border: 1px solid var(--line-2); border-radius: 99px; font: 500 .74rem var(--mono); letter-spacing: .04em; color: var(--text-2); }
+.erlass-kopf .dok-art { color: var(--gold); font: 500 .7rem var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+.erlass-kopf time { margin-left: auto; color: var(--text-3); font: 500 .78rem var(--mono); }
+.erlass h3 { font-size: 1.3rem; margin-bottom: 8px; }
+.erlass > p { color: var(--text-2); max-width: 70ch; }
+.erlass ul.erl-punkte { margin: 14px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.erlass ul.erl-punkte li { position: relative; padding-left: 20px; color: var(--text-2); font-size: .95rem; }
+.erlass ul.erl-punkte li::before { content: ""; position: absolute; left: 2px; top: .68em; width: 8px; height: 1px; background: var(--gold); }
+.erlass details { margin-top: 16px; border-top: 1px solid var(--line); padding-top: 14px; }
+.erlass summary { cursor: pointer; color: var(--text); font-weight: 500; }
+.erlass details h4 { margin: 20px 0 8px; font-size: 1rem; }
+.erlass details p { color: var(--text-2); font-size: .94rem; max-width: 75ch; }
+.erlass .sig { margin-top: 18px; color: var(--text-3); font: 500 .8rem var(--mono); }
+.erlass .knoepfe { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.btn.btn-sm { padding: 8px 16px; font-size: .86rem; }
+.live-pill { display: inline-flex; align-items: center; gap: 6px; color: #7fd18b; font: 500 .7rem var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+.live-pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.hilfe-box { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 28px; align-items: center; margin-top: 56px; padding: 32px; border: 1px solid var(--line-2); border-radius: var(--radius);
+  background: radial-gradient(500px 240px at 100% 0%, rgb(233 196 106 / 0.08), transparent 70%), var(--bg-2); }
+.hilfe-box h2 { font-size: 1.6rem; margin-bottom: 8px; }
+.hilfe-box p { color: var(--text-2); margin: 0; }
+.hilfe-box ol { margin: 0; padding-left: 20px; color: var(--text-2); display: grid; gap: 6px; }
+@media (max-width: 900px) { .hilfe-box { grid-template-columns: minmax(0, 1fr); padding: 24px; } }

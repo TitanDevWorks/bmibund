@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/style.css">
-  <link rel="stylesheet" href="assets/admin.css">
+  <link rel="stylesheet" href="assets/admin.css?v=10">
 </head>
 <body data-page="admin" class="admin-body">
   <section class="login" id="login-view" hidden>
@@ -31,6 +31,11 @@
       <div class="side-brand"><span class="flag" aria-hidden="true"><i></i><i></i><i></i></span><span><b>BMIH</b><small>Verwaltung</small></span></div>
       <nav class="side-nav" aria-label="Bereiche">
         <button type="button" data-tab="dashboard" aria-current="page"><svg viewBox="0 0 24 24"><path d="M3 3h8v8H3zM13 3h8v5h-8zM13 10h8v11h-8zM3 13h8v8H3z"/></svg>Übersicht</button>
+        <span class="side-sep">Verfassungsschutz</span>
+        <button type="button" data-tab="bfv"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.4 8.4 8 9 4.6-.6 8-4 8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Aufsicht BfV</button>
+        <button type="button" data-tab="erlasse"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM14 3v5h5M9 13h7M9 17h5"/></svg>Erlasse &amp; Verfügungen</button>
+        <button type="button" data-tab="auftraege"><svg viewBox="0 0 24 24"><path d="M4 12h12M12 6l6 6-6 6"/><path d="M20 4v16"/></svg>Aufträge ans BfV</button>
+        <span class="side-sep">Webseite</span>
         <button type="button" data-tab="massnahmen"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg>Maßnahmen</button>
         <button type="button" data-tab="meldungen"><svg viewBox="0 0 24 24"><path d="M4 5h13v14H6a2 2 0 0 1-2-2zM17 9h3v8a2 2 0 0 1-2 2M8 9h5M8 13h5"/></svg>Presse</button>
         <button type="button" data-tab="gesetze"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 7h14M7 7l-3 7a3 3 0 0 0 6 0zM17 7l-3 7a3 3 0 0 0 6 0zM8 21h8"/></svg>Gesetze</button>
@@ -66,6 +71,105 @@
           <div class="panel"><div class="panel-head"><h2>Nächste Termine</h2><button class="link" type="button" data-goto="termine">Alle</button></div><div id="dash-events"></div></div>
           <div class="panel"><div class="panel-head"><h2>Letzte Änderungen</h2><button class="link" type="button" data-goto="protokoll">Protokoll</button></div><div id="dash-audit"></div></div>
         </div>
+      </section>
+
+      <!-- Aufsicht über das Bundesamt für Verfassungsschutz -->
+      <section class="tab" data-panel="bfv" hidden>
+        <header class="work-head"><div><span class="kicker">Aufsicht</span><h1>Bundesamt für Verfassungsschutz</h1></div><span class="verb-pill" id="bfv-verbindung">Verbindung wird geprüft …</span></header>
+        <p class="erkl">Das Bundesamt (BfV) gehört zum Geschäftsbereich des Ministeriums. Hier sehen Sie auf einen Blick, wie viel dort gerade los ist. Inhalte von Gerichtsverfahren bleiben geheim, das Gericht ist unabhängig.</p>
+        <div class="kpi-grid" id="bfv-kpis"></div>
+        <div class="quick">
+          <button class="btn btn-primary" type="button" data-goto="erlasse">+ Erlass oder Verfügung</button>
+          <button class="btn" type="button" data-goto="auftraege">+ Auftrag ans BfV</button>
+          <button class="btn" type="button" id="bfv-neu-laden">Aktualisieren</button>
+        </div>
+        <div class="dash-grid">
+          <div class="panel"><div class="panel-head"><h2>Fristen in den nächsten 3 Tagen</h2></div><div id="bfv-fristen"></div></div>
+          <div class="panel"><div class="panel-head"><h2>Offene Widersprüche</h2></div><div id="bfv-rb"></div></div>
+          <div class="panel"><div class="panel-head"><h2>Offene Aufgaben je Abteilung</h2></div><div id="bfv-stellen"></div></div>
+          <div class="panel"><div class="panel-head"><h2>Lage</h2></div><div id="bfv-lage"></div></div>
+        </div>
+      </section>
+
+      <!-- Erlasse und Verfügungen -->
+      <section class="tab" data-panel="erlasse" hidden>
+        <header class="work-head"><div><span class="kicker">Hausleitung</span><h1>Erlasse und Verfügungen</h1></div></header>
+        <div class="erkl-grid">
+          <p class="erkl"><b>Erlass</b> = eine Regel für alle, z. B. wie Widersprüche ablaufen.</p>
+          <p class="erkl"><b>Verfügung</b> = eine Entscheidung für eine Person, z. B. eine Versetzung.</p>
+          <p class="erkl"><b>Was passiert?</b> Das Dokument wird im Dienstportal des BfV ausgefertigt, mit Aktenzeichen und Prüfnummer, und vom Minister unterzeichnet.</p>
+        </div>
+        <form class="panel form" id="dok-form" novalidate>
+          <label class="field">Art
+            <select name="typ"><option value="verfuegung">Verfügung (für eine Person)</option><option value="erlass">Erlass (Regel für alle)</option></select>
+          </label>
+          <label class="field">Aktenzeichen <small>Leer lassen = automatisch</small>
+            <span class="nr-row"><input name="nr" maxlength="60" placeholder="wird vorgeschlagen"><button class="btn btn-sm" type="button" id="dok-nr">Vorschlag</button></span>
+          </label>
+          <div class="full form" id="dok-felder"></div>
+          <label class="field">Unterschrift
+            <select name="zusatz"><option value="">Minister selbst</option><option>Im Auftrag</option><option>In Vertretung</option></select>
+          </label>
+          <fieldset class="full optionen">
+            <legend>Was soll zusätzlich passieren?</legend>
+            <label class="check"><input type="checkbox" name="oeffentlich"> Auf der BMI-Seite unter „Erlasse“ zeigen (öffentliche Fassung ohne Adler)</label>
+            <label class="check"><input type="checkbox" name="mitAuftrag" data-zeigt="opt-auftrag"> Das BfV soll etwas umsetzen (landet als Auftrag im Eingang des BfV)</label>
+            <div class="opt form" id="opt-auftrag" hidden>
+              <label class="field full">Was soll das BfV tun? <textarea name="auftrag" rows="2" maxlength="2000" placeholder="z. B. Discord-Rollen bis morgen anpassen"></textarea></label>
+              <label class="field">Bis wann? <input name="auftragFrist" type="date"></label>
+            </div>
+            <label class="check" data-nur="verfuegung"><input type="checkbox" name="mitAkte" data-zeigt="opt-akte"> In die Personalakte eintragen</label>
+            <div class="opt form" id="opt-akte" hidden>
+              <label class="field full">Namen (mit Komma trennen) <input name="akteNamen" maxlength="400" placeholder="z. B. Max Muster"></label>
+            </div>
+            <label class="check"><input type="checkbox" name="mitBek" data-zeigt="opt-bek"> Auch als Bekanntmachung beim BfV (Portal und Discord)</label>
+            <div class="opt form" id="opt-bek" hidden>
+              <label class="field full">Überschrift <input name="bekTitel" maxlength="160"></label>
+              <label class="field full">Kurzer Text <small>in einfachen Worten</small><textarea name="bekText" rows="3" maxlength="6000"></textarea></label>
+              <label class="check full"><input type="checkbox" name="bekSofort"> Sofort veröffentlichen (sonst als Entwurf beim BfV)</label>
+            </div>
+          </fieldset>
+          <div class="full row-actions">
+            <button class="btn" type="button" id="dok-vorschau">Vorschau ansehen</button>
+            <button class="btn btn-primary" type="submit">Ausfertigen und ans BfV senden</button>
+            <a class="link" id="dok-vorschau-link" target="_blank" rel="noopener" hidden>Vorschau öffnen ↗</a>
+          </div>
+        </form>
+        <div class="panel-head list-head"><h2>Bisher ausgefertigt</h2><button class="link" type="button" id="dok-neu-laden">Aktualisieren</button></div>
+        <div class="table-wrap"><table class="table">
+          <thead><tr><th>Aktenzeichen</th><th>Titel</th><th>Datum</th><th>Stand</th><th></th></tr></thead>
+          <tbody id="dok-liste"></tbody>
+        </table></div>
+      </section>
+
+      <!-- Aufträge an das BfV und Bekanntmachungen -->
+      <section class="tab" data-panel="auftraege" hidden>
+        <header class="work-head"><div><span class="kicker">Aufsicht</span><h1>Aufträge ans BfV</h1></div></header>
+        <div class="dash-grid">
+          <form class="panel form" id="anfrage-form" novalidate>
+            <h2 class="full">Neuer Auftrag oder Frage</h2>
+            <label class="field">Art <select name="art" id="anfrage-arten"></select></label>
+            <label class="field">Wie dringend? <select name="prioritaet"><option value="normal">Normal</option><option value="hoch">Wichtig</option><option value="eilt">Eilt</option></select></label>
+            <label class="field full">Betreff <input name="betreff" maxlength="200" required placeholder="z. B. Bericht zur Lage"></label>
+            <label class="field full">Was genau? <textarea name="text" rows="4" maxlength="6000" required></textarea></label>
+            <label class="field">Antwort bis <small>leer = automatisch</small><input name="frist" type="date"></label>
+            <div class="full"><button class="btn btn-primary" type="submit">An das BfV senden</button></div>
+          </form>
+          <form class="panel form" id="bek-form" novalidate>
+            <h2 class="full">Bekanntmachung</h2>
+            <p class="full muted">Erscheint sofort unter „Presse“ auf der BMI-Seite. Auf Wunsch auch im BfV-Portal und auf Discord.</p>
+            <label class="field full">Überschrift <input name="titel" maxlength="160" required></label>
+            <label class="field full">Text <small>kurz und einfach</small><textarea name="text" rows="4" maxlength="6000" required></textarea></label>
+            <label class="check full"><input type="checkbox" name="anBfv"> Auch an das BfV senden</label>
+            <label class="check full"><input type="checkbox" name="sofort"> Dort sofort veröffentlichen (sonst Entwurf)</label>
+            <div class="full"><button class="btn btn-primary" type="submit">Bekannt machen</button></div>
+          </form>
+        </div>
+        <div class="panel-head list-head"><h2>Alle Vorgänge mit dem BfV</h2><button class="link" type="button" id="vg-neu-laden">Aktualisieren</button></div>
+        <div class="table-wrap"><table class="table">
+          <thead><tr><th>Nummer</th><th>Worum geht es?</th><th>Gesendet</th><th>Stand beim BfV</th><th></th></tr></thead>
+          <tbody id="vg-liste"></tbody>
+        </table></div>
       </section>
 
       <!-- Maßnahmen -->
@@ -213,7 +317,8 @@
 
   <div class="toasts" id="toasts" aria-live="polite"></div>
 
-  <script src="assets/common.js"></script>
-  <script src="assets/admin.js"></script>
+  <script src="assets/common.js?v=10"></script>
+  <script src="assets/admin.js?v=10"></script>
+  <script src="assets/admin-bfv.js?v=10"></script>
 </body>
 </html>
