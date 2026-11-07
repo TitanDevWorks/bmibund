@@ -37,8 +37,24 @@
     }
     const alle = [...neu, ...fest].sort((a, b) => String(b.datum).localeCompare(String(a.datum)));
     document.getElementById('live').hidden = !(live && live.verbunden);
-    liste.innerHTML = alle.length ? alle.map(karte).join('') : `<p class="muted">${en ? 'Nothing published yet.' : 'Noch nichts veröffentlicht.'}</p>`;
-    reveal(document);
-    if (location.hash) document.getElementById(location.hash.slice(1))?.scrollIntoView({ block: 'start' });
+    // Filter nach Dokumentart (Erlass, Verfügung, Antrag, Pressemitteilung …)
+    const gruppe = (art) => { const x = String(art || '').toLowerCase(); return x.startsWith('verfügung') ? 'Verfügungen' : x.startsWith('erlass') ? 'Erlasse' : x.startsWith('antrag') ? 'Anträge' : x.startsWith('pressemitteilung') ? 'Pressemitteilungen' : 'Sonstiges'; };
+    const EN = { Alle: 'All', Erlasse: 'Decrees', Verfügungen: 'Orders', Anträge: 'Motions', Pressemitteilungen: 'Press releases', Sonstiges: 'Other' };
+    const zahl = {}; alle.forEach((d) => { const g = gruppe(d.art); zahl[g] = (zahl[g] || 0) + 1; });
+    const arten = ['Erlasse', 'Verfügungen', 'Anträge', 'Pressemitteilungen', 'Sonstiges'].filter((g) => zahl[g]);
+    const chips = document.getElementById('arten');
+    let wahl = 'Alle';
+    const zeigen = () => {
+      const sicht = wahl === 'Alle' ? alle : alle.filter((d) => gruppe(d.art) === wahl);
+      liste.innerHTML = sicht.length ? sicht.map(karte).join('') : `<p class="muted">${en ? 'Nothing published yet.' : 'Noch nichts veröffentlicht.'}</p>`;
+      chips.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.g === wahl)));
+      reveal(document);
+    };
+    chips.innerHTML = arten.length > 1 ? ['Alle', ...arten].map((g) => `<button type="button" data-g="${g}">${esc(en ? EN[g] : g)} <small>${g === 'Alle' ? alle.length : zahl[g]}</small></button>`).join('') : '';
+    chips.addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) { wahl = b.dataset.g; zeigen(); } });
+    zeigen();
+    // Alter Link auf die frühere Sammelkarte führt zur ersten der drei Verfügungen
+    const ziel = location.hash === '#z-006-008-2026' ? 'z-006-2026' : location.hash.slice(1);
+    if (ziel) document.getElementById(ziel)?.scrollIntoView({ block: 'start' });
   })();
 })();
