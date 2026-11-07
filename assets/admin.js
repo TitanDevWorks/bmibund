@@ -71,9 +71,12 @@
         { k: 'datum', l: 'Datum', t: 'date', req: true },
         { k: 'kategorie', l: 'Art', t: 'select', opts: NEWS_KIND },
         { k: 'status', l: 'Status', t: 'select', opts: ['Veröffentlicht', 'Entwurf'] },
-        { k: 'text', l: 'Text', t: 'textarea', req: true, max: 6000, rows: 10, full: true }
+        { k: 'teaser', l: 'Kurztext für Startseite und Vorschau', t: 'textarea', max: 300, rows: 2, full: true, ph: 'Ein bis zwei Sätze. Leer = Anfang des Textes.' },
+        { k: 'text', l: 'Text', t: 'textarea', req: true, max: 6000, rows: 10, full: true },
+        { k: 'oben', l: 'Oben anheften (erscheint auf der Startseite zuerst)', t: 'check', full: true },
+        { k: 'bild', l: 'Bild', t: 'hidden' }
       ],
-      blank: () => ({ datum: B.today(), kategorie: 'Pressemitteilung', status: 'Entwurf' })
+      blank: () => ({ datum: B.today(), kategorie: 'Pressemitteilung', status: 'Entwurf', bild: '' })
     },
     gesetze: {
       label: 'Gesetz',
@@ -108,6 +111,8 @@
     const val = v ?? '';
     const attrs = `name="${f.k}"${f.req ? ' required' : ''}${f.max ? ` maxlength="${f.max}"` : ''}${f.ph ? ` placeholder="${esc(f.ph)}"` : ''}${f.min ? ` min="${f.min}" max="${f.maxv}"` : ''}`;
     let input;
+    if (f.t === 'hidden') return `<input type="hidden" name="${f.k}" value="${esc(val)}">`;
+    if (f.t === 'check') return `<label class="check${f.full ? ' full' : ''}"><input type="checkbox" name="${f.k}"${val ? ' checked' : ''}> ${esc(f.l)}</label>`;
     if (f.t === 'select') input = `<select ${attrs}>${options(f.opts, val)}</select>`;
     else if (f.t === 'textarea') input = `<textarea ${attrs} rows="${f.rows || 4}">${esc(val)}</textarea>`;
     else if (f.t === 'range') input = `<span class="range"><input type="range" ${attrs} min="0" max="100" step="5" value="${Number(val) || 0}"><output>${Number(val) || 0} %</output></span>`;
@@ -122,8 +127,15 @@
     const values = item || cfg.blank();
     $('#editor-title').textContent = `${cfg.label} ${item ? 'bearbeiten' : 'anlegen'}`;
     const bereiche = [...new Set(data.massnahmen.map((m) => m.bereich).filter(Boolean))];
-    $('#editor-fields').innerHTML = cfg.fields.map((f) => fieldHtml(f, values[f.k])).join('')
+    const felder = cfg.fields.map((f) => fieldHtml(f, values[f.k])).join('')
       + `<datalist id="bereiche">${bereiche.map((b) => `<option value="${esc(b)}">`).join('')}</datalist>`;
+    const breit = col === 'meldungen';
+    $('#editor').classList.toggle('breit', breit);
+    $('#editor-fields').classList.toggle('ohne-rand', breit);
+    $('#editor-fields').innerHTML = breit
+      ? `<div class="ed-split"><div class="form">${felder}</div><aside class="ed-vorschau" id="ed-vorschau" aria-label="Vorschau"></aside></div>`
+      : felder;
+    document.dispatchEvent(new CustomEvent('admin:editor', { detail: { col, item: values } }));
     const range = $('#editor-fields input[type=range]');
     if (range) range.addEventListener('input', () => { range.nextElementSibling.textContent = `${range.value} %`; });
     $('#editor').showModal();
@@ -137,7 +149,9 @@
     const { col, id } = editing;
     const body = {};
     FIELDS[col].fields.forEach((f) => {
-      const v = form.elements[f.k].value;
+      const el = form.elements[f.k];
+      if (f.t === 'check') { body[f.k] = el.checked; return; }
+      const v = el.value;
       body[f.k] = f.t === 'range' || (f.t === 'number' && v !== '') ? Number(v) : v.trim();
     });
     if (!id) Object.keys(body).forEach((k) => { if (body[k] === '') delete body[k]; });
@@ -177,6 +191,7 @@
     render.kontakt();
     render.protokoll();
     fillBars($('#app'));
+    document.dispatchEvent(new CustomEvent('admin:render'));
   }
 
   // --- Darstellung -------------------------------------------------------------
@@ -195,7 +210,8 @@
         ['Gesetze im Verfahren', data.gesetze.filter((g) => !['Verkündet', 'Gestoppt'].includes(g.stand)).length, 'var(--s-kabinett)']
       ];
       $('#dash-kpis').innerHTML = kpis.map(([l, v, c]) => `<div class="kpi-card" style="--c:${c}"><b>${esc(v)}</b><span>${esc(l)}</span></div>`).join('');
-      $('#dash-day').textContent = `Amtstag ${B.DAY} von 100 · ${fmtDate(t)}`;
+      $('#dash-day').textContent = `Amtstag ${B.DAY} · ${fmtDate(t)}`;
+      cockpit(t);
 
       $('#dash-phases').innerHTML = PHASES.map((p) => {
         const g = ms.filter((m) => m.phase === p);
@@ -278,19 +294,32 @@
       const f = filters.kontakt || {};
       const open = new Set($$('#list-kontakt details[open]').map((d) => d.dataset.id));
       const drafts = new Map($$('#list-kontakt [data-note]').map((t) => [t.closest('[data-id]').dataset.id, t.value]));
+      const antwortEntw = new Map($$('#list-kontakt [data-antwort]').map((t) => [t.closest('[data-id]').dataset.id, t.value]));
+      const frageEntw = new Map($$('#list-kontakt [data-frage]').map((t) => [t.closest('[data-id]').dataset.id, t.value]));
       const list = data.kontakt.slice().sort((a, b) => String(b.eingang).localeCompare(String(a.eingang)))
-        .filter((k) => (!f.gelesen || (f.gelesen === 'neu' ? !k.gelesen : k.gelesen)) && (!f.betreff || k.betreff === f.betreff)
+        .filter((k) => (!f.gelesen || (f.gelesen === 'neu' ? !k.gelesen : f.gelesen === 'dialog' ? (k.oeffentlichOk && !k.veroeffentlicht) : f.gelesen === 'online' ? k.veroeffentlicht : k.gelesen)) && (!f.betreff || k.betreff === f.betreff)
           && match(k, f.q, ['name', 'email', 'nachricht', 'notiz']));
       $('#list-kontakt').innerHTML = list.length ? list.map((k) => {
-        const reply = `mailto:${encodeURIComponent(k.email).replace(/%40/g, '@')}?subject=${encodeURIComponent(`Ihre ${k.betreff}`)}`;
+        const antwort = antwortEntw.get(k.id) ?? k.antwort ?? '';
+        const reply = `mailto:${encodeURIComponent(k.email).replace(/%40/g, '@')}?subject=${encodeURIComponent(`Ihre ${k.betreff}`)}${antwort ? `&body=${encodeURIComponent(`Guten Tag ${k.name},\n\n${antwort}\n\nMit freundlichen Grüßen\nBundesministerium für Inneres und Heimat`)}` : ''}`;
+        const dialogTag = k.veroeffentlicht ? '<span class="tag ok">Im Bürgerdialog</span>' : k.oeffentlichOk ? '<span class="tag blau">Darf öffentlich</span>' : '';
         return `
         <details class="mail${k.gelesen ? '' : ' unread'}" data-id="${esc(k.id)}"${open.has(k.id) ? ' open' : ''}>
-          <summary><div><strong>${esc(k.betreff)} · ${esc(k.name)}</strong><small>${esc(k.email)} · ${esc(dateTime(k.eingang))}</small></div><span class="tag${k.gelesen ? '' : ' draft'}">${k.gelesen ? 'Gelesen' : 'Neu'}</span></summary>
+          <summary><div><strong>${esc(k.betreff)} · ${esc(k.name)}</strong><small>${esc(k.email)} · ${esc(dateTime(k.eingang))}</small></div><span class="row-actions" style="margin:0">${dialogTag}<span class="tag${k.gelesen ? '' : ' draft'}">${k.gelesen ? 'Gelesen' : 'Neu'}</span></span></summary>
           <div class="mail-body">
             <div class="mail-text">${esc(k.nachricht)}</div>
+            <div class="antwort-box">
+              <h4>Antwort ${k.oeffentlichOk ? '<span class="zust ja">darf im Bürgerdialog erscheinen</span>' : '<span class="zust">nur persönlich, nicht öffentlich</span>'}${k.antwortDatum ? `<small class="muted">gespeichert am ${esc(fmtDate(k.antwortDatum))}</small>` : ''}</h4>
+              <textarea maxlength="4000" data-antwort placeholder="Ihre Antwort in einfachen Worten …">${esc(antwort)}</textarea>
+              ${k.oeffentlichOk ? `<label class="mail-note">Frage, wie sie öffentlich erscheint <small class="muted">(kürzen oder Namen entfernen)</small><textarea maxlength="1000" data-frage rows="2">${esc(frageEntw.get(k.id) ?? k.frageOeffentlich ?? k.nachricht.slice(0, 1000))}</textarea></label>` : ''}
+              <div class="row-actions" style="margin-top:0">
+                <button class="btn btn-sm btn-primary" type="button" data-save-antwort>Antwort speichern</button>
+                <a class="btn btn-sm" href="${esc(reply)}">Per E-Mail senden</a>
+                ${k.oeffentlichOk ? `<button class="btn btn-sm${k.veroeffentlicht ? '' : ' btn-gold'}" type="button" data-dialog="${k.veroeffentlicht ? 'false' : 'true'}">${k.veroeffentlicht ? 'Aus dem Bürgerdialog nehmen' : 'Im Bürgerdialog veröffentlichen'}</button>` : ''}
+              </div>
+            </div>
             <label class="mail-note">Interne Notiz <textarea maxlength="1000" data-note>${esc(drafts.get(k.id) ?? k.notiz ?? '')}</textarea></label>
             <div class="row-actions" style="margin-top:0">
-              <a class="btn btn-sm btn-primary" href="${esc(reply)}">Antworten</a>
               <button class="btn btn-sm" type="button" data-read="${k.gelesen ? 'false' : 'true'}">${k.gelesen ? 'Als ungelesen markieren' : 'Als gelesen markieren'}</button>
               <button class="btn btn-sm" type="button" data-save-note>Notiz speichern</button>
               <button class="btn btn-sm btn-danger" type="button" data-del="kontakt">Löschen</button>
@@ -327,6 +356,65 @@
     }
   };
 
+  // Cockpit: Begrüßung, 100-Tage-Ring, „Heute wichtig“ und Aktivität der letzten 14 Tage.
+  const ICON = {
+    frist: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+    post: '<svg viewBox="0 0 24 24"><path d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg>',
+    presse: '<svg viewBox="0 0 24 24"><path d="M4 5h13v14H6a2 2 0 0 1-2-2zM17 9h3v8a2 2 0 0 1-2 2M8 9h5M8 13h5"/></svg>',
+    termin: '<svg viewBox="0 0 24 24"><path d="M4 6h16v14H4zM4 10h16M8 3v5M16 3v5"/></svg>',
+    gesetz: '<svg viewBox="0 0 24 24"><path d="M12 3v18M5 7h14M7 7l-3 7a3 3 0 0 0 6 0zM17 7l-3 7a3 3 0 0 0 6 0z"/></svg>',
+    dialog: '<svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg>'
+  };
+  function cockpit(t) {
+    const std = Number(new Intl.DateTimeFormat('de-DE', { hour: 'numeric', hour12: false, timeZone: 'Europe/Berlin' }).format(new Date()));
+    const gruss = std < 11 ? 'Guten Morgen' : std < 18 ? 'Guten Tag' : 'Guten Abend';
+    $('#dash-gruss').innerHTML = `${gruss}, <em>Herr Minister.</em>`;
+    $('#dash-gruss-k').textContent = `Hausleitung · ${fmtDate(t)}`;
+    const ring = $('#dash-ring .fg');
+    requestAnimationFrame(() => ring.setAttribute('stroke-dashoffset', String(100 - B.DAY)));
+    $('#ring-tag').textContent = B.DAY;
+
+    const in3 = new Date(Date.parse(t) + 3 * 86400000).toISOString().slice(0, 10);
+    const offen = data.massnahmen.filter((m) => m.status !== 'Abgeschlossen' && m.frist);
+    const ueber = offen.filter((m) => m.frist < t);
+    const bald = offen.filter((m) => m.frist >= t && m.frist <= in3);
+    const entw = data.meldungen.filter((n) => n.status === 'Entwurf');
+    const neu = data.kontakt.filter((k) => !k.gelesen);
+    const dialog = data.kontakt.filter((k) => k.oeffentlichOk && !k.antwort);
+    const heute = data.termine.filter((e) => e.datum === t).sort(byDateAsc);
+    const gesetze = data.gesetze.filter((g) => g.zieltag && g.zieltag < B.DAY && !['Verkündet', 'Gestoppt'].includes(g.stand));
+    const items = [
+      [ueber.length, 'frist', 'var(--err)', `${ueber.length === 1 ? 'Maßnahme' : 'Maßnahmen'} über der Frist`, ueber.map((m) => m.titel).slice(0, 2).join(' · '), 'massnahmen'],
+      [heute.length, 'termin', 'var(--gold)', `${heute.length === 1 ? 'Termin' : 'Termine'} heute`, heute.map((e) => `${e.zeit ? `${e.zeit} ` : ''}${e.titel}`).slice(0, 2).join(' · '), 'termine'],
+      [neu.length, 'post', 'var(--gold)', `${neu.length === 1 ? 'neue Nachricht' : 'neue Nachrichten'} im Postfach`, neu.map((k) => k.betreff).slice(0, 2).join(' · '), 'kontakt'],
+      [dialog.length, 'dialog', 'var(--s-arbeit)', `${dialog.length === 1 ? 'Frage wartet' : 'Fragen warten'} auf eine öffentliche Antwort`, 'Bürgerdialog auf der Webseite', 'kontakt'],
+      [bald.length, 'frist', 'var(--warn)', `Frist in den nächsten 3 Tagen`, bald.map((m) => `${m.titel} (${fmtDate(m.frist)})`).slice(0, 2).join(' · '), 'massnahmen'],
+      [entw.length, 'presse', 'var(--text-2)', `${entw.length === 1 ? 'Entwurf' : 'Entwürfe'} in der Presse`, entw.map((n) => n.titel).slice(0, 2).join(' · '), 'meldungen'],
+      [gesetze.length, 'gesetz', 'var(--err)', `${gesetze.length === 1 ? 'Gesetz' : 'Gesetze'} hinter dem Zieltag`, gesetze.map((g) => g.kurz || g.titel).join(' · '), 'gesetze']
+    ].filter(([n]) => n > 0);
+    $('#dash-todo').innerHTML = items.length ? items.map(([n, ic, c, l, sub, ziel]) => `
+      <button type="button" data-goto="${ziel}" style="--c:${c}"><span class="ic">${ICON[ic]}</span><span>${esc(l)}${sub ? `<small>${esc(sub)}</small>` : ''}</span><span class="n">${n}</span></button>`).join('')
+      : '<div class="todo-leer"><b>Alles erledigt.</b> Keine offenen Fristen, Nachrichten oder Entwürfe.</div>';
+    const nAll = items.reduce((a, [n]) => a + n, 0);
+    $('#dash-satz').textContent = nAll ? `Heute ist Amtstag ${B.DAY}. ${nAll} ${nAll === 1 ? 'Punkt braucht' : 'Punkte brauchen'} Ihre Aufmerksamkeit.` : `Heute ist Amtstag ${B.DAY}. Alles ist auf dem aktuellen Stand.`;
+
+    // Aktivität aus dem Protokoll (ohne Anmeldungen)
+    const tage = [...Array(14)].map((_, i) => new Date(Date.parse(t) - (13 - i) * 86400000).toISOString().slice(0, 10));
+    const zaehl = Object.fromEntries(tage.map((d) => [d, 0]));
+    const arbeit = data.protokoll.filter((a) => !/Anmeldung|Dev-/.test(a.aktion));
+    arbeit.forEach((a) => {
+      const d = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Berlin' }).format(new Date(a.zeit));
+      if (d in zaehl) zaehl[d] += 1;
+    });
+    const max = Math.max(1, ...Object.values(zaehl));
+    const woche = tage.slice(7).reduce((a, d) => a + zaehl[d], 0);
+    const veroeff = data.meldungen.filter((n) => n.status !== 'Entwurf' && n.datum >= tage[7]).length;
+    $('#dash-aktiv').innerHTML = `
+      <div class="aktiv-sum"><div><b>${woche}</b><span>Änderungen diese Woche</span></div><div><b>${veroeff}</b><span>Meldungen veröffentlicht</span></div><div><b>${zaehl[t]}</b><span>heute</span></div></div>
+      <div class="aktiv-chart" role="img" aria-label="Änderungen pro Tag">${tage.map((d) => `<i class="${d === t ? 'heute' : ''}" style="--h:${Math.round((zaehl[d] / max) * 100)}%" title="${fmtDate(d)}: ${zaehl[d]}"></i>`).join('')}</div>
+      <div class="aktiv-achse"><span>${fmtDate(tage[0])}</span><span>heute</span></div>`;
+  }
+
   const SETTINGS_TEXT = ['wartungTitel', 'wartungText', 'wartungDatum', 'wartungZeit', 'eilmeldung', 'heroTitel', 'heroText', 'ministerZitat', 'heroTitelEn', 'heroTextEn', 'ministerZitatEn'];
 
   async function loadDevInfo() {
@@ -361,7 +449,7 @@
   }
 
   // Für assets/admin-bfv.js (Verbindung zum Verfassungsschutz)
-  window.BMIH_ADMIN = { api, toast, run, dateTime, emptyRow };
+  window.BMIH_ADMIN = { api, toast, run, dateTime, emptyRow, data, filters, openEditor, refresh, go: (n) => go(n), FIELDS, options };
 
   // --- Navigation --------------------------------------------------------------
 
@@ -369,6 +457,8 @@
     tab = name;
     $$('.side-nav button').forEach((b) => (b.dataset.tab === name ? b.setAttribute('aria-current', 'page') : b.removeAttribute('aria-current')));
     $$('.tab').forEach((p) => { p.hidden = p.dataset.panel !== name; });
+    const label = $(`.side-nav [data-tab="${CSS.escape(name)}"]`);
+    if (label && $('#crumb-tab')) $('#crumb-tab').textContent = [...label.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join('').trim();
     if (history.replaceState) history.replaceState(null, '', `#${name}`);
     if (name === 'system') run(loadSession);
     document.dispatchEvent(new CustomEvent('admin:tab', { detail: name }));
@@ -400,6 +490,18 @@
     }
     if (t.dataset.read) {
       return run(async () => { await api('PUT', `kontakt/${encodeURIComponent(id)}`, { gelesen: t.dataset.read === 'true' }); await refresh('kontakt'); });
+    }
+    if (t.hasAttribute('data-save-antwort') || t.dataset.dialog) {
+      const body = { antwort: row.querySelector('[data-antwort]').value.trim() };
+      const frage = row.querySelector('[data-frage]');
+      if (frage) body.frageOeffentlich = frage.value.trim();
+      if (t.dataset.dialog) body.veroeffentlicht = t.dataset.dialog === 'true';
+      return run(async () => {
+        await api('PUT', `kontakt/${encodeURIComponent(id)}`, body);
+        toast(t.dataset.dialog ? (body.veroeffentlicht ? 'Im Bürgerdialog veröffentlicht.' : 'Aus dem Bürgerdialog genommen.') : 'Antwort gespeichert.');
+        $$('#list-kontakt [data-id="' + CSS.escape(id) + '"] textarea').forEach((x) => { x.removeAttribute('data-antwort'); x.removeAttribute('data-frage'); });
+        await refresh('kontakt');
+      });
     }
     if (t.hasAttribute('data-save-note')) {
       const notiz = row.querySelector('[data-note]').value.trim();

@@ -16,7 +16,7 @@
   // Übersetzungen für Texte, die per JavaScript entstehen. Schlüssel ist der deutsche Text.
   const EN = {
     'Startseite': 'Home', 'Maßnahmenplan': 'Action plan', 'Gesetze': 'Legislation', 'Minister': 'Minister',
-    'Ministerium': 'Ministry', 'Verfassungsschutz': 'Intelligence', 'Presse': 'Press', 'Termine': 'Schedule', 'Kontakt': 'Contact', 'Erlasse': 'Decrees', 'Erlasse und Verfügungen': 'Decrees and orders',
+    'Ministerium': 'Ministry', 'Verfassungsschutz': 'Intelligence', 'Presse': 'Press', 'Termine': 'Schedule', 'Kontakt': 'Contact', 'Bürgerdialog': 'Citizens\' dialogue', 'Noch keine beantworteten Fragen.': 'No answered questions yet.', 'Antwort des Ministeriums': 'Answer of the ministry', 'Heute': 'Today', 'Meilenstein': 'Milestone', 'Sofortprogramm': 'Immediate action', 'Gesetze auf den Weg': 'Bills underway', 'Umsetzung': 'Delivery', 'Nichts gefunden.': 'Nothing found.', 'Erlasse': 'Decrees', 'Erlasse und Verfügungen': 'Decrees and orders',
     'Impressum': 'Legal notice', 'Datenschutz': 'Privacy', 'Pressestelle': 'Press office',
     'Amtstag': 'Day', 'von 100': 'of 100', 'Menü': 'Menu', 'Sie sind hier': 'You are here',
     '100-Tage-Plan': '100-day plan', 'Eilmeldung': 'Breaking', 'Nach oben': 'Back to top',

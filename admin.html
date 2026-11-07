@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Verwaltung · Bundesministerium für Inneres und Heimat</title>
   <meta name="robots" content="noindex, nofollow">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#0b0c0f">
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/style.css">
-  <link rel="stylesheet" href="assets/admin.css?v=10">
+  <link rel="stylesheet" href="assets/admin.css?v=11">
+  <link rel="stylesheet" href="assets/admin-nacht.css?v=11">
 </head>
 <body data-page="admin" class="admin-body">
   <section class="login" id="login-view" hidden>
@@ -22,13 +23,14 @@
         <button class="btn btn-primary" type="submit">Anmelden</button>
         <p class="msg" id="login-msg" role="alert"></p>
       </form>
-      <a class="back" href="index.html">← Zur Webseite</a>
+      <div class="login-foot"><span><i class="dot"></i>Verbindung geschützt</span><a class="back" href="index.html">← Zur Webseite</a></div>
     </div>
   </section>
 
   <div class="shell" id="app" hidden>
     <aside class="side">
-      <div class="side-brand"><span class="flag" aria-hidden="true"><i></i><i></i><i></i></span><span><b>BMIH</b><small>Verwaltung</small></span></div>
+      <div class="side-brand"><span class="flag" aria-hidden="true"><i></i><i></i><i></i></span><span><b>BMIH</b><small>Verwaltung der Hausleitung</small></span></div>
+      <button class="side-search" type="button" data-palette><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Suchen und springen<kbd>Strg K</kbd></button>
       <nav class="side-nav" aria-label="Bereiche">
         <button type="button" data-tab="dashboard" aria-current="page"><svg viewBox="0 0 24 24"><path d="M3 3h8v8H3zM13 3h8v5h-8zM13 10h8v11h-8zM3 13h8v8H3z"/></svg>Übersicht</button>
         <span class="side-sep">Verfassungsschutz</span>
@@ -47,28 +49,57 @@
       </nav>
       <div class="side-foot">
         <a href="index.html" target="_blank" rel="noopener">Webseite öffnen ↗</a>
-        <span>Angemeldet als <b id="who"></b></span>
+        <div class="side-user"><img class="av" src="assets/img/minister-fiedel-av.webp" alt="" width="32" height="32"><span><b id="who"></b><small>Hausleitung</small></span></div>
         <span id="expires"></span>
         <button class="btn btn-sm" id="logout" type="button">Abmelden</button>
       </div>
     </aside>
 
     <main class="work" id="main" tabindex="-1">
+      <div class="topbar">
+        <div class="crumb"><span>Verwaltung</span><span aria-hidden="true">/</span><b id="crumb-tab">Übersicht</b></div>
+        <span class="sp"></span>
+        <span class="live" id="live-uhr"><i></i><span></span></span>
+        <button class="btn btn-sm" type="button" data-palette>Suchen <span class="kbd">Strg K</span></button>
+        <div class="neu-menu">
+          <button class="btn btn-sm btn-primary" type="button" id="neu-btn" aria-haspopup="menu" aria-expanded="false">+ Neu</button>
+          <div role="menu" id="neu-liste" hidden>
+            <button type="button" role="menuitem" data-new="meldungen">Pressemitteilung <small>Presse</small></button>
+            <button type="button" role="menuitem" data-new="massnahmen">Maßnahme <small>100-Tage-Plan</small></button>
+            <button type="button" role="menuitem" data-new="termine">Termin <small>Kalender</small></button>
+            <button type="button" role="menuitem" data-new="gesetze">Gesetzesvorhaben <small>Gesetze</small></button>
+            <button type="button" role="menuitem" data-goto="erlasse">Erlass oder Verfügung <small>BfV</small></button>
+            <button type="button" role="menuitem" data-goto="auftraege">Auftrag ans BfV <small>BfV</small></button>
+          </div>
+        </div>
+      </div>
       <!-- Übersicht -->
       <section class="tab" data-panel="dashboard">
-        <header class="work-head"><div><span class="kicker">Hausleitung</span><h1>Übersicht</h1></div><span class="muted" id="dash-day"></span></header>
+        <div class="cockpit-hero">
+          <div>
+            <span class="kicker" id="dash-gruss-k">Hausleitung</span>
+            <h1 id="dash-gruss">Guten Tag, <em>Herr Minister.</em></h1>
+            <p id="dash-satz">Hier sehen Sie, was heute ansteht.</p>
+            <div class="row-actions">
+              <button class="btn btn-primary" type="button" data-new="meldungen">Pressemitteilung schreiben</button>
+              <button class="btn" type="button" data-goto="erlasse">Erlass ausfertigen</button>
+              <button class="btn" type="button" data-goto="einstellungen">Eilmeldung setzen</button>
+            </div>
+          </div>
+          <div class="ring" id="dash-ring" aria-label="Amtstag">
+            <svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="ringgrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e5484d"/><stop offset="1" stop-color="#e9c46a"/></linearGradient></defs><circle class="bg" cx="50" cy="50" r="44"/><circle class="fg" cx="50" cy="50" r="44" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg>
+            <div class="mitte"><b id="ring-tag">0</b><small>von 100 Amtstagen</small></div>
+          </div>
+        </div>
         <div class="kpi-grid" id="dash-kpis"></div>
-        <div class="quick">
-          <button class="btn btn-primary" type="button" data-new="massnahmen">+ Maßnahme</button>
-          <button class="btn" type="button" data-new="meldungen">+ Pressemitteilung</button>
-          <button class="btn" type="button" data-new="gesetze">+ Gesetz</button>
-          <button class="btn" type="button" data-new="termine">+ Termin</button>
-          <button class="btn" type="button" data-goto="einstellungen">Eilmeldung setzen</button>
+        <div class="cockpit-grid">
+          <div class="panel"><div class="panel-head"><h2>Heute wichtig</h2><span class="zaehler" id="dash-day"></span></div><div class="todo" id="dash-todo"></div></div>
+          <div class="panel"><div class="panel-head"><h2>Aktivität</h2><span class="zaehler">letzte 14 Tage</span></div><div id="dash-aktiv"></div></div>
         </div>
         <div class="dash-grid">
-          <div class="panel"><div class="panel-head"><h2>Fortschritt nach Phase</h2></div><div id="dash-phases"></div></div>
+          <div class="panel"><div class="panel-head"><h2>Fortschritt nach Phase</h2><button class="link" type="button" data-goto="massnahmen">Board</button></div><div id="dash-phases"></div></div>
           <div class="panel"><div class="panel-head"><h2>Neue Nachrichten</h2><button class="link" type="button" data-goto="kontakt">Zum Postfach</button></div><div id="dash-inbox"></div></div>
-          <div class="panel"><div class="panel-head"><h2>Nächste Termine</h2><button class="link" type="button" data-goto="termine">Alle</button></div><div id="dash-events"></div></div>
+          <div class="panel"><div class="panel-head"><h2>Nächste Termine</h2><button class="link" type="button" data-goto="termine">Kalender</button></div><div id="dash-events"></div></div>
           <div class="panel"><div class="panel-head"><h2>Letzte Änderungen</h2><button class="link" type="button" data-goto="protokoll">Protokoll</button></div><div id="dash-audit"></div></div>
         </div>
       </section>
@@ -176,11 +207,13 @@
       <section class="tab" data-panel="massnahmen" hidden>
         <header class="work-head"><div><span class="kicker">Inhalte</span><h1>Maßnahmen</h1></div><button class="btn btn-primary" type="button" data-new="massnahmen">+ Neue Maßnahme</button></header>
         <div class="toolbar">
+          <div class="seg" role="group" aria-label="Ansicht" data-ansicht="massnahmen"><button type="button" data-v="board" aria-pressed="true">Board</button><button type="button" data-v="liste" aria-pressed="false">Liste</button></div>
           <input type="search" data-filter="q" placeholder="Suchen …" aria-label="Suchen">
           <select data-filter="phase" aria-label="Phase"><option value="">Alle Phasen</option></select>
           <select data-filter="status" aria-label="Status"><option value="">Alle Status</option></select>
         </div>
-        <div class="table-wrap"><table class="table"><thead><tr><th>Titel</th><th>Phase</th><th>Status</th><th>Fortschritt</th><th>Frist</th><th><span class="sr-only">Aktionen</span></th></tr></thead><tbody id="list-massnahmen"></tbody></table></div>
+        <div class="board" id="board-massnahmen"></div>
+        <div class="table-wrap" data-liste="massnahmen" hidden><table class="table"><thead><tr><th>Titel</th><th>Phase</th><th>Status</th><th>Fortschritt</th><th>Frist</th><th><span class="sr-only">Aktionen</span></th></tr></thead><tbody id="list-massnahmen"></tbody></table></div>
       </section>
 
       <!-- Presse -->
@@ -209,17 +242,20 @@
         <header class="work-head"><div><span class="kicker">Inhalte</span><h1>Termine</h1></div><button class="btn btn-primary" type="button" data-new="termine">+ Neuer Termin</button></header>
         <div class="toolbar">
           <input type="search" data-filter="q" placeholder="Suchen …" aria-label="Suchen">
+          <div class="seg" role="group" aria-label="Ansicht" data-ansicht="termine"><button type="button" data-v="board" aria-pressed="true">Kalender</button><button type="button" data-v="liste" aria-pressed="false">Liste</button></div>
           <select data-filter="zeitraum" aria-label="Zeitraum"><option value="">Alle</option><option value="next">Anstehend</option><option value="past">Vergangen</option></select>
         </div>
-        <div class="table-wrap"><table class="table"><thead><tr><th>Datum</th><th>Titel</th><th>Art</th><th>Ort</th><th><span class="sr-only">Aktionen</span></th></tr></thead><tbody id="list-termine"></tbody></table></div>
+        <div class="kal" id="kal-termine"></div>
+        <div class="table-wrap" data-liste="termine" hidden><table class="table"><thead><tr><th>Datum</th><th>Titel</th><th>Art</th><th>Ort</th><th><span class="sr-only">Aktionen</span></th></tr></thead><tbody id="list-termine"></tbody></table></div>
       </section>
 
       <!-- Postfach -->
       <section class="tab" data-panel="kontakt" hidden>
-        <header class="work-head"><div><span class="kicker">Bürgerservice</span><h1>Postfach</h1></div><button class="btn" type="button" id="mark-all">Alle als gelesen markieren</button></header>
+        <header class="work-head"><div><span class="kicker">Bürgerservice</span><h1>Postfach</h1></div><div class="row-actions" style="margin:0"><a class="btn" href="buergerdialog.html" target="_blank" rel="noopener">Bürgerdialog ansehen ↗</a><button class="btn" type="button" id="mark-all">Alle als gelesen markieren</button></div></header>
+        <p class="erkl">Hat jemand beim Schreiben erlaubt, dass die Frage öffentlich beantwortet werden darf, können Sie Ihre Antwort im <b>Bürgerdialog</b> auf der Webseite zeigen. Dort steht nur der Vorname mit Anfangsbuchstaben, nie die E-Mail-Adresse.</p>
         <div class="toolbar">
           <input type="search" data-filter="q" placeholder="Name, E-Mail oder Text …" aria-label="Suchen">
-          <select data-filter="gelesen" aria-label="Status"><option value="">Alle</option><option value="neu">Ungelesen</option><option value="gelesen">Gelesen</option></select>
+          <select data-filter="gelesen" aria-label="Status"><option value="">Alle</option><option value="neu">Ungelesen</option><option value="gelesen">Gelesen</option><option value="dialog">Bürgerdialog: offen</option><option value="online">Bürgerdialog: veröffentlicht</option></select>
           <select data-filter="betreff" aria-label="Betreff"><option value="">Alle Betreffe</option><option>Bürgeranfrage</option><option>Presseanfrage</option><option>Anfrage an den Minister</option><option>Sonstiges</option></select>
         </div>
         <div class="mails" id="list-kontakt"></div>
@@ -315,10 +351,17 @@
     </form>
   </dialog>
 
+  <dialog class="palette" id="palette" aria-label="Schnellsuche">
+    <div class="p-in"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="palette-q" placeholder="Wohin? Bereich, Aktion oder Inhalt suchen …" autocomplete="off" aria-controls="palette-liste"></div>
+    <ul id="palette-liste" role="listbox"></ul>
+    <div class="p-foot"><span><span class="kbd">↑↓</span> auswählen</span><span><span class="kbd">Enter</span> öffnen</span><span><span class="kbd">Esc</span> schließen</span></div>
+  </dialog>
+
   <div class="toasts" id="toasts" aria-live="polite"></div>
 
-  <script src="assets/common.js?v=10"></script>
-  <script src="assets/admin.js?v=10"></script>
-  <script src="assets/admin-bfv.js?v=10"></script>
+  <script src="assets/common.js?v=11"></script>
+  <script src="assets/admin.js?v=11"></script>
+  <script src="assets/admin-bfv.js?v=11"></script>
+  <script src="assets/admin-plus.js?v=11"></script>
 </body>
 </html>

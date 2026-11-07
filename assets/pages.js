@@ -37,6 +37,45 @@
   }
 
   // Countdown bis zum nächsten Termin (Berliner Zeit, ohne Uhrzeit = 9 Uhr).
+  // Bürgerdialog: Frage und Antwort als Gesprächskarte
+  function bdItem(x) {
+    return `
+      <article class="bd-item reveal" id="f-${esc(x.id)}">
+        <div class="bd-frage">
+          <span class="bd-av" aria-hidden="true">${esc((x.name || '?').slice(0, 1))}</span>
+          <div><div class="bd-meta"><b>${esc(x.name)}</b><span>${esc(t(x.betreff))}</span><time datetime="${esc(x.eingang)}">${fmtDate(x.eingang)}</time></div>
+          <p>${esc(x.frage)}</p></div>
+        </div>
+        <div class="bd-antwort">
+          <img src="assets/img/minister-fiedel-av.webp" alt="" width="40" height="40" loading="lazy">
+          <div><div class="bd-meta"><b>${esc(t('Antwort des Ministeriums'))}</b><time datetime="${esc(x.antwortDatum)}">${fmtDate(x.antwortDatum)}</time></div>
+          <p>${esc(x.antwort)}</p></div>
+        </div>
+      </article>`;
+  }
+
+  // 100-Tage-Zeitstrahl: Phasen, heutiger Tag, Zieltage der Gesetze und Termine
+  function zeitstrahl(root, laws, events) {
+    if (!root) return;
+    const pos = (tag) => ((Math.min(100, Math.max(1, tag)) - 1) / 99) * 100;
+    const PH = [[1, 10, PHASES[0]], [11, 50, PHASES[1]], [51, 100, PHASES[2]]];
+    const ziel = laws.map((g) => ({ ...g, zieltag: zday(g.zieltag) })).filter((g) => g.zieltag && g.stand !== 'Gestoppt').sort((a, b) => a.zieltag - b.zieltag);
+    const tagVon = (d) => Math.round((Date.parse(d) - Date.parse(B.dayDate(1))) / 86400000) + 1;
+    const termine = events.map((e) => ({ ...e, tag: tagVon(e.datum) })).filter((e) => e.tag >= 1 && e.tag <= 100);
+    const naechste = ziel.filter((g) => g.zieltag >= DAY && g.stand !== 'Verkündet').slice(0, 3);
+    root.innerHTML = `
+      <div class="zs-phasen">${PH.map(([a, b, n]) => `<div style="--w:${b - a + 1}" class="${DAY >= a && DAY <= b ? 'jetzt' : DAY > b ? 'vorbei' : ''}"><b>${esc(tPhase(n))}</b><span>${a === 1 ? esc(t('Sofortprogramm')) : a === 11 ? esc(t('Gesetze auf den Weg')) : esc(t('Umsetzung'))}</span></div>`).join('')}</div>
+      <div class="zs-linie" role="img" aria-label="${esc(`${t('Amtstag')} ${DAY} ${t('von 100')}`)}">
+        <i class="zs-fort" style="width:${pos(DAY)}%"></i>
+        ${termine.map((e) => `<i class="zs-tick" style="left:${pos(e.tag)}%" title="${esc(`${fmtDate(e.datum)} · ${e.titel}`)}"></i>`).join('')}
+        ${ziel.map((g, i) => `<a class="zs-pkt${g.stand === 'Verkündet' ? ' fertig' : g.zieltag < DAY ? ' spaet' : ''}${i % 2 ? ' unten' : ''}" style="left:${pos(g.zieltag)}%" href="gesetze.html#g-${esc(g.id)}"><span>${esc(g.kurz || g.titel)}<small>${esc(t('Tag'))} ${g.zieltag}</small></span></a>`).join('')}
+        <span class="zs-heute${pos(DAY) < 10 ? ' links' : pos(DAY) > 90 ? ' rechts' : ''}" style="left:${pos(DAY)}%"><b>${esc(t('Heute'))} · ${esc(t('Tag'))} ${DAY}</b></span>
+      </div>
+      <div class="zs-skala"><span>${esc(t('Tag'))} 1</span><span>${esc(t('Tag'))} 50</span><span>${esc(t('Tag'))} 100</span></div>
+      ${naechste.length ? `<div class="zs-next">${naechste.map((g) => `
+        <a href="gesetze.html#g-${esc(g.id)}"><span class="mono-label">${esc(t('Meilenstein'))} · ${esc(t('Tag'))} ${g.zieltag}</span><b>${esc(g.titel)}</b><span class="muted">${esc(dueLabel(g.zieltag, g.stand))} · ${esc(t(g.stand))}</span></a>`).join('')}</div>` : ''}`;
+  }
+
   function startCountdown(ev) {
     const box = $('#countdown');
     if (!box || !ev) return;
@@ -147,7 +186,8 @@
       }
 
       const used = new Set(['brandenburger-tor']);
-      $('#news').innerHTML = news.length ? news.slice().sort(byDateDesc).slice(0, 3)
+      const obenZuerst = (a, b) => (b.oben === true) - (a.oben === true) || byDateDesc(a, b);
+      $('#news').innerHTML = news.length ? news.slice().sort(obenZuerst).slice(0, 3)
         .map((n, i) => newsTeaser(n, fotoFor(n, fotos, used), i ? 's' : '')).join('') : empty('Noch keine Meldungen.');
       fotoStrip($('#foto-strip'), fotos, ['rede-plenum', 'lage-polizei', 'buerger-altstadt', 'buero-unterschrift', 'pressekonferenz']);
 
@@ -171,7 +211,29 @@
         </a>`).join('') : empty('Noch keine Gesetzesvorhaben.');
 
       startCountdown(upcoming(events, 1)[0]);
+      zeitstrahl($('#zeitstrahl'), laws, events);
+      load('buergerdialog').then((bd) => {
+        if (!Array.isArray(bd) || !bd.length) return;
+        $('#bd-start').innerHTML = bd.slice(0, 2).map(bdItem).join('');
+        $('#bd-home').hidden = false;
+        reveal($('#bd-home'));
+      }).catch(() => {});
       reveal();
+    },
+
+    async buergerdialog() {
+      const liste = await load('buergerdialog').catch(() => []);
+      const q = $('#bd-q');
+      const render = () => {
+        const s = q.value.trim().toLowerCase();
+        const treffer = liste.filter((x) => !s || `${x.frage} ${x.antwort} ${x.betreff}`.toLowerCase().includes(s));
+        $('#bd-liste').innerHTML = treffer.length ? treffer.map(bdItem).join('') : empty(liste.length ? 'Nichts gefunden.' : 'Noch keine beantworteten Fragen.');
+        reveal($('#bd-liste'));
+      };
+      q.addEventListener('input', render);
+      render();
+      const hash = decode(location.hash.slice(1));
+      if (hash) document.getElementById(`f-${hash}`)?.scrollIntoView({ block: 'center' });
     },
 
     async massnahmen() {
@@ -344,6 +406,7 @@
         try {
           const data = Object.fromEntries(new FormData(form));
           delete data.ok;
+          data.oeffentlichOk = form.oeffentlichOk ? form.oeffentlichOk.checked : false;
           const res = await fetch('/api/kontakt', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
