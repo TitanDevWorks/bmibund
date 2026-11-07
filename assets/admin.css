@@ -142,3 +142,34 @@
 .dev-show { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line-2); }
 .dev-show p { margin: 0 0 8px; font-size: 0.93rem; }
 .dev-show code { display: block; padding: 10px 12px; border-radius: var(--radius); background: #0f1216; color: #ffcc00; font: 600 0.95rem var(--mono); word-break: break-all; user-select: all; }
+
+/* Verbindung zum Verfassungsschutz (admin-bfv.js) */
+.side-sep { display: block; padding: 14px 12px 4px; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: #7d8894; }
+.verb-pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 99px; font-size: 0.85rem; color: var(--text-2); background: var(--bg); }
+.verb-pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--text-3); }
+.verb-pill.ok::before { background: var(--ok); box-shadow: 0 0 0 3px rgb(46 160 67 / 0.18); }
+.verb-pill.aus::before { background: var(--red); }
+.erkl { margin: 0 0 18px; max-width: 760px; color: var(--text-2); font-size: 0.95rem; }
+.erkl-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-bottom: 18px; }
+.erkl-grid .erkl { margin: 0; padding: 14px 16px; background: var(--bg); border: 1px solid var(--line); border-left: 3px solid var(--gold); border-radius: var(--radius); font-size: 0.9rem; }
+.erkl-grid .erkl b { color: var(--text); }
+.nr-row { display: flex; gap: 8px; }
+.nr-row input { flex: 1; min-width: 0; }
+.optionen { display: grid; gap: 10px; margin: 0; padding: 16px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-2); }
+.optionen legend { padding: 0 6px; font-weight: 700; font-size: 0.9rem; }
+.optionen .opt { margin: 0 0 6px 26px; padding: 12px 14px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); gap: 12px; }
+.list-head { margin: 28px 0 12px; }
+.table td.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.86rem; }
+.table td.mono small, .table td small { display: block; color: var(--text-3); font-size: 0.78rem; font-weight: 400; }
+.bf-tag { display: inline-block; padding: 2px 8px; border-radius: 99px; background: var(--bg-2); border: 1px solid var(--line); font-size: 0.75rem; font-weight: 600; color: var(--text-2); }
+.bf-tag.ok { color: var(--ok); border-color: currentColor; }
+.bf-tag.rot { color: var(--red); border-color: currentColor; }
+.spaet { color: var(--red); font-weight: 700; }
+.mini .stelle { display: flex; justify-content: space-between; gap: 12px; }
+.klein { font-size: 0.8rem; margin: 10px 0 0; }
+.table details { margin-top: 6px; font-weight: 400; }
+.table summary { cursor: pointer; color: var(--brand); font-size: 0.85rem; }
+.antworten { margin: 8px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.antworten li { padding: 8px 10px; background: var(--bg-2); border-radius: var(--radius); font-size: 0.88rem; white-space: pre-wrap; }
+.bescheid { margin: 8px 0 0; font-size: 0.88rem; }
+@media (max-width: 900px) { .erkl-grid { grid-template-columns: minmax(0, 1fr); } .optionen .opt { margin-left: 0; } }

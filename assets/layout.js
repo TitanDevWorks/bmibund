@@ -8,16 +8,18 @@
     ['verfassungsschutz.html', 'Verfassungsschutz'],
     ['minister.html', 'Minister'],
     ['ministerium.html', 'Ministerium'],
+    ['erlasse.html', 'Erlasse'],
     ['presse.html', 'Presse'],
-    ['termine.html', 'Termine'],
     ['kontakt.html', 'Kontakt']
   ];
-  const EXTRA = { 'pressefotos.html': 'Pressefotos', 'impressum.html': 'Impressum', 'datenschutz.html': 'Datenschutz' };
+  const BFV = 'https://verfassungsschutz.duckdns.org';
+  const EXTRA = { 'termine.html': 'Termine', 'pressefotos.html': 'Pressefotos', 'impressum.html': 'Impressum', 'datenschutz.html': 'Datenschutz' };
   const here = location.pathname.split('/').pop() || 'index.html';
   const en = P.lang === 'en';
   const logo = `<span class="flag" aria-hidden="true"><i></i><i></i><i></i></span>${en
     ? '<span class="words"><span>Federal Ministry</span><span>of the Interior</span><span>and Homeland</span></span>'
     : '<span class="words"><span>Bundesministerium</span><span>für Inneres</span><span>und Heimat</span></span>'}`;
+  const logoKopf = logo.replace('</span></span>', `</span><small>${en ? 'BMI · Berlin · Bonn' : 'BMI · Berlin · Bonn'}</small></span>`);
 
   const HOT = new Set(['verfassungsschutz.html']);
   const links = PAGES.map(([href, label]) =>
@@ -30,13 +32,14 @@
     <div class="flagbar" aria-hidden="true"><i></i><i></i><i></i></div>
     <div class="servicebar">
       <div class="container">
-        <span class="day">${esc(t('Amtstag'))} <b>${DAY}</b> ${esc(t('von 100'))} · ${en ? 'Gauland I cabinet' : 'Kabinett Gauland I'}</span>
+        <span class="day"><b class="fiktiv">${en ? 'Fictional' : 'Fiktiv'}</b> <span class="rp">${en ? 'Role-play “BDR” (Roblox), not a real authority' : 'Rollenspiel „BDR“ (Roblox), keine echte Behörde'} · </span>${esc(t('Amtstag'))} <b>${DAY}</b> ${esc(t('von 100'))}</span>
         <div class="prefs">
           <nav aria-label="Service">
             <a href="presse.html#pressekontakt">${esc(t('Pressestelle'))}</a>
             <a href="pressefotos.html">${esc(t('Pressefotos'))}</a>
             <a href="termine.html">${esc(t('Termine'))}</a>
             <a href="kontakt.html">${esc(t('Kontakt'))}</a>
+            <a class="extern" href="${BFV}/" rel="noopener">${en ? 'Domestic intelligence (BfV)' : 'Verfassungsschutz'} <span aria-hidden="true">↗</span></a>
           </nav>
           <div class="switch" role="group" aria-label="${en ? 'Language' : 'Sprache'}">
             <button type="button" data-lang-set="de" aria-pressed="${!en}" lang="de" title="Deutsch">DE</button>
@@ -47,7 +50,7 @@
     </div>
     <header class="site-header">
       <div class="container head-row">
-        <a class="logo" href="index.html" aria-label="${en ? 'Federal Ministry of the Interior and Homeland, home' : 'Bundesministerium für Inneres und Heimat, zur Startseite'}">${logo}</a>
+        <a class="logo" href="index.html" aria-label="${en ? 'Federal Ministry of the Interior and Homeland, home' : 'Bundesministerium für Inneres und Heimat, zur Startseite'}">${logoKopf}</a>
         <div class="head-tools">
           <button class="search-btn" type="button" data-search-open aria-label="${en ? 'Search' : 'Suche'}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>${en ? 'Search …' : 'Suchen …'}</span><kbd>${/Mac|iPhone|iPad/.test(navigator.platform || '') ? '⌘' : 'Strg'} K</kbd></button>
           <a class="btn btn-primary" href="massnahmen.html">${esc(t('100-Tage-Plan'))}</a>
@@ -103,6 +106,7 @@
             <li><a href="massnahmen.html">${esc(t('Maßnahmenplan'))}</a></li>
             <li><a href="gesetze.html">${esc(t('Gesetzesvorhaben'))}</a></li>
             <li><a href="verfassungsschutz.html">${esc(t('Verfassungsschutz'))}</a></li>
+            <li><a href="erlasse.html">${esc(t('Erlasse und Verfügungen'))}</a></li>
             <li><a href="ministerium.html#schwerpunkte">${esc(t('Schwerpunkte'))}</a></li>
             <li><a href="ministerium.html#behoerden">${esc(t('Geschäftsbereich'))}</a></li>
           </ul>
@@ -120,6 +124,8 @@
           <h4>${esc(t('Service'))}</h4>
           <ul>
             <li><a href="kontakt.html">${esc(t('Kontakt'))}</a></li>
+            <li><a href="${BFV}/antraege.html" rel="noopener">${en ? 'BfV application portal ↗' : 'Anträge beim BfV ↗'}</a></li>
+            <li><a href="${BFV}/antraege.html#widerspruch" rel="noopener">${en ? 'Lodge an objection ↗' : 'Widerspruch einlegen ↗'}</a></li>
             <li><a href="impressum.html">${esc(t('Impressum'))}</a></li>
             <li><a href="datenschutz.html">${esc(t('Datenschutz'))}</a></li>
           </ul>

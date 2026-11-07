@@ -1,0 +1,67 @@
+{
+  "hinweis": "Fiktive Dokumente aus dem Rollenspiel BDR. Ohne Bundesadler; die unterschriebenen Fassungen liegen im Dienstportal.",
+  "dokumente": [
+    {
+      "id": "d1-001-2026",
+      "art": "Erlass",
+      "nr": "D 1 – 001/2026",
+      "datum": "2026-11-07",
+      "titel": "Erlass über das Rechtsbehelfsverfahren gegen Verfügungen",
+      "kurz": "Regelt, wie man Widerspruch gegen eine Verfügung einlegt, wer darüber entscheidet und wann man danach klagen kann.",
+      "punkte": [
+        "Neue, unabhängige Widerspruchsstelle im Bundesinnenministerium",
+        "Widerspruch innerhalb eines Monats, nur wer selbst betroffen ist",
+        "Über das Ticket „Widerspruch“ oder das Antragsportal des BfV",
+        "Danach Klage beim Bundesverfassungsgericht möglich",
+        "Die Verfügung gilt bis zur Entscheidung weiter"
+      ],
+      "abschnitte": [
+        {
+          "titel": "1. Widerspruchsverfahren",
+          "absaetze": [
+            "(1) Beim Bundesministerium des Innern und für Heimat wird eine Widerspruchsstelle eingerichtet. Sie entscheidet über Widersprüche gegen Verfügungen des BMI und des BfV, insbesondere Entlassungen, Entbindungen, Umsetzungen und Disziplinarmaßnahmen. Sie ist an Weisungen im Einzelfall nicht gebunden (§ 126 Abs. 2 BBG, §§ 68 ff. VwGO).",
+            "(2) Widerspruch einlegen darf nur, wer durch die Verfügung selbst in seinen Rechten betroffen ist. Vertretung durch einen Bevollmächtigten ist zulässig.",
+            "(3) Der Widerspruch ist innerhalb eines Monats nach Bekanntgabe der Verfügung einzulegen. Fehlt eine Rechtsbehelfsbelehrung, gilt eine Frist von einem Jahr. Bekanntgegeben ist eine Verfügung mit ihrer Veröffentlichung im Dienstportal oder auf dem Dienst-Discord oder mit Zustellung per Direktnachricht. Wer die Frist ohne Verschulden versäumt, kann binnen zwei Wochen Wiedereinsetzung beantragen (§ 60 VwGO).",
+            "(4) Form: Der Widerspruch wird über das Ticket „Widerspruch“ im Kanal Widerspruch-Klage eingelegt. Er muss enthalten: Aktenzeichen der Verfügung, Gegenstand, die verletzte Rechtsgrundlage, einen Antrag und eine Begründung. Er erhält ein Aktenzeichen im Widerspruchsregister (W n/jj).",
+            "(5) Die Widerspruchsstelle prüft zuerst die Zulässigkeit (Frist, Form, Befugnis), dann die Begründetheit, also ob die Verfügung rechtswidrig ist und den Widerspruchsführer in seinen Rechten verletzt. Sie hört die erlassende Stelle an und gibt dem Widerspruchsführer Gelegenheit zur Äußerung.",
+            "(6) Die Widerspruchsstelle erlässt einen schriftlichen Bescheid mit Tenor und Gründen: Abhilfe, teilweise Abhilfe, Zurückweisung oder Verwerfung als unzulässig. Bei Zurückweisung und Verwerfung ist eine Rechtsbehelfsbelehrung beizufügen. Der Widerspruch kann bis zum Bescheid zurückgenommen werden.",
+            "(7) Ausschluss: Wer von der Verfügung selbst betroffen ist, Widerspruch eingelegt oder an der Verfügung mitgewirkt hat, wirkt an der Entscheidung nicht mit (§§ 20, 21 VwVfG).",
+            "(8) Widerspruch und Klage haben keine aufschiebende Wirkung. Die Verfügung gilt bis zu ihrer Aufhebung (§ 126 Abs. 4 BBG, § 80 Abs. 2 Nr. 4 VwGO)."
+          ]
+        },
+        {
+          "titel": "2. Klage, Bestandskraft und Befugnisse des Bundesministers",
+          "absaetze": [
+            "(1) Gegen den Widerspruchsbescheid ist die Klage beim Bundesverfassungsgericht zulässig (Anfechtungsklage). Sie ist innerhalb eines Monats nach Bekanntgabe des Bescheids über das Ticket „Klage gegen Verfügung“ zu erheben und muss das W-Aktenzeichen nennen (§ 74 VwGO). Gegenstand ist die Verfügung in der Gestalt des Widerspruchsbescheids (§ 79 VwGO).",
+            "(2) Eine Klage ohne vorheriges Widerspruchsverfahren ist unzulässig. Entscheidet die Widerspruchsstelle ohne zureichenden Grund nicht innerhalb von 14 Tagen, ist die Klage auch ohne Bescheid zulässig (§ 75 VwGO).",
+            "(3) Eine Verfügung wird bestandskräftig, wenn die Widerspruchs- oder Klagefrist ungenutzt abläuft, auf Rechtsbehelfe verzichtet oder der Widerspruch zurückgenommen wird oder das Bundesverfassungsgericht entschieden hat. Urteile des Bundesverfassungsgerichts sind sofort rechtskräftig. Die Widerspruchsstelle stellt die Bestandskraft im Dienstportal fest. Danach ist die Verfügung verbindlich und nicht mehr anfechtbar.",
+            "(4) Die Befugnis des Bundesministers des Innern und für Heimat, eine Verfügung jederzeit selbst aufzuheben, zu ändern oder einem Widerspruch abzuhelfen, bleibt unberührt (§§ 48, 49 VwVfG). Im Übrigen entscheidet über Widersprüche allein die Widerspruchsstelle. Der Bundesminister erteilt ihr im Einzelfall keine Weisungen.",
+            "(5) Verfügungen, die vor Inkrafttreten dieses Erlasses bekanntgegeben wurden, können innerhalb eines Monats ab Inkrafttreten angefochten werden."
+          ]
+        },
+        {
+          "titel": "3. Inkrafttreten",
+          "absaetze": [
+            "Dieser Erlass tritt mit Bekanntgabe in Kraft."
+          ]
+        }
+      ],
+      "unterschrift": "Berlin, den 7. November 2026 · Dr. Niels Fiedel, Bundesminister des Innern und für Heimat"
+    },
+    {
+      "id": "z-006-008-2026",
+      "art": "Verfügungen",
+      "nr": "Z – 006 bis 008/2026",
+      "datum": "2026-11-07",
+      "titel": "Bisherige Leitung des Verfassungsschutzes entbunden",
+      "kurz": "Ulrich Goldnatz, Tobias Rausch und Leo Kranz wurden von ihren Funktionen beim Bundesamt entbunden und in das Bundesministerium umgesetzt. Über ihre weitere Verwendung wird gesondert entschieden.",
+      "punkte": [
+        "Z – 006/2026: Ulrich Goldnatz, Präsident des BfV / BVFG",
+        "Z – 007/2026: Tobias Rausch, Präsident des BfV",
+        "Z – 008/2026: Leo Kranz, Vizepräsident des BfV",
+        "Neue Amtsleitung: Dr. Peter Thiel, Hans-Jörg Maaßen, Mathias Andreas Fuchs, Prof. Dr. Max Kruse",
+        "Widerspruch ist nach dem Erlass D 1 – 001/2026 möglich"
+      ]
+    }
+  ]
+}
