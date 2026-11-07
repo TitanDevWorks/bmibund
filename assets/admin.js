@@ -207,7 +207,7 @@
         ['Abgeschlossen', ms.filter((m) => m.status === 'Abgeschlossen').length, 'var(--s-fertig)'],
         ['Umsetzung', `${avg} %`, 'var(--gold)'],
         ['Ungelesen', data.kontakt.filter((k) => !k.gelesen).length, 'var(--red)'],
-        ['Gesetze im Verfahren', data.gesetze.filter((g) => !['Verkündet', 'Gestoppt'].includes(g.stand)).length, 'var(--s-kabinett)']
+        ['Gesetze im Verfahren', data.gesetze.filter((g) => !B.LAW_DONE.includes(g.stand)).length, 'var(--s-kabinett)']
       ];
       $('#dash-kpis').innerHTML = kpis.map(([l, v, c]) => `<div class="kpi-card" style="--c:${c}"><b>${esc(v)}</b><span>${esc(l)}</span></div>`).join('');
       $('#dash-day').textContent = `Amtstag ${B.DAY} · ${fmtDate(t)}`;
@@ -382,7 +382,7 @@
     const neu = data.kontakt.filter((k) => !k.gelesen);
     const dialog = data.kontakt.filter((k) => k.oeffentlichOk && !k.antwort);
     const heute = data.termine.filter((e) => e.datum === t).sort(byDateAsc);
-    const gesetze = data.gesetze.filter((g) => g.zieltag && g.zieltag < B.DAY && !['Verkündet', 'Gestoppt'].includes(g.stand));
+    const gesetze = data.gesetze.filter((g) => g.zieltag && g.zieltag < B.DAY && !B.LAW_DONE.includes(g.stand));
     const items = [
       [ueber.length, 'frist', 'var(--err)', `${ueber.length === 1 ? 'Maßnahme' : 'Maßnahmen'} über der Frist`, ueber.map((m) => m.titel).slice(0, 2).join(' · '), 'massnahmen'],
       [heute.length, 'termin', 'var(--gold)', `${heute.length === 1 ? 'Termin' : 'Termine'} heute`, heute.map((e) => `${e.zeit ? `${e.zeit} ` : ''}${e.titel}`).slice(0, 2).join(' · '), 'termine'],

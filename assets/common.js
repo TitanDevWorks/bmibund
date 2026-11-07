@@ -5,7 +5,9 @@ window.BMIH = (() => {
   const STATUS_KEY = { 'Offen': 'offen', 'In Arbeit': 'arbeit', 'Im Kabinett': 'kabinett', 'Abgeschlossen': 'fertig' };
   const NEWS_KIND = ['Pressemitteilung', 'Rede', 'Interview', 'Statement', 'Bekanntmachung'];
   const EVENT_KIND = ['Termin', 'Pressekonferenz', 'Kabinett', 'Bundestag', 'Reise'];
-  const LAW_STAGES = ['In Vorbereitung', 'Referentenentwurf', 'Kabinett', 'Bundestag', 'Bundesrat', 'Verkündet', 'Gestoppt'];
+  const LAW_STAGES = ['In Vorbereitung', 'Referentenentwurf', 'Kabinett', 'Bundestag', 'Bundesrat', 'Verkündet', 'Abgelehnt', 'Gestoppt'];
+  // Stände, bei denen das Verfahren zu Ende ist (kein Zieltag, keine Überfälligkeit mehr)
+  const LAW_DONE = ['Verkündet', 'Abgelehnt', 'Gestoppt'];
   // Ohne prefs.js (Verwaltung) bleibt alles deutsch.
   const P = window.BMIH_PREFS || { lang: 'de', t: (x) => x, tPhase: (x) => x, locale: 'de-DE', translate() {} };
   const { t, tPhase } = P;
@@ -154,18 +156,20 @@ window.BMIH = (() => {
       </article>`;
   }
 
-  // Gesetzgebungsverfahren als Stufenleiste. „Gestoppt“ steht außerhalb der Reihenfolge.
+  // Gesetzgebungsverfahren als Stufenleiste. „Gestoppt“ steht außerhalb der Reihenfolge,
+  // „Abgelehnt“ heißt: im Bundestag durchgefallen (Stufe Bundestag rot, danach nichts mehr).
   const LAW_PATH = LAW_STAGES.slice(0, 6);
-  const LAW_KEY = { 'Verkündet': 'fertig', 'Gestoppt': 'stop', 'In Vorbereitung': 'offen' };
+  const LAW_KEY = { 'Verkündet': 'fertig', 'Gestoppt': 'stop', 'Abgelehnt': 'stop', 'In Vorbereitung': 'offen' };
   function lawSteps(stand) {
-    const at = LAW_PATH.indexOf(stand);
-    return `<ol class="steps${stand === 'Gestoppt' ? ' stopped' : ''}" aria-label="${esc(t('Stand'))}: ${esc(t(stand))}">${LAW_PATH.map((s, i) =>
-      `<li class="${i < at ? 'done' : ''}${i === at ? ' now' : ''}"${i === at ? ' aria-current="step"' : ''}><span>${esc(t(s))}</span></li>`).join('')}</ol>`;
+    const nein = stand === 'Abgelehnt';
+    const at = nein ? LAW_PATH.indexOf('Bundestag') : LAW_PATH.indexOf(stand);
+    return `<ol class="steps${stand === 'Gestoppt' ? ' stopped' : ''}${nein ? ' abgelehnt' : ''}" aria-label="${esc(t('Stand'))}: ${esc(t(stand))}">${LAW_PATH.map((s, i) =>
+      `<li class="${i < at ? 'done' : ''}${i === at ? (nein ? ' nein' : ' now') : ''}"${i === at ? ' aria-current="step"' : ''}><span>${esc(i === at && nein ? `${t(s)}: ${t('abgelehnt')}` : t(s))}</span></li>`).join('')}</ol>`;
   }
   const dayDate = (n) => new Date(START + (n - 1) * 86400000).toISOString().slice(0, 10);
   const zday = (v) => (Number.isInteger(Number(v)) ? Math.min(100, Math.max(1, Number(v))) : 0);
   function dueLabel(n, stand) {
-    if (!n || ['Verkündet', 'Gestoppt'].includes(stand)) return '';
+    if (!n || LAW_DONE.includes(stand)) return '';
     const diff = n - DAY;
     if (diff === 0) return t('heute');
     if (diff < 0) return t('überfällig');
@@ -175,7 +179,7 @@ window.BMIH = (() => {
     const g = { ...raw, zieltag: zday(raw.zieltag) };
     const key = LAW_KEY[g.stand] || 'arbeit';
     const points = String(g.kernpunkte || '').split('\n').map((x) => x.trim()).filter(Boolean);
-    const overdue = g.zieltag && g.zieltag < DAY && !['Verkündet', 'Gestoppt'].includes(g.stand);
+    const overdue = g.zieltag && g.zieltag < DAY && !LAW_DONE.includes(g.stand);
     return `
       <article class="law reveal" id="g-${esc(g.id)}" data-s="${key}">
         <header class="law-head">
@@ -228,7 +232,7 @@ window.BMIH = (() => {
   const transition = (fn) => (document.startViewTransition ? document.startViewTransition(fn) : fn());
 
   return {
-    PHASES, STATUSES, STATUS_KEY, NEWS_KIND, EVENT_KIND, LAW_STAGES, DAY, t, tPhase, P,
+    PHASES, STATUSES, STATUS_KEY, NEWS_KIND, EVENT_KIND, LAW_STAGES, LAW_DONE, LAW_KEY, DAY, t, tPhase, P,
     esc, fmtDate, today, load, byDateDesc, byDateAsc, progressOf, dayDate, dueLabel,
     zday, statusBadge, bar, fillBars, measureItem, measureCard, newsTeaser, loadFotos, fotoFor, fotoSrc, fotoTitle, fotoImg, eventItem, lawSteps, lawItem, reveal, countUp, transition
   };

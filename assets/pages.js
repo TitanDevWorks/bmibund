@@ -1,7 +1,7 @@
 // Seitenlogik, gesteuert über <body data-page="...">.
 (() => {
   const B = window.BMIH;
-  const { esc, fmtDate, load, loadFotos, fotoFor, fotoSrc, fotoTitle, fotoImg, byDateDesc, byDateAsc, progressOf, measureItem, measureCard, newsTeaser, eventItem, lawItem, lawSteps, dueLabel, zday, reveal, countUp, transition, PHASES, STATUSES, STATUS_KEY, NEWS_KIND, LAW_STAGES, DAY, t, tPhase, P } = B;
+  const { esc, fmtDate, load, loadFotos, fotoFor, fotoSrc, fotoTitle, fotoImg, byDateDesc, byDateAsc, progressOf, measureItem, measureCard, newsTeaser, eventItem, lawItem, lawSteps, dueLabel, zday, reveal, countUp, transition, PHASES, STATUSES, STATUS_KEY, NEWS_KIND, LAW_STAGES, LAW_DONE, LAW_KEY, DAY, t, tPhase, P } = B;
   const $ = (s) => document.querySelector(s);
   const decode = (x) => { try { return decodeURIComponent(x); } catch (_) { return ''; } };
   const empty = (text) => `<div class="empty">${esc(t(text))}</div>`;
@@ -62,13 +62,13 @@
     const ziel = laws.map((g) => ({ ...g, zieltag: zday(g.zieltag) })).filter((g) => g.zieltag && g.stand !== 'Gestoppt').sort((a, b) => a.zieltag - b.zieltag);
     const tagVon = (d) => Math.round((Date.parse(d) - Date.parse(B.dayDate(1))) / 86400000) + 1;
     const termine = events.map((e) => ({ ...e, tag: tagVon(e.datum) })).filter((e) => e.tag >= 1 && e.tag <= 100);
-    const naechste = ziel.filter((g) => g.zieltag >= DAY && g.stand !== 'Verkündet').slice(0, 3);
+    const naechste = ziel.filter((g) => g.zieltag >= DAY && !LAW_DONE.includes(g.stand)).slice(0, 3);
     root.innerHTML = `
       <div class="zs-phasen">${PH.map(([a, b, n]) => `<div style="--w:${b - a + 1}" class="${DAY >= a && DAY <= b ? 'jetzt' : DAY > b ? 'vorbei' : ''}"><b>${esc(tPhase(n))}</b><span>${a === 1 ? esc(t('Sofortprogramm')) : a === 11 ? esc(t('Gesetze auf den Weg')) : esc(t('Umsetzung'))}</span></div>`).join('')}</div>
       <div class="zs-linie" role="img" aria-label="${esc(`${t('Amtstag')} ${DAY} ${t('von 100')}`)}">
         <i class="zs-fort" style="width:${pos(DAY)}%"></i>
         ${termine.map((e) => `<i class="zs-tick" style="left:${pos(e.tag)}%" title="${esc(`${fmtDate(e.datum)} · ${e.titel}`)}"></i>`).join('')}
-        ${ziel.map((g, i) => `<a class="zs-pkt${g.stand === 'Verkündet' ? ' fertig' : g.zieltag < DAY ? ' spaet' : ''}${i % 2 ? ' unten' : ''}" style="left:${pos(g.zieltag)}%" href="gesetze.html#g-${esc(g.id)}"><span>${esc(g.kurz || g.titel)}<small>${esc(t('Tag'))} ${g.zieltag}</small></span></a>`).join('')}
+        ${ziel.map((g, i) => `<a class="zs-pkt${g.stand === 'Verkündet' ? ' fertig' : g.stand === 'Abgelehnt' ? ' abgelehnt' : g.zieltag < DAY ? ' spaet' : ''}${i % 2 ? ' unten' : ''}" style="left:${pos(g.zieltag)}%" href="gesetze.html#g-${esc(g.id)}" title="${esc(`${g.kurz || g.titel} · ${t(g.stand)}`)}"><span>${esc(g.kurz || g.titel)}<small>${g.stand === 'Abgelehnt' ? esc(t('Abgelehnt')) : `${esc(t('Tag'))} ${g.zieltag}`}</small></span></a>`).join('')}
         <span class="zs-heute${pos(DAY) < 10 ? ' links' : pos(DAY) > 90 ? ' rechts' : ''}" style="left:${pos(DAY)}%"><b>${esc(t('Heute'))} · ${esc(t('Tag'))} ${DAY}</b></span>
       </div>
       <div class="zs-skala"><span>${esc(t('Tag'))} 1</span><span>${esc(t('Tag'))} 50</span><span>${esc(t('Tag'))} 100</span></div>
@@ -204,10 +204,10 @@
       const open = laws.map((g) => ({ ...g, zieltag: zday(g.zieltag) })).filter((g) => g.stand !== 'Gestoppt').sort((a, b) => (a.zieltag || 999) - (b.zieltag || 999)).slice(0, 6);
       $('#laws').innerHTML = open.length ? open.map((g) => `
         <a class="track reveal" href="gesetze.html#g-${esc(g.id)}">
-          <div class="meta">${g.kurz ? `<span class="tag">${esc(g.kurz)}</span>` : ''}${g.zieltag ? `<span>${esc(t('Zieltag'))} ${g.zieltag} · ${esc(dueLabel(g.zieltag, g.stand))}</span>` : ''}</div>
+          <div class="meta">${g.kurz ? `<span class="tag">${esc(g.kurz)}</span>` : ''}${g.zieltag ? `<span>${esc([`${t('Zieltag')} ${g.zieltag}`, dueLabel(g.zieltag, g.stand)].filter(Boolean).join(' · '))}</span>` : ''}</div>
           <h3>${esc(g.titel)}</h3>
           ${lawSteps(g.stand)}
-          <span class="status" data-s="${g.stand === 'Verkündet' ? 'fertig' : 'arbeit'}">${esc(t(g.stand))}</span>
+          <span class="status" data-s="${LAW_KEY[g.stand] || 'arbeit'}">${esc(t(g.stand))}</span>
         </a>`).join('') : empty('Noch keine Gesetzesvorhaben.');
 
       startCountdown(upcoming(events, 1)[0]);
