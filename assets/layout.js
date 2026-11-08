@@ -33,7 +33,7 @@
     <div class="flagbar" aria-hidden="true"><i></i><i></i><i></i></div>
     <div class="servicebar">
       <div class="container">
-        <span class="day"><b class="fiktiv">${en ? 'Fictional' : 'Fiktiv'}</b> <span class="rp">${en ? 'Role-play “BDR” (Roblox), not a real authority' : 'Rollenspiel „BDR“ (Roblox), keine echte Behörde'} · </span>${esc(t('Amtstag'))} <b>${DAY}</b> ${esc(t('von 100'))}</span>
+        <span class="day">${esc(t('Amtstag'))} <b>${DAY}</b> ${esc(t('von 100'))}</span>
         <div class="prefs">
           <nav aria-label="Service">
             <a href="presse.html#pressekontakt">${esc(t('Pressestelle'))}</a>
@@ -135,7 +135,7 @@
       </div>
       <div class="footer-bottom">
         <span>© 2026 ${en ? 'Federal Ministry of the Interior and Homeland' : 'Bundesministerium für Inneres und Heimat'}</span>
-        <span>${en ? 'Part of the role-play server' : 'Teil des Rollenspielservers'} <b>BDR: Bundesrepublik Deutschland RP</b> (Roblox), <a href="impressum.html">${en ? 'fictional site' : 'fiktives Angebot'}</a></span>
+        <span class="footer-projekt">${en ? 'A project of the Roblox community BDR, not a state body.' : 'Projekt der Roblox-Community BDR, keine staatliche Stelle.'}</span>
       </div>
       ${en ? `<p class="footer-note">${esc(t('Inhalte aus der Datenbank sind nur auf Deutsch verfügbar.'))}</p>` : ''}
     </div>`;

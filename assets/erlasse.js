@@ -28,7 +28,7 @@
     const [archiv, live] = await Promise.all([holen('data/erlasse.json'), holen('/api/erlasse')]);
     const fest = (archiv && archiv.dokumente) || [];
     const neu = ((live && live.dokumente) || []).map((d) => ({ id: `dok-${d.id}`, art: d.typName, nr: d.nr, datum: d.datum, titel: d.titel,
-      kurz: en ? 'Official version from the service portal (fictional, without national emblem).' : 'Amtliche Fassung aus dem Dienstportal (fiktiv, ohne Bundesadler).',
+      kurz: en ? 'Official version from the service portal (without national emblem).' : 'Amtliche Fassung aus dem Dienstportal (ohne Bundesadler).',
       url: `/api/erlasse/${encodeURIComponent(d.id)}` }));
     // Liegt ein Archiv-Eintrag auch live vor, bekommt er den Link auf die amtliche Fassung statt einer Doppelung
     for (const n of neu.slice()) {
