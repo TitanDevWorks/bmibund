@@ -11,7 +11,7 @@
 
   // Standard-Belehrung wie im Dienstportal
   const BELEHRUNG = 'Gegen diese Verfügung kann innerhalb von 24 Stunden nach Bekanntgabe Widerspruch eingelegt werden. '
-    + 'Der Widerspruch ist bei der Widerspruchsstelle des Bundesministeriums des Innern und für Heimat über das Ticket „Widerspruch“ im Kanal Widerspruch-Klage einzulegen. '
+    + 'Der Widerspruch ist bei der Widerspruchsstelle des Bundesministeriums des Innern und für Heimat online im Antragsportal des Bundesamtes (verfassungsschutz.duckdns.org/antraege.html#widerspruch) oder über das Ticket „Widerspruch“ im Kanal Widerspruch-Klage einzulegen. '
     + 'Er muss das Aktenzeichen dieser Verfügung, den Gegenstand, die verletzte Rechtsgrundlage, einen Antrag und eine Begründung enthalten (Erlass D 1 – 001/2026, Nr. 1 Abs. 3 und 4). '
     + 'Widerspruch und Klage haben keine aufschiebende Wirkung (Nr. 1 Abs. 8).';
 

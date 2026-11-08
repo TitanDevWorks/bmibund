@@ -21,7 +21,7 @@
     : '<span class="words"><span>Bundesministerium</span><span>für Inneres</span><span>und Heimat</span></span>'}`;
   const logoKopf = logo.replace('</span></span>', `</span><small>${en ? 'BMI · Berlin · Bonn' : 'BMI · Berlin · Bonn'}</small></span>`);
 
-  const HOT = new Set(['verfassungsschutz.html']);
+  const HOT = new Set(['erlasse.html']);
   const links = PAGES.map(([href, label]) =>
     `<a href="${href}"${HOT.has(href) ? ' class="hot"' : ''}${href === here ? ' aria-current="page"' : ''}>${esc(t(label))}</a>`).join('');
 

@@ -65,7 +65,7 @@
 .toolbar { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
 .toolbar input { flex: 1 1 240px; width: auto; }
 .toolbar select { flex: 0 1 200px; width: auto; }
-.table-wrap { overflow-x: auto; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); }
+.table-wrap { position: relative; overflow-x: auto; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); }
 .table { width: 100%; border-collapse: collapse; font-size: 0.93rem; }
 .table th { text-align: left; padding: 11px 14px; background: var(--bg-2); border-bottom: 1px solid var(--line); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-2); white-space: nowrap; }
 .table td { padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: middle; }

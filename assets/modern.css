@@ -788,3 +788,8 @@ a.teaser:hover .teaser-img img { transform: scale(1.04); filter: saturate(1); }
 .timeline li.nein::before { background: var(--err); border-color: var(--err); box-shadow: 0 0 0 6px rgb(229 72 77 / 0.15); }
 .timeline li.nein time, .timeline li.nein b { color: #ff8f93; }
 .ds-strip .red.nein { background: var(--err); color: #fff; }
+
+/* VSNOG abgelehnt: Inhalte des Entwurfs grau, Hinweis darüber */
+.vsnog-nein { margin: 40px 0 0; padding: 16px 18px; border: 1px dashed rgb(229 72 77 / 0.45); border-radius: 14px; background: rgb(229 72 77 / 0.08); color: #ffb3b5; font-size: 0.95rem; }
+.vsnog-nein b { color: #ff8f93; }
+.ruht-abschnitt > .container { opacity: 0.5; filter: grayscale(1); }
