@@ -883,3 +883,9 @@ i[data-ikon] { display: inline-block; width: 1.15em; height: 1.15em; }
   .poster-grid::after, .page-head::after, .vs-grid::after, .minister-stage::before,
   .minister-stage img, .photo-band img { animation: none !important; }
 }
+
+/* Hinweis „Es gibt Neues auf dieser Seite“ (layout.js, automatisch aktualisieren) */
+.auffrischen-pille { position: fixed; z-index: 90; left: 50%; bottom: 20px; translate: -50% 0; display: flex; align-items: center; gap: 12px;
+  padding: 8px 8px 8px 16px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line-2); box-shadow: var(--shadow);
+  font-size: .9rem; max-width: calc(100vw - 32px); }
+.auffrischen-pille::before { content: ""; width: 8px; height: 8px; flex: none; border-radius: 50%; background: var(--gold); }

@@ -29,12 +29,15 @@ window.BMIH = (() => {
   };
 
   // Live aus dem Backend, sonst statische Kopie.
+  // Jede Live-Antwort wird gemerkt: layout.js fragt sie still nach und lädt die Seite neu, wenn sich etwas geändert hat.
   const cache = {};
+  const beobachtet = new Map();
+  const beobachten = (url, daten) => { if (!beobachtet.has(url)) beobachtet.set(url, JSON.stringify(daten)); };
   function load(name) {
     cache[name] ||= (async () => {
       try {
         const res = await fetch(`/api/${name}`, { headers: { Accept: 'application/json' } });
-        if (res.ok) return await res.json();
+        if (res.ok) { const j = await res.json(); beobachten(`/api/${name}`, j); return j; }
       } catch (_) { /* Fallback */ }
       const res = await fetch(`data/${name}.json`);
       return res.json();
@@ -233,7 +236,7 @@ window.BMIH = (() => {
 
   return {
     PHASES, STATUSES, STATUS_KEY, NEWS_KIND, EVENT_KIND, LAW_STAGES, LAW_DONE, LAW_KEY, DAY, t, tPhase, P,
-    esc, fmtDate, today, load, byDateDesc, byDateAsc, progressOf, dayDate, dueLabel,
+    esc, fmtDate, today, load, beobachtet, beobachten, byDateDesc, byDateAsc, progressOf, dayDate, dueLabel,
     zday, statusBadge, bar, fillBars, measureItem, measureCard, newsTeaser, loadFotos, fotoFor, fotoSrc, fotoTitle, fotoImg, eventItem, lawSteps, lawItem, reveal, countUp, transition
   };
 })();

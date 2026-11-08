@@ -179,4 +179,81 @@
       eil.hidden = false;
     }
   }).catch(() => {});
+  // Automatisch aktualisieren: Niemand muss F5 drücken.
+  // Alle 20 Sekunden (nur im offenen Tab) werden die Live-Daten dieser Seite still nachgefragt. Hat sich etwas geändert
+  // (neue Meldung, neuer Termin, neuer Erlass …), lädt die Seite neu und bleibt an derselben Stelle stehen.
+  // Alle 60 Sekunden wird geprüft, ob die Seite selbst neu eingespielt wurde (Update): dann ebenfalls neu laden.
+  // Wer gerade tippt, ein Formular angefangen, etwas markiert oder ein Fenster offen hat, wird nicht gestört:
+  // Dann kommt unten nur ein Hinweis mit „Aktualisieren“.
+  (() => {
+    const B = window.BMIH;
+    if (!B?.beobachtet) return;
+    const POS = 'bmih-scroll';
+    try {
+      const alt = JSON.parse(sessionStorage.getItem(POS) || 'null');
+      sessionStorage.removeItem(POS);
+      if (alt && alt.pfad === location.pathname + location.search && Date.now() - alt.at < 15000) {
+        history.scrollRestoration = 'manual';
+        const hin = () => scrollTo(0, alt.y);
+        addEventListener('load', () => { hin(); setTimeout(hin, 400); }, { once: true });
+      }
+    } catch (_) { /* privates Fenster */ }
+
+    const formularAngefangen = () => [...document.querySelectorAll('main textarea, main input:not([type=hidden]):not([type=checkbox]):not([type=radio]), main select')]
+      .some((f) => (f.tagName === 'SELECT' ? f.selectedIndex !== Math.max(0, [...f.options].findIndex((o) => o.defaultSelected)) : f.value !== f.defaultValue));
+    const beschaeftigt = () => {
+      const a = document.activeElement, sel = getSelection?.();
+      return formularAngefangen() || (a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) || !!document.querySelector('dialog[open]')
+        || (sel && !sel.isCollapsed && String(sel).trim().length > 0);
+    };
+    let pille = null, faellig = false;
+    const neuLaden = () => {
+      try { sessionStorage.setItem(POS, JSON.stringify({ pfad: location.pathname + location.search, y: scrollY, at: Date.now() })); } catch (_) { /* egal */ }
+      location.reload();
+    };
+    const hinweis = (text) => {
+      if (pille) return;
+      pille = document.createElement('div');
+      pille.className = 'auffrischen-pille';
+      pille.setAttribute('role', 'status');
+      const sp = document.createElement('span'); sp.textContent = text;
+      const k = document.createElement('button'); k.type = 'button'; k.className = 'btn btn-sm'; k.textContent = en ? 'Refresh' : 'Aktualisieren';
+      k.addEventListener('click', neuLaden);
+      pille.append(sp, k);
+      document.body.append(pille);
+    };
+    const geaendert = (text) => { faellig = true; if (beschaeftigt()) hinweis(text); else neuLaden(); };
+
+    const datenPruefen = async () => {
+      if (!document.hidden) {
+        if (faellig && !beschaeftigt()) return neuLaden();
+        for (const [url, alt] of B.beobachtet) {
+          try {
+            const r = await fetch(url, { cache: 'no-store', headers: { Accept: 'application/json' } });
+            if (!r.ok) continue;
+            if (JSON.stringify(await r.json()) !== alt) { geaendert(en ? 'There is new information on this page.' : 'Es gibt Neues auf dieser Seite.'); break; }
+          } catch (_) { /* offline: nächster Takt */ }
+        }
+      }
+      setTimeout(datenPruefen, 20000);
+    };
+    setTimeout(datenPruefen, 20000);
+
+    let seite = null;
+    const versionPruefen = async () => {
+      if (!document.hidden) {
+        try {
+          const r = await fetch(location.pathname, { cache: 'no-store', headers: { Accept: 'text/html' }, redirect: 'manual' });
+          if (r.ok) {
+            const text = await r.text();
+            if (seite === null) seite = text;
+            else if (text !== seite) geaendert(en ? 'This page has been updated.' : 'Die Seite wurde aktualisiert.');
+          }
+        } catch (_) { /* offline */ }
+      }
+      setTimeout(versionPruefen, 60000);
+    };
+    versionPruefen();
+    document.addEventListener('visibilitychange', () => { if (!document.hidden && faellig && !beschaeftigt()) neuLaden(); });
+  })();
 })();

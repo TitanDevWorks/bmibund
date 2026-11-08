@@ -26,6 +26,7 @@
   reveal(document);
   (async () => {
     const [archiv, live] = await Promise.all([holen('data/erlasse.json'), holen('/api/erlasse')]);
+    if (live) window.BMIH.beobachten?.('/api/erlasse', live); // automatisch aktualisieren (layout.js)
     const fest = (archiv && archiv.dokumente) || [];
     const neu = ((live && live.dokumente) || []).map((d) => ({ id: `dok-${d.id}`, art: d.typName, nr: d.nr, datum: d.datum, titel: d.titel,
       kurz: en ? 'Official version from the service portal (without national emblem).' : 'Amtliche Fassung aus dem Dienstportal (ohne Bundesadler).',
