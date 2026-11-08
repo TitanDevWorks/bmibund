@@ -793,3 +793,21 @@ a.teaser:hover .teaser-img img { transform: scale(1.04); filter: saturate(1); }
 .vsnog-nein { margin: 40px 0 0; padding: 16px 18px; border: 1px dashed rgb(229 72 77 / 0.45); border-radius: 14px; background: rgb(229 72 77 / 0.08); color: #ffb3b5; font-size: 0.95rem; }
 .vsnog-nein b { color: #ff8f93; }
 .ruht-abschnitt > .container { opacity: 0.5; filter: grayscale(1); }
+
+/* ── Eigenes Symbol-Set „Linie & Fläche“ (assets/ikonen.js, gemeinsam mit BfV-Seite und Dienstportal) ── */
+.ik { width: 1.15em; height: 1.15em; flex: none; display: inline-block; vertical-align: -.2em; fill: none !important; stroke: currentColor; stroke-width: 1.6 !important; stroke-linecap: round; stroke-linejoin: round; --ik-akzent: color-mix(in srgb, currentColor 45%, #fff); }
+.ik .ik-fl { fill: currentColor; fill-opacity: .16; }
+.ik .ik-a { stroke: var(--ik-akzent); }
+.ik .ik-p { fill: var(--ik-akzent); stroke: none; }
+i[data-ikon] { display: inline-block; width: 1.15em; height: 1.15em; }
+.btn-primary .ik { --ik-akzent: #9a7414; }
+.nav-ik { display: none !important; }
+.mainnav.open a { display: flex; align-items: center; gap: 14px; }
+.mainnav.open a .nav-ik { display: grid !important; width: 19px; height: 19px; color: var(--text-3); }
+.mainnav.open a[aria-current="page"] { background: rgb(255 255 255 / .05); }
+.mainnav.open a[aria-current="page"] .nav-ik { color: var(--gold); }
+.mainnav.open a::after { display: none; }
+.mainnav.open a.hot::before { order: 3; margin: 0 0 0 auto; }
+.topic .ico { transition: transform .4s var(--ease), background .3s; }
+.topic:hover .ico { transform: translateY(-2px) rotate(-4deg); background: rgb(233 196 106 / .13); }
+.menu-btn .ik, .search-btn .ik { width: 16px; height: 16px; }

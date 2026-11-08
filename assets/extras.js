@@ -162,7 +162,7 @@
     ['verfassungsschutz.html#text', 'VSNOG: Gesetzestext', 'Drucksache 3/15, Artikel 1 bis 4'],
     ['verfassungsschutz.html#personal', 'Personelle Neuaufstellung des BfV', 'Entlassung der Ermittler und der bisherigen Amtsleitung']
   ];
-  const icon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>';
+  const icon = '<i data-ikon="lupe"></i>';
   const mac = /Mac|iPhone|iPad/.test(navigator.platform || '');
 
   const wrap = document.createElement('div');

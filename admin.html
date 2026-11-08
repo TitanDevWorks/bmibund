@@ -9,7 +9,7 @@
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/style.css">
   <link rel="stylesheet" href="assets/admin.css?v=12">
-  <link rel="stylesheet" href="assets/admin-nacht.css?v=11">
+  <link rel="stylesheet" href="assets/admin-nacht.css?v=12">
   <link rel="stylesheet" href="assets/admin-presse.css?v=1">
 </head>
 <body data-page="admin" class="admin-body">
@@ -31,23 +31,23 @@
   <div class="shell" id="app" hidden>
     <aside class="side">
       <div class="side-brand"><span class="flag" aria-hidden="true"><i></i><i></i><i></i></span><span><b>BMIH</b><small>Verwaltung der Hausleitung</small></span></div>
-      <button class="side-search" type="button" data-palette><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Suchen und springen<kbd>Strg K</kbd></button>
+      <button class="side-search" type="button" data-palette><i data-ikon="lupe"></i>Suchen und springen<kbd>Strg K</kbd></button>
       <nav class="side-nav" aria-label="Bereiche">
-        <button type="button" data-tab="dashboard" aria-current="page"><svg viewBox="0 0 24 24"><path d="M3 3h8v8H3zM13 3h8v5h-8zM13 10h8v11h-8zM3 13h8v8H3z"/></svg>Übersicht</button>
+        <button type="button" data-tab="dashboard" aria-current="page"><i data-ikon="kacheln"></i>Übersicht</button>
         <span class="side-sep">Verfassungsschutz</span>
-        <button type="button" data-tab="bfv"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.4 8.4 8 9 4.6-.6 8-4 8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Aufsicht BfV</button>
-        <button type="button" data-tab="erlasse"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM14 3v5h5M9 13h7M9 17h5"/></svg>Erlasse &amp; Verfügungen</button>
-        <button type="button" data-tab="auftraege"><svg viewBox="0 0 24 24"><path d="M4 12h12M12 6l6 6-6 6"/><path d="M20 4v16"/></svg>Aufträge ans BfV</button>
+        <button type="button" data-tab="bfv"><i data-ikon="amt"></i>Aufsicht BfV</button>
+        <button type="button" data-tab="erlasse"><i data-ikon="verfuegung"></i>Erlasse &amp; Verfügungen</button>
+        <button type="button" data-tab="auftraege"><i data-ikon="auftrag"></i>Aufträge ans BfV</button>
         <span class="side-sep">Webseite</span>
-        <button type="button" data-tab="massnahmen"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg>Maßnahmen</button>
-        <button type="button" data-tab="meldungen"><svg viewBox="0 0 24 24"><path d="M4 5h13v14H6a2 2 0 0 1-2-2zM17 9h3v8a2 2 0 0 1-2 2M8 9h5M8 13h5"/></svg>Presse</button>
-        <button type="button" data-tab="discord"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg>Presse für Discord</button>
-        <button type="button" data-tab="gesetze"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 7h14M7 7l-3 7a3 3 0 0 0 6 0zM17 7l-3 7a3 3 0 0 0 6 0zM8 21h8"/></svg>Gesetze</button>
-        <button type="button" data-tab="termine"><svg viewBox="0 0 24 24"><path d="M4 6h16v14H4zM4 10h16M8 3v5M16 3v5"/></svg>Termine</button>
-        <button type="button" data-tab="kontakt"><svg viewBox="0 0 24 24"><path d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg>Postfach <b class="badge" id="badge-inbox" hidden></b></button>
-        <button type="button" data-tab="einstellungen"><svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Einstellungen</button>
-        <button type="button" data-tab="protokoll"><svg viewBox="0 0 24 24"><path d="M12 7v5l3 2"/><circle cx="12" cy="12" r="9"/></svg>Protokoll</button>
-        <button type="button" data-tab="system"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.4 8.4 8 9 4.6-.6 8-4 8-9V6z"/></svg>Sicherheit</button>
+        <button type="button" data-tab="massnahmen"><i data-ikon="liste"></i>Maßnahmen</button>
+        <button type="button" data-tab="meldungen"><i data-ikon="zeitung"></i>Presse</button>
+        <button type="button" data-tab="discord"><i data-ikon="ticket"></i>Presse für Discord</button>
+        <button type="button" data-tab="gesetze"><i data-ikon="paragraf"></i>Gesetze</button>
+        <button type="button" data-tab="termine"><i data-ikon="kalender"></i>Termine</button>
+        <button type="button" data-tab="kontakt"><i data-ikon="brief"></i>Postfach <b class="badge" id="badge-inbox" hidden></b></button>
+        <button type="button" data-tab="einstellungen"><i data-ikon="regler"></i>Einstellungen</button>
+        <button type="button" data-tab="protokoll"><i data-ikon="uhr"></i>Protokoll</button>
+        <button type="button" data-tab="system"><i data-ikon="schloss"></i>Sicherheit</button>
       </nav>
       <div class="side-foot">
         <a href="index.html" target="_blank" rel="noopener">Webseite öffnen ↗</a>
@@ -64,7 +64,7 @@
         <span class="live" id="live-uhr"><i></i><span></span></span>
         <button class="btn btn-sm" type="button" data-palette>Suchen <span class="kbd">Strg K</span></button>
         <div class="neu-menu">
-          <button class="btn btn-sm btn-primary" type="button" id="neu-btn" aria-haspopup="menu" aria-expanded="false">+ Neu</button>
+          <button class="btn btn-sm btn-primary" type="button" id="neu-btn" aria-haspopup="menu" aria-expanded="false"><i data-ikon="plus"></i>Neu</button>
           <div role="menu" id="neu-liste" hidden>
             <button type="button" role="menuitem" data-new="meldungen">Pressemitteilung <small>Presse</small></button>
             <button type="button" role="menuitem" data-goto="discord">Statement für Discord <small>Presse</small></button>
@@ -84,10 +84,10 @@
             <h1 id="dash-gruss">Guten Tag, <em>Herr Minister.</em></h1>
             <p id="dash-satz">Hier sehen Sie, was heute ansteht.</p>
             <div class="row-actions">
-              <button class="btn btn-primary" type="button" data-new="meldungen">Pressemitteilung schreiben</button>
-              <button class="btn" type="button" data-goto="discord">Für Discord schreiben</button>
-              <button class="btn" type="button" data-goto="erlasse">Erlass ausfertigen</button>
-              <button class="btn" type="button" data-goto="einstellungen">Eilmeldung setzen</button>
+              <button class="btn btn-primary" type="button" data-new="meldungen"><i data-ikon="zeitung"></i>Pressemitteilung schreiben</button>
+              <button class="btn" type="button" data-goto="discord"><i data-ikon="ticket"></i>Für Discord schreiben</button>
+              <button class="btn" type="button" data-goto="erlasse"><i data-ikon="verfuegung"></i>Erlass ausfertigen</button>
+              <button class="btn" type="button" data-goto="einstellungen"><i data-ikon="blitz"></i>Eilmeldung setzen</button>
             </div>
           </div>
           <div class="ring" id="dash-ring" aria-label="Amtstag">
@@ -114,8 +114,8 @@
         <p class="erkl">Das Bundesamt (BfV) gehört zum Geschäftsbereich des Ministeriums. Hier sehen Sie auf einen Blick, wie viel dort gerade los ist. Inhalte von Gerichtsverfahren bleiben geheim, das Gericht ist unabhängig.</p>
         <div class="kpi-grid" id="bfv-kpis"></div>
         <div class="quick">
-          <button class="btn btn-primary" type="button" data-goto="erlasse">+ Erlass oder Verfügung</button>
-          <button class="btn" type="button" data-goto="auftraege">+ Auftrag ans BfV</button>
+          <button class="btn btn-primary" type="button" data-goto="erlasse"><i data-ikon="plus"></i>Erlass oder Verfügung</button>
+          <button class="btn" type="button" data-goto="auftraege"><i data-ikon="plus"></i>Auftrag ans BfV</button>
           <button class="btn" type="button" id="bfv-neu-laden">Aktualisieren</button>
         </div>
         <div class="dash-grid">
@@ -209,7 +209,7 @@
 
       <!-- Maßnahmen -->
       <section class="tab" data-panel="massnahmen" hidden>
-        <header class="work-head"><div><span class="kicker">Inhalte</span><h1>Maßnahmen</h1></div><button class="btn btn-primary" type="button" data-new="massnahmen">+ Neue Maßnahme</button></header>
+        <header class="work-head"><div><span class="kicker">Inhalte</span><h1>Maßnahmen</h1></div><button class="btn btn-primary" type="button" data-new="massnahmen"><i data-ikon="plus"></i>Neue Maßnahme</button></header>
         <div class="toolbar">
           <div class="seg" role="group" aria-label="Ansicht" data-ansicht="massnahmen"><button type="button" data-v="board" aria-pressed="true">Board</button><button type="button" data-v="liste" aria-pressed="false">Liste</button></div>
           <input type="search" data-filter="q" placeholder="Suchen …" aria-label="Suchen">
@@ -222,7 +222,7 @@
 
       <!-- Presse -->
       <section class="tab" data-panel="meldungen" hidden>
-        <header class="work-head"><div><span class="kicker">Inhalte</span><h1>Presse</h1></div><button class="btn btn-primary" type="button" data-new="meldungen">+ Neue Meldung</button></header>
+        <header class="work-head"><div><span class="kicker">Inhalte</span><h1>Presse</h1></div><button class="btn btn-primary" type="button" data-new="meldungen"><i data-ikon="plus"></i>Neue Meldung</button></header>
         <div class="toolbar">
           <input type="search" data-filter="q" placeholder="Suchen …" aria-label="Suchen">
           <select data-filter="status" aria-label="Status"><option value="">Alle</option><option>Veröffentlicht</option><option>Entwurf</option></select>
@@ -264,10 +264,10 @@
               <div id="pd-bloecke" class="pd-bloecke"></div>
               <div class="pd-add" id="pd-add" role="group" aria-label="Baustein hinzufügen">
                 <span>Hinzufügen:</span>
-                <button class="btn btn-sm" type="button" data-baustein="text">+ Text</button>
-                <button class="btn btn-sm" type="button" data-baustein="abschnitt">+ Abschnitt mit Überschrift</button>
-                <button class="btn btn-sm" type="button" data-baustein="personen">+ Personenliste</button>
-                <button class="btn btn-sm" type="button" data-baustein="dokumente">+ Dokumentenliste</button>
+                <button class="btn btn-sm" type="button" data-baustein="text"><i data-ikon="plus"></i>Text</button>
+                <button class="btn btn-sm" type="button" data-baustein="abschnitt"><i data-ikon="plus"></i>Abschnitt mit Überschrift</button>
+                <button class="btn btn-sm" type="button" data-baustein="personen"><i data-ikon="plus"></i>Personenliste</button>
+                <button class="btn btn-sm" type="button" data-baustein="dokumente"><i data-ikon="plus"></i>Dokumentenliste</button>
               </div>
             </fieldset>
             <fieldset class="panel pd-teil" id="pd-fuss">
@@ -290,7 +290,7 @@
               <ul class="pd-hinweise" id="pd-hinweise" hidden></ul>
             </div>
             <div class="pd-aktionen">
-              <button class="btn btn-primary pd-gross" type="button" id="pd-kopieren"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg>Text kopieren</button>
+              <button class="btn btn-primary pd-gross" type="button" id="pd-kopieren"><i data-ikon="kopieren"></i>Text kopieren</button>
               <div class="pd-reihe">
                 <button class="btn" type="button" id="pd-speichern">Entwurf speichern</button>
                 <button class="btn" type="button" id="pd-gepostet">Als gepostet vermerken</button>
@@ -318,7 +318,7 @@
                 <label class="field">Art <select name="art"><option>Rolle</option><option>Person</option></select></label>
                 <label class="field">Discord-ID <input name="discordId" inputmode="numeric" maxlength="40" placeholder="nur Ziffern"></label>
                 <label class="field">Zusatz <small>bei Personen: Amt</small><input name="zusatz" maxlength="160"></label>
-                <div class="full"><button class="btn btn-primary btn-sm" type="submit">+ Speichern</button></div>
+                <div class="full"><button class="btn btn-primary btn-sm" type="submit"><i data-ikon="plus"></i>Speichern</button></div>
               </form>
             </div>
           </div>
@@ -327,7 +327,7 @@
 
       <!-- Gesetze -->
       <section class="tab" data-panel="gesetze" hidden>
-        <header class="work-head"><div><span class="kicker">Inhalte</span><h1>Gesetzesvorhaben</h1></div><button class="btn btn-primary" type="button" data-new="gesetze">+ Neues Gesetz</button></header>
+        <header class="work-head"><div><span class="kicker">Inhalte</span><h1>Gesetzesvorhaben</h1></div><button class="btn btn-primary" type="button" data-new="gesetze"><i data-ikon="plus"></i>Neues Gesetz</button></header>
         <div class="toolbar">
           <input type="search" data-filter="q" placeholder="Suchen …" aria-label="Suchen">
           <select data-filter="stand" aria-label="Stand"><option value="">Alle Stände</option></select>
@@ -337,7 +337,7 @@
 
       <!-- Termine -->
       <section class="tab" data-panel="termine" hidden>
-        <header class="work-head"><div><span class="kicker">Inhalte</span><h1>Termine</h1></div><button class="btn btn-primary" type="button" data-new="termine">+ Neuer Termin</button></header>
+        <header class="work-head"><div><span class="kicker">Inhalte</span><h1>Termine</h1></div><button class="btn btn-primary" type="button" data-new="termine"><i data-ikon="plus"></i>Neuer Termin</button></header>
         <div class="toolbar">
           <input type="search" data-filter="q" placeholder="Suchen …" aria-label="Suchen">
           <div class="seg" role="group" aria-label="Ansicht" data-ansicht="termine"><button type="button" data-v="board" aria-pressed="true">Kalender</button><button type="button" data-v="liste" aria-pressed="false">Liste</button></div>
@@ -450,15 +450,16 @@
   </dialog>
 
   <dialog class="palette" id="palette" aria-label="Schnellsuche">
-    <div class="p-in"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="palette-q" placeholder="Wohin? Bereich, Aktion oder Inhalt suchen …" autocomplete="off" aria-controls="palette-liste"></div>
+    <div class="p-in"><i data-ikon="lupe"></i><input id="palette-q" placeholder="Wohin? Bereich, Aktion oder Inhalt suchen …" autocomplete="off" aria-controls="palette-liste"></div>
     <ul id="palette-liste" role="listbox"></ul>
     <div class="p-foot"><span><span class="kbd">↑↓</span> auswählen</span><span><span class="kbd">Enter</span> öffnen</span><span><span class="kbd">Esc</span> schließen</span></div>
   </dialog>
 
   <div class="toasts" id="toasts" aria-live="polite"></div>
 
+  <script src="assets/ikonen.js?v=1"></script>
   <script src="assets/common.js?v=12"></script>
-  <script src="assets/admin.js?v=12"></script>
+  <script src="assets/admin.js?v=13"></script>
   <script src="assets/admin-bfv.js?v=12"></script>
   <script src="assets/admin-plus.js?v=11"></script>
   <script src="assets/discord-text.js?v=1"></script>
