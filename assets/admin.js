@@ -202,14 +202,14 @@
       const avg = ms.length ? Math.round(ms.reduce((a, m) => a + progressOf(m), 0) / ms.length) : 0;
       const t = B.today();
       const kpis = [
-        ['Maßnahmen', ms.length, 'var(--brand)'],
-        ['In Arbeit', ms.filter((m) => m.status === 'In Arbeit').length, 'var(--s-arbeit)'],
-        ['Abgeschlossen', ms.filter((m) => m.status === 'Abgeschlossen').length, 'var(--s-fertig)'],
-        ['Umsetzung', `${avg} %`, 'var(--gold)'],
-        ['Ungelesen', data.kontakt.filter((k) => !k.gelesen).length, 'var(--red)'],
-        ['Gesetze im Verfahren', data.gesetze.filter((g) => !B.LAW_DONE.includes(g.stand)).length, 'var(--s-kabinett)']
+        ['Maßnahmen', ms.length, 'var(--brand)', 'liste'],
+        ['In Arbeit', ms.filter((m) => m.status === 'In Arbeit').length, 'var(--s-arbeit)', 'vorgang'],
+        ['Abgeschlossen', ms.filter((m) => m.status === 'Abgeschlossen').length, 'var(--s-fertig)', 'haken'],
+        ['Umsetzung', `${avg} %`, 'var(--gold)', 'radar'],
+        ['Ungelesen', data.kontakt.filter((k) => !k.gelesen).length, 'var(--red)', 'brief'],
+        ['Gesetze im Verfahren', data.gesetze.filter((g) => !B.LAW_DONE.includes(g.stand)).length, 'var(--s-kabinett)', 'paragraf']
       ];
-      $('#dash-kpis').innerHTML = kpis.map(([l, v, c]) => `<div class="kpi-card" style="--c:${c}"><b>${esc(v)}</b><span>${esc(l)}</span></div>`).join('');
+      $('#dash-kpis').innerHTML = kpis.map(([l, v, c, ik]) => `<div class="kpi-card" style="--c:${c}"><i data-ikon="${ik}" class="kpi-ik"></i><b>${esc(v)}</b><span>${esc(l)}</span></div>`).join('');
       $('#dash-day').textContent = `Amtstag ${B.DAY} · ${fmtDate(t)}`;
       cockpit(t);
 
@@ -358,16 +358,17 @@
 
   // Cockpit: Begrüßung, 100-Tage-Ring, „Heute wichtig“ und Aktivität der letzten 14 Tage.
   const ICON = {
-    frist: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
-    post: '<svg viewBox="0 0 24 24"><path d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg>',
-    presse: '<svg viewBox="0 0 24 24"><path d="M4 5h13v14H6a2 2 0 0 1-2-2zM17 9h3v8a2 2 0 0 1-2 2M8 9h5M8 13h5"/></svg>',
-    termin: '<svg viewBox="0 0 24 24"><path d="M4 6h16v14H4zM4 10h16M8 3v5M16 3v5"/></svg>',
-    gesetz: '<svg viewBox="0 0 24 24"><path d="M12 3v18M5 7h14M7 7l-3 7a3 3 0 0 0 6 0zM17 7l-3 7a3 3 0 0 0 6 0z"/></svg>',
-    dialog: '<svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg>'
+    frist: '<i data-ikon="uhr"></i>',
+    post: '<i data-ikon="brief"></i>',
+    presse: '<i data-ikon="zeitung"></i>',
+    termin: '<i data-ikon="kalender"></i>',
+    gesetz: '<i data-ikon="paragraf"></i>',
+    dialog: '<i data-ikon="dialog"></i>'
   };
   function cockpit(t) {
-    const std = Number(new Intl.DateTimeFormat('de-DE', { hour: 'numeric', hour12: false, timeZone: 'Europe/Berlin' }).format(new Date()));
-    const gruss = std < 11 ? 'Guten Morgen' : std < 18 ? 'Guten Tag' : 'Guten Abend';
+    // formatToParts: format() liefert „05 Uhr“, Number() daraus wäre NaN und ergab immer „Guten Abend“
+    const std = Number(new Intl.DateTimeFormat('de-DE', { hour: 'numeric', hourCycle: 'h23', timeZone: 'Europe/Berlin' }).formatToParts(new Date()).find(x => x.type === 'hour')?.value);
+    const gruss = std >= 4 && std < 11 ? 'Guten Morgen' : std >= 11 && std < 18 ? 'Guten Tag' : 'Guten Abend';
     $('#dash-gruss').innerHTML = `${gruss}, <em>Herr Minister.</em>`;
     $('#dash-gruss-k').textContent = `Hausleitung · ${fmtDate(t)}`;
     const ring = $('#dash-ring .fg');

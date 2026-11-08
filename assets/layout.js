@@ -2,15 +2,15 @@
 (() => {
   const { esc, load, DAY, t, P } = window.BMIH;
   const PAGES = [
-    ['index.html', 'Startseite'],
-    ['massnahmen.html', 'Maßnahmenplan'],
-    ['gesetze.html', 'Gesetze'],
-    ['verfassungsschutz.html', 'Verfassungsschutz'],
-    ['minister.html', 'Minister'],
-    ['ministerium.html', 'Ministerium'],
-    ['erlasse.html', 'Erlasse'],
-    ['presse.html', 'Presse'],
-    ['buergerdialog.html', 'Bürgerdialog']
+    ['index.html', 'Startseite', 'haus'],
+    ['massnahmen.html', 'Maßnahmenplan', 'liste'],
+    ['gesetze.html', 'Gesetze', 'paragraf'],
+    ['verfassungsschutz.html', 'Verfassungsschutz', 'amt'],
+    ['minister.html', 'Minister', 'person'],
+    ['ministerium.html', 'Ministerium', 'ministerium'],
+    ['erlasse.html', 'Erlasse', 'verfuegung'],
+    ['presse.html', 'Presse', 'zeitung'],
+    ['buergerdialog.html', 'Bürgerdialog', 'dialog']
   ];
   const BFV = 'https://verfassungsschutz.duckdns.org';
   const EXTRA = { 'kontakt.html': 'Kontakt', 'termine.html': 'Termine', 'pressefotos.html': 'Pressefotos', 'impressum.html': 'Impressum', 'datenschutz.html': 'Datenschutz' };
@@ -22,8 +22,9 @@
   const logoKopf = logo.replace('</span></span>', `</span><small>${en ? 'BMI · Berlin · Bonn' : 'BMI · Berlin · Bonn'}</small></span>`);
 
   const HOT = new Set(['erlasse.html']);
-  const links = PAGES.map(([href, label]) =>
-    `<a href="${href}"${HOT.has(href) ? ' class="hot"' : ''}${href === here ? ' aria-current="page"' : ''}>${esc(t(label))}</a>`).join('');
+  // Symbole nur im aufgeklappten Handy-Menü (CSS .nav-ik)
+  const links = PAGES.map(([href, label, ik]) =>
+    `<a href="${href}"${HOT.has(href) ? ' class="hot"' : ''}${href === here ? ' aria-current="page"' : ''}><i data-ikon="${ik}" class="nav-ik"></i>${esc(t(label))}</a>`).join('');
 
 
   const head = document.createElement('div');
@@ -52,10 +53,10 @@
       <div class="container head-row">
         <a class="logo" href="index.html" aria-label="${en ? 'Federal Ministry of the Interior and Homeland, home' : 'Bundesministerium für Inneres und Heimat, zur Startseite'}">${logoKopf}</a>
         <div class="head-tools">
-          <button class="search-btn" type="button" data-search-open aria-label="${en ? 'Search' : 'Suche'}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>${en ? 'Search …' : 'Suchen …'}</span><kbd>${/Mac|iPhone|iPad/.test(navigator.platform || '') ? '⌘' : 'Strg'} K</kbd></button>
+          <button class="search-btn" type="button" data-search-open aria-label="${en ? 'Search' : 'Suche'}"><i data-ikon="lupe"></i><span>${en ? 'Search …' : 'Suchen …'}</span><kbd>${/Mac|iPhone|iPad/.test(navigator.platform || '') ? '⌘' : 'Strg'} K</kbd></button>
           <a class="btn btn-primary" href="massnahmen.html">${esc(t('100-Tage-Plan'))}</a>
           <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mainnav">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>${esc(t('Menü'))}
+            <i data-ikon="menue"></i>${esc(t('Menü'))}
           </button>
         </div>
       </div>
@@ -144,7 +145,7 @@
   top.className = 'to-top';
   top.type = 'button';
   top.setAttribute('aria-label', t('Nach oben'));
-  top.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg>';
+  top.innerHTML = '<i data-ikon="pfeil_oben"></i>';
   top.addEventListener('click', () => scrollTo({ top: 0 }));
   document.body.append(top);
 
