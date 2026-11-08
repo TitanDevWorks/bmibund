@@ -859,3 +859,30 @@ i[data-ikon] { display: inline-block; width: 1.15em; height: 1.15em; }
   .mainnav.open .container > a:nth-child(2) { animation-delay: .03s; } .mainnav.open .container > a:nth-child(3) { animation-delay: .06s; } .mainnav.open .container > a:nth-child(4) { animation-delay: .09s; } .mainnav.open .container > a:nth-child(5) { animation-delay: .12s; } .mainnav.open .container > a:nth-child(6) { animation-delay: .15s; } .mainnav.open .container > a:nth-child(7) { animation-delay: .18s; } .mainnav.open .container > a:nth-child(8) { animation-delay: .21s; } .mainnav.open .container > a:nth-child(9) { animation-delay: .24s; }
   @keyframes menue-punkt { from { opacity: 0; transform: translateX(-10px); } }
 }
+
+/* ——— Banner: immer animiert (Startbühne, Seitenköpfe, VSNOG-Titel, Bildbänder) ———
+   Langsames Licht, wanderndes Punktraster und ein Schwarz-Rot-Gold-Lichtlauf an der Unterkante.
+   Bei „Bewegung reduzieren" steht alles still (Regel ganz unten). */
+.poster::before, .page-head::before, .vs-cover::before { inset: -12%; will-change: transform; animation: banner-glanz 22s ease-in-out infinite alternate; }
+.poster::after, .vs-cover::after { animation: banner-punkte 40s linear infinite; }
+.poster-grid::after, .page-head::after, .vs-grid::after, .minister-stage::before {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; z-index: 1; pointer-events: none;
+  background: linear-gradient(90deg, transparent, #3a3a3a 22%, var(--red) 50%, var(--gold) 78%, transparent) no-repeat,
+    linear-gradient(90deg, transparent 5%, rgb(233 196 106 / .22) 50%, transparent 95%);
+  background-size: 26% 100%, 100% 100%; background-position: -40% 0, 0 0;
+  animation: banner-linie 8s cubic-bezier(.65, 0, .35, 1) infinite; }
+.minister-stage img, .photo-band img { animation: banner-zoom 28s ease-in-out infinite alternate; }
+@keyframes banner-glanz {
+  0% { transform: translate3d(-3%, -2%, 0) scale(1); }
+  50% { transform: translate3d(4%, 3%, 0) scale(1.08); }
+  100% { transform: translate3d(-1%, 5%, 0) scale(1.03); }
+}
+@keyframes banner-punkte { to { background-position: 28px 28px; } }
+@keyframes banner-linie { 0% { background-position: -40% 0, 0 0; } 65%, 100% { background-position: 140% 0, 0 0; } }
+/* eigene Eigenschaften (scale/translate), damit der Hover-Zoom (transform) weiter funktioniert */
+@keyframes banner-zoom { from { scale: 1; translate: 0 0; } to { scale: 1.07; translate: -1% -1%; } }
+@media (prefers-reduced-motion: reduce) {
+  .poster::before, .page-head::before, .vs-cover::before, .poster::after, .vs-cover::after,
+  .poster-grid::after, .page-head::after, .vs-grid::after, .minister-stage::before,
+  .minister-stage img, .photo-band img { animation: none !important; }
+}

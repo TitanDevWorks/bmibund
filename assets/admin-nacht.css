@@ -448,3 +448,14 @@ i[data-ikon] { display: inline-block; width: 1.15em; height: 1.15em; }
   .admin-body .kpi-card { transition: border-color .2s, transform .3s cubic-bezier(.34, 1.56, .64, 1); }
   .admin-body .kpi-card:hover { transform: translateY(-2px); border-color: var(--line-2); }
 }
+
+/* Banner im Cockpit: immer animiert (Licht wandert, Schwarz-Rot-Gold-Lichtlauf unten) */
+.cockpit-hero::after { animation: banner-glanz 18s ease-in-out infinite alternate; }
+.cockpit-hero::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; pointer-events: none;
+  background: linear-gradient(90deg, transparent, #3a3a3a 22%, var(--red, #e5484d) 50%, var(--gold, #e9c46a) 78%, transparent) no-repeat,
+    linear-gradient(90deg, transparent 5%, rgb(233 196 106 / .18) 50%, transparent 95%);
+  background-size: 26% 100%, 100% 100%; background-position: -40% 0, 0 0;
+  animation: banner-linie 8s cubic-bezier(.65, 0, .35, 1) infinite; }
+@keyframes banner-glanz { 0% { transform: translate3d(0, 0, 0) scale(1); } 50% { transform: translate3d(-90px, 50px, 0) scale(1.15); } 100% { transform: translate3d(-30px, 110px, 0) scale(1.05); } }
+@keyframes banner-linie { 0% { background-position: -40% 0, 0 0; } 65%, 100% { background-position: 140% 0, 0 0; } }
+@media (prefers-reduced-motion: reduce) { .cockpit-hero::before, .cockpit-hero::after { animation: none !important; } }
