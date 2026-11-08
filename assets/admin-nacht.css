@@ -398,3 +398,53 @@ i[data-ikon] { display: inline-block; width: 1.15em; height: 1.15em; }
 .admin-body .side-nav button[aria-current="page"] svg.ik { --ik-akzent: #fff3cf; }
 .admin-body .side-nav button svg.ik { transition: transform .25s ease, color .2s; }
 .admin-body .side-nav button:hover svg.ik { transform: translateX(1px); color: var(--text); }
+
+/* ── Mikro-Animationen (gemeinsam für Portal, BfV- und BMI-Seite) ──
+   Nur transform/opacity, nur bei Hover/Klick, aus bei „Bewegung reduzieren“. */
+@media (prefers-reduced-motion: no-preference) {
+  :is(a, button, summary, label, [role="tab"]) svg[data-ik] { transition: transform .35s cubic-bezier(.34, 1.56, .64, 1), scale .15s ease, color .2s; transform-box: fill-box; }
+  svg[data-ik] :is(path, circle, rect) { transition: transform .35s cubic-bezier(.34, 1.56, .64, 1), opacity .3s; transform-box: fill-box; transform-origin: center; }
+  /* Klick: alles federt kurz ein */
+  :is(a, button, summary, [role="tab"]):active svg[data-ik] { scale: .86; }
+  /* Schließen-X dreht sich, Plus auch */
+  :is(a, button):hover svg[data-ik="kreuz"], :is(a, button):focus-visible svg[data-ik="kreuz"] { transform: rotate(90deg); }
+  :is(a, button):hover svg[data-ik="plus"] { transform: rotate(90deg); }
+  /* Pfeile zeigen, wohin es geht */
+  :is(a, button):hover svg[data-ik="pfeil"] { transform: translateX(3px); }
+  :is(a, button):hover svg[data-ik="pfeil_links"] { transform: translateX(-3px); }
+  :is(a, button):hover svg[data-ik="pfeil_oben"] { transform: translateY(-3px); }
+  :is(a, button):hover svg[data-ik="pfeil_raus"] .ik-a, :is(a, button):hover svg[data-ik="pfeil_raus"] .lf-a { transform: translate(1.5px, -1.5px); }
+  :is(a, button):hover svg[data-ik="laden"] .ik-a, :is(a, button):hover svg[data-ik="laden"] .lf-a { transform: translateY(1.5px); }
+  :is(a, button):hover svg[data-ik="abmelden"] :is(.ik-a, .lf-a) { transform: translateX(-2px); }
+  /* kleine Eigenheiten */
+  :is(a, button):hover svg[data-ik="lupe"] { transform: rotate(-10deg) scale(1.08); }
+  :is(a, button):hover svg[data-ik="kompass"] :is(.ik-a, .lf-a) { transform: rotate(45deg); }
+  :is(a, button):hover svg[data-ik="menue"] :is(.ik-a, .lf-a) { transform: scaleX(1.6); transform-origin: left; }
+  :is(a, button):hover svg[data-ik="kopieren"] :is(.ik-fl, .lf-fl) { transform: translate(-1px, -1px); }
+  :is(a, button):hover svg[data-ik="glocke"], :is(a, button):hover svg[data-ik="uhr"] { animation: ik-wackeln .5s ease; }
+  :is(a, button):hover svg[data-ik="blitz"] { animation: ik-blitz .45s ease; }
+  :is(a, button):hover svg[data-ik="stift"] { transform: rotate(-12deg) translateY(-1px); }
+  :is(a, button):hover svg[data-ik="haus"], :is(a, button):hover svg[data-ik="schloss"] { transform: translateY(-2px); }
+  :is(a, button):hover svg[data-ik="zielscheibe"] :is(.ik-p, .lf-p), :is(a, button):hover svg[data-ik="radar"] :is(.ik-a, .lf-a) { transform: scale(1.5); }
+  :is(a, button):hover svg[data-ik="radar"] :is(.ik-a, .lf-a) { transform: rotate(-60deg); transform-origin: left bottom; }
+  :is(a, button):hover svg[data-ik="auge"] :is(.ik-p, .lf-p) { transform: translateX(1.2px); }
+  :is(a, button):hover svg[data-ik="brief"] :is(.ik-a, .lf-a), :is(a, button):hover svg[data-ik="eingang"] :is(.ik-a, .lf-a) { transform: translateY(1.5px); }
+  :is(a, button):hover svg[data-ik="regler"] :is(.ik-fl, .lf-fl) { transform: translateX(-3px); }
+  :is(a, button):hover svg[data-ik="regler"] :is(.ik-a, .lf-a) { transform: translateX(3px); }
+  :is(a, button):hover svg[data-ik="fahne"] :is(.ik-fl, .lf-fl) { transform: skewY(-4deg); transform-origin: left; }
+  :is(a, button):hover svg[data-ik="waage"] { animation: ik-wiegen .7s ease; }
+  /* alles andere hebt sich nur ein kleines Stück */
+  :is(a, button):hover svg[data-ik]:not([data-ik="kreuz"], [data-ik="plus"], [data-ik^="pfeil"], [data-ik="lupe"], [data-ik="stift"], [data-ik="haus"], [data-ik="schloss"]) { transform: translateY(-1px); }
+  @keyframes ik-wackeln { 20% { transform: rotate(-12deg); } 45% { transform: rotate(9deg); } 70% { transform: rotate(-5deg); } 100% { transform: none; } }
+  @keyframes ik-blitz { 30% { opacity: .35; } 60% { opacity: 1; transform: scale(1.12); } }
+  @keyframes ik-wiegen { 30% { transform: rotate(-8deg); } 65% { transform: rotate(5deg); } 100% { transform: none; } }
+  /* Knöpfe federn beim Drücken */
+  :is(.knopf, .btn, .pd-mini, .schliessen, .menu-btn, .to-top, .search-btn, .side-search):active { transform: scale(.96); transition-duration: .08s; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  #neu-btn[aria-expanded="true"] svg[data-ik="plus"] { transform: rotate(135deg); }
+  .neu-menu [role="menu"]:not([hidden]) { animation: menu-auf .22s cubic-bezier(.2, .8, .2, 1); transform-origin: top right; }
+  @keyframes menu-auf { from { opacity: 0; transform: translateY(-6px) scale(.97); } }
+  .admin-body .kpi-card { transition: border-color .2s, transform .3s cubic-bezier(.34, 1.56, .64, 1); }
+  .admin-body .kpi-card:hover { transform: translateY(-2px); border-color: var(--line-2); }
+}

@@ -8,7 +8,7 @@
   function ikon(name, klasse) {
     const s = document.createElementNS(NS, 'svg');
     s.setAttribute('viewBox', '0 0 24 24'); s.setAttribute('aria-hidden', 'true'); s.setAttribute('focusable', 'false');
-    s.setAttribute('class', 'ik' + (klasse ? ' ' + klasse : ''));
+    s.setAttribute('class', 'ik' + (klasse ? ' ' + klasse : '')); s.setAttribute('data-ik', F[name] ? name : 'stern');
     for (const [t, w, e, , eo] of F[name] || F.stern) {
       const el = document.createElementNS(NS, TAG[t]);
       const werte = t === 'p' ? [w] : w.split(' ');
