@@ -655,14 +655,11 @@ a.teaser:hover .teaser-img img { transform: scale(1.04); filter: saturate(1); }
   .read-progress, .ticker, .marquee, .cmdk, .search-btn, .law-toc, .sticker { display: none !important; }
 }
 
-/* ——— v10: Angleichung an die Seite des Verfassungsschutzes (gleiche Schriften, Mono-Beschriftungen, Fiktiv-Hinweis) ——— */
+/* ——— v10: Angleichung an die Seite des Verfassungsschutzes (gleiche Schriften, Mono-Beschriftungen) ——— */
 :root { --mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace; }
 .mono { font-family: var(--mono); font-size: .84em; letter-spacing: 0; }
-.servicebar .day .fiktiv { margin-right: 4px; color: var(--gold); font-weight: 600; }
-.servicebar .day .rp { color: var(--text-3); }
 .servicebar a.extern { padding: 3px 10px; border: 1px solid var(--line-2); border-radius: 99px; color: var(--text-2); }
 .servicebar a.extern:hover { border-color: var(--gold); color: var(--text); }
-@media (max-width: 760px) { .servicebar .day .rp { display: none; } }
 .logo .words small { display: block; margin-top: 3px; color: var(--text-3); font: 500 .64rem var(--mono); letter-spacing: .1em; text-transform: uppercase; }
 .footer .logo .words small { display: none; }
 .mono-label { font: 500 .7rem var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--text-3); }

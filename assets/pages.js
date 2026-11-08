@@ -120,7 +120,7 @@
       const chips = $('#foto-themen');
       chips.innerHTML = [['', 'Alle'], ...themen].map(([k, l]) => `<button type="button" data-thema="${k}" aria-pressed="${!k}">${esc(t(l))} <small>${k ? fotos.filter((f) => f.thema === k).length : fotos.length}</small></button>`).join('');
       const grid = $('#fotos');
-      const credit = 'Foto: BMIH (fiktiv, KI-generiert)';
+      const credit = 'Foto: BMIH (KI-generiert)';
       grid.innerHTML = fotos.map((f) => `
         <figure class="foto reveal" id="${esc(f.id)}" data-thema="${esc(f.thema)}">
           <button type="button" class="foto-open" data-id="${esc(f.id)}" aria-label="${esc(t('Groß anzeigen'))}: ${esc(fotoTitle(f))}">${fotoImg(f, 's')}</button>
