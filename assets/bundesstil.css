@@ -1,0 +1,122 @@
+/* Bundesstil: Schwarz-Rot-Gold für Dienstportal, BfV-Seite und BMI-Seite.
+   Quelle: verfassungsschutz_private/dienst/bundesstil.css (Kopien in verfassungsschutz/assets/ und bmibund/assets/).
+   Gehört zu bundesstil.js. Nur dunkel. Kein Adler, kein Hoheitszeichen: Flagge, Berliner Silhouette, Wahlspruch.
+   Bewegung nur über transform/opacity/clip, alles steht bei prefers-reduced-motion still. */
+
+:root {
+  --bund-s: #2d2e33;   /* Schwarz: auf dunklem Grund als Graphit, sonst unsichtbar */
+  --bund-r: #dd1c1c;
+  --bund-g: #f4c020;
+  --bund-streifen: linear-gradient(180deg, var(--bund-s) 0 33.4%, var(--bund-r) 0 66.7%, var(--bund-g) 0);
+  --bund-quer: linear-gradient(90deg, var(--bund-s) 0 33.4%, var(--bund-r) 0 66.7%, var(--bund-g) 0);
+  --bund-ease: cubic-bezier(.22, 1, .36, 1);
+}
+
+/* ---------- Flaggenbalken ganz oben ---------- */
+.bund-flagge { position: relative; z-index: 160; display: grid; grid-template-rows: repeat(3, 2px); overflow: hidden; pointer-events: none; }
+.bund-flagge i:nth-child(1) { background: var(--bund-s); }
+.bund-flagge i:nth-child(2) { background: var(--bund-r); }
+.bund-flagge i:nth-child(3) { background: var(--bund-g); }
+.bund-flagge::after { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 22%; background: linear-gradient(90deg, transparent, rgb(255 255 255 / .55), transparent); transform: translateX(-110%); animation: bund-glanz 9s var(--bund-ease) 1.2s infinite; }
+@keyframes bund-glanz { 0% { transform: translateX(-110%); } 55%, 100% { transform: translateX(560%); } }
+
+/* ---------- Wehendes Fahnenband ---------- */
+.bund-fahne { pointer-events: none; }
+.bund-fahne svg { display: block; width: 100%; height: 100%; }
+.bf-lauf { animation: bund-wehen 16s linear infinite; }
+@keyframes bund-wehen { to { transform: translateX(-1200px); } }
+.bf-kante { stroke: rgb(255 255 255 / .22); stroke-width: 1; vector-effect: non-scaling-stroke; }
+
+.bund-buehne { position: relative; isolation: isolate; }
+.bf-buehne { position: absolute; left: 0; right: 0; bottom: -18px; z-index: -1; height: clamp(58px, 7.4vw, 104px);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent); mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+  opacity: 0; animation: bund-auf 1.6s var(--bund-ease) .5s forwards; }
+@keyframes bund-auf { from { opacity: 0; transform: translateY(12px); } to { opacity: .94; transform: none; } }
+
+/* ---------- Berliner Silhouette ---------- */
+.bund-silhouette { position: relative; pointer-events: none; aspect-ratio: 1220 / 304; }
+.bund-silhouette svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.bs-linie, .bs-linie-gold { fill: none; stroke-width: 1.1; vector-effect: non-scaling-stroke; stroke-linecap: round; stroke-linejoin: round; }
+.bs-linie { stroke: rgb(255 255 255 / .16); }
+.bs-linie-gold { stroke: var(--bund-g); stroke-width: 1.4; }
+.bs-basis { clip-path: inset(0 100% 0 0); animation: bund-zeichnen 3.4s var(--bund-ease) .2s forwards; }
+@keyframes bund-zeichnen { to { clip-path: inset(0 0 0 0); } }
+.bs-glanz { -webkit-mask-image: linear-gradient(90deg, transparent 42%, #000 50%, transparent 58%); mask-image: linear-gradient(90deg, transparent 42%, #000 50%, transparent 58%);
+  -webkit-mask-size: 300% 100%; mask-size: 300% 100%; -webkit-mask-position: 100% 0; mask-position: 100% 0; opacity: .75; animation: bund-lichtlauf 11s ease-in-out 3.6s infinite; }
+@keyframes bund-lichtlauf { 0% { -webkit-mask-position: 100% 0; mask-position: 100% 0; } 60%, 100% { -webkit-mask-position: 0 0; mask-position: 0 0; } }
+.bs-inschrift { font: 600 7.6px "Geist", system-ui, sans-serif; letter-spacing: 1.6px; fill: rgb(255 255 255 / .34); }
+.bs-fs { fill: #3a3b40; } .bs-fr { fill: var(--bund-r); } .bs-fg { fill: var(--bund-g); }
+.bs-weh { transform-box: fill-box; transform-origin: 0 50%; animation: bund-flattern 2.6s ease-in-out infinite alternate; }
+.bs-flagge + .bs-flagge .bs-weh { animation-delay: -1.3s; }
+@keyframes bund-flattern { from { transform: skewY(5deg) scaleX(.9); } to { transform: skewY(-4deg) scaleX(1); } }
+.bs-licht { fill: #ff4040; animation: bund-blinken 2.4s steps(1) infinite; }
+@keyframes bund-blinken { 0%, 60% { opacity: 1; } 61%, 100% { opacity: .15; } }
+
+/* In der Bühne (Startseiten, Portal-Anmeldung): Berliner Horizont, das Fahnenband weht davor */
+.bs-buehne { position: absolute; left: 50%; bottom: clamp(34px, 4.4vw, 62px); z-index: -1; width: min(980px, 94%); transform: translateX(-50%);
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 42%); mask-image: linear-gradient(180deg, transparent, #000 42%); }
+/* Platz für den Horizont unter dem Inhalt */
+.hero.bund-buehne { padding-bottom: calc(96px + clamp(110px, 15vw, 210px)); }
+.hero.bund-buehne::after { display: none; }
+.poster.bund-buehne .poster-grid { padding-bottom: calc(88px + clamp(110px, 15vw, 210px)); }
+
+/* Im Fuß: Silhouette rechts neben dem Wahlspruch, steht auf dessen Trennlinie */
+.bund-fuss { position: relative; }
+.bund-wahlspruch { position: relative; }
+.bund-wahlspruch .bs-fuss { position: absolute; right: 0; bottom: -1px; width: min(600px, 52%); }
+.bs-fuss .bs-linie { stroke: rgb(255 255 255 / .17); }
+.bs-mitte { width: min(640px, 100%); margin: 28px auto 8px; }
+.motto { text-align: center; }
+.motto::before { margin: 0 auto 18px; }
+
+/* ---------- Wahlspruch ---------- */
+.bund-wahlspruch { display: grid; justify-items: start; gap: 12px; padding-bottom: 48px; margin-bottom: 48px; border-bottom: 1px solid rgb(255 255 255 / .08); }
+.bund-wahlspruch p { margin: 0; font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; font-size: clamp(1.9rem, 4.4vw, 3.4rem); line-height: 1.02; letter-spacing: -.01em; color: #f1efe9; }
+.bund-wahlspruch small { font: 500 .7rem ui-monospace, "SF Mono", Consolas, monospace; letter-spacing: .18em; text-transform: uppercase; color: rgb(255 255 255 / .42); }
+.bw-zeichen, .motto::before { content: ""; display: block; width: 40px; height: 9px; border-radius: 1px; background: var(--bund-streifen); box-shadow: 0 6px 20px -6px rgb(221 28 28 / .5); }
+.bw-zeichen i { display: none; }
+
+/* ---------- Kleine Zeichen überall ---------- */
+/* Rubrikzeile: statt Goldstrich ein schmaler Flaggenstreifen */
+.kicker::before { width: 22px !important; height: 6px !important; border-radius: 1px; background: var(--bund-streifen) !important; }
+/* Laufband BfV: Trenner als Flaggenstreifen */
+.marquee span::after { content: "" !important; width: 16px; height: 6px; border-radius: 1px; background: var(--bund-streifen); }
+
+/* ---------- Bundesbalken an den Wortmarken (wie auf der BMI-Seite) ---------- */
+.logo .emblem ~ .words { position: relative; padding-left: 14px; }
+.logo .emblem ~ .words::before { content: ""; position: absolute; left: 0; top: 2px; bottom: 2px; width: 3px; border-radius: 2px; background: var(--bund-streifen); }
+.flagbar { display: none !important; } /* BMI: ersetzt durch .bund-flagge */
+
+/* ---------- Aktiver Menüpunkt: Flaggenstreifen statt Goldpunkt ---------- */
+.nav-top[aria-current="page"]::after, .nav-gruppe.aktiv > .nav-top::after { background: var(--bund-quer) !important; height: 3px !important; }
+.mainnav a::after { width: 18px !important; height: 3px !important; border-radius: 1px !important; background: var(--bund-quer) !important; }
+
+/* ---------- Dienstportal ---------- */
+body:has(> .vs-band) > .bund-flagge { position: sticky; top: 0; }
+.bund-flagge ~ .vs-band { top: 6px; }
+body:has(> .bund-flagge) .geruest > .nav { top: 34px; height: calc(100vh - 34px); }
+.nav a[aria-current="page"]::before { background: var(--bund-streifen) !important; box-shadow: 0 0 14px rgb(221 28 28 / .45) !important; width: 4px !important; }
+.marke .marke-text { position: relative; padding-left: 13px; }
+.marke .marke-text::before { content: ""; position: absolute; left: 0; top: 2px; bottom: 2px; width: 3px; border-radius: 2px; background: var(--bund-streifen); }
+.bs-leiste { width: 100%; margin: 4px 0 2px; opacity: .85; }
+.bs-leiste .bs-linie { stroke: rgb(255 255 255 / .2); }
+.anmeldung-bild.bund-buehne { padding-bottom: 210px; }
+.anmeldung-bild.bund-buehne .emblem-gross { top: 40%; width: min(34%, 230px); }
+.anmeldung-bild .bs-buehne { width: 96%; bottom: 46px; }
+.anmeldung-bild .bf-buehne { height: 88px; bottom: -8px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bund-flagge::after, .bf-lauf, .bs-glanz, .bs-weh, .bs-licht { animation: none !important; }
+  .bs-glanz { display: none; }
+  .bs-basis { animation: none; clip-path: none; }
+  .bf-buehne { animation: none; opacity: .94; }
+}
+@media (max-width: 760px) {
+  .bs-buehne { width: 130%; opacity: .7; }
+  .bund-wahlspruch .bs-fuss { position: relative; width: 100%; margin-top: 18px; }
+}
+@media print { .bund-flagge, .bund-fahne, .bund-silhouette { display: none !important; } }
+
+/* BMI-Verwaltung: Anmeldeseite */
+section.login.bund-buehne { overflow: hidden; }
+section.login .bs-buehne { width: min(900px, 96%); bottom: 50px; opacity: .8; }
