@@ -10,7 +10,8 @@
   function target() {
     const raw = new URLSearchParams(location.search).get('ziel') || '/';
     // Nur einfache eigene Pfade wie /gesetze.html; nichts, was mit // oder \\ zu einer fremden Seite führen kann.
-    if (!/^\/[A-Za-z0-9_\-]*(\/[A-Za-z0-9_\-]+)*(\.html)?\/?$/.test(raw) || raw === '/wartung.html') return '/';
+    // „//host“ wäre eine fremde Seite (protokoll-relative Adresse): ausdrücklich ablehnen
+    if (raw.startsWith('//') || !/^\/[A-Za-z0-9_\-]*(\/[A-Za-z0-9_\-]+)*(\.html)?\/?$/.test(raw) || raw === '/wartung.html') return '/';
     return raw;
   }
 
