@@ -134,6 +134,7 @@
   // ---- Wo was hin soll (alle drei Frontends; was es auf einer Seite nicht gibt, wird übersprungen)
   const REGELN = [
     ['.hero, .poster, .anmeldung-bild, section.login', el => { el.classList.add('bund-buehne'); el.append(silhouette('bs-buehne'), fahnenband('bf-buehne')); }],
+    ['.bund-kopf', el => { el.append(silhouette('bs-kopf'), fahnenband('bf-kopf')); }],
     ['.nav-fuss', el => { el.prepend(silhouette('bs-leiste')); }],
     ['footer.footer', el => {
       wahlspruch(el); el.classList.add('bund-fuss');
